@@ -260,22 +260,22 @@ namespace DataAccess
         /// <param name="parameters"></param>
         /// <param name="errorMessage"></param>
         /// <returns></returns>
-        public object GetScalar(string storedProcedureName, DbParameter[] parameters)
-        {
-            try
-            {
-                return ExecuteScalar(storedProcedureName,
-                    CommandType.StoredProcedure, parameters);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public object GetScalar(string storedProcedureName, DbParameter[] parameters)
+        //{
+        //    try
+        //    {
+        //        return ExecuteScalar(storedProcedureName,
+        //            CommandType.StoredProcedure, parameters);
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        throw sqlEx;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
          
         #endregion
 
@@ -398,44 +398,44 @@ namespace DataAccess
         /// <param name="sqlTransaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        private object ExecuteScalar(string commandText,
-            CommandType commandType = CommandType.Text,
-            DbParameter[] parameters = null,
-            SqlTransaction sqlTransaction = null, int commandTimeout = 600)
-        {
-            try
-            {
-                Database vendorPortalDb = new SqlDatabase(connectionString);
+        //private object ExecuteScalar(string commandText,
+        //    CommandType commandType = CommandType.Text,
+        //    DbParameter[] parameters = null,
+        //    SqlTransaction sqlTransaction = null, int commandTimeout = 600)
+        //{
+        //    try
+        //    {
+        //        Database vendorPortalDb = new SqlDatabase(connectionString);
 
-                DbCommand command = vendorPortalDb.
-                    GetSqlStringCommand(commandText);
+        //        DbCommand command = vendorPortalDb.
+        //            GetSqlStringCommand(commandText);
                 
-                if (parameters != null)
-                {
-                    foreach (DbParameter parameter in parameters)
-                    {
-                        command.Parameters.Add(parameter);
-                    }
-                }
+        //        if (parameters != null)
+        //        {
+        //            foreach (DbParameter parameter in parameters)
+        //            {
+        //                command.Parameters.Add(parameter);
+        //            }
+        //        }
 
-                command.CommandType = commandType;
+        //        command.CommandType = commandType;
 
-                if (sqlTransaction != null)
-                    command.Transaction = sqlTransaction;
+        //        if (sqlTransaction != null)
+        //            command.Transaction = sqlTransaction;
 
-                if (commandTimeout > 0)
-                    command.CommandTimeout = commandTimeout;
+        //        if (commandTimeout > 0)
+        //            command.CommandTimeout = commandTimeout;
 
-                return vendorPortalDb.ExecuteScalar(command);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        return vendorPortalDb.ExecuteScalar(command);
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        throw sqlEx;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
     }
 }

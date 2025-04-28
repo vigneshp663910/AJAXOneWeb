@@ -19,7 +19,7 @@ namespace DataAccess
         Int32 Update(String storedProcedureName, DbParameter[] parameters, Boolean outputValueRequired = false);
       //  Int32 DeleteUsingQuery(String query, Boolean outputValueRequired = false);
        // Int32 Delete(String storedProcedureName, DbParameter[] parameters, Boolean outputValueRequired = false);
-        Object GetScalar(String storedProcedureName, DbParameter[] parameters);
+      //  Object GetScalar(String storedProcedureName, DbParameter[] parameters);
      //   Object GetScalar(String storedProcedureName);
     } 
 }

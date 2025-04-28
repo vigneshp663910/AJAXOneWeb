@@ -129,7 +129,8 @@ namespace DealerManagementSystem.ViewMaster
         protected void btnAddDealer_Click(object sender, EventArgs e)
         {
             MPE_DealerCreate.Show();
-            UC_DealerCreate.FillMaster();
+            UC_DealerCreate.Clear();
+            UC_DealerCreate.FillMaster(); 
         }
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

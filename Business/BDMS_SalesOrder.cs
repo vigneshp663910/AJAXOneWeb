@@ -1783,7 +1783,7 @@ namespace Business
 
             List<PSalesQuotation> QL = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
 
-            PSalesQuotation Q = new BSalesQuotation().GetSalesQuotationByID(QL[0].QuotationID);
+             PSalesQuotation Q = new BSalesQuotation().GetSalesQuotationByID(QL[0].QuotationID);
             string KindAttention = "", Hypothecation = "", PhoneNumber = "";
 
             foreach (PSalesQuotationNote Note in Q.Notes)
@@ -1828,7 +1828,8 @@ namespace Business
             P[31] = new ReportParameter("TCSTotal", "", false);
             P[32] = new ReportParameter("GrandTotal", "", false);
             P[33] = new ReportParameter("GrandTotalInwords", "", false);
-            P[34] = new ReportParameter("Model", Q.LeadProduct.Product.Product, false);
+            //P[34] = new ReportParameter("Model", Q.LeadProduct.Product.Product, false);
+            P[34] = new ReportParameter("Model", SaleOrderDeliveryByID.Equipment.EquipmentModel.Model, false);
             P[35] = new ReportParameter("MachineSlno", SaleOrderDeliveryByID.Equipment.EquipmentSerialNo, false);
             P[36] = new ReportParameter("EngineNo", SaleOrderDeliveryByID.Equipment.EngineSerialNo, false);
             P[37] = new ReportParameter("ChassisNo", SaleOrderDeliveryByID.Equipment.ChassisSlNo, false);

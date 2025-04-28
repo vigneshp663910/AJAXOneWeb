@@ -648,7 +648,7 @@ namespace DealerManagementSystem.ViewAdmin
             int index = gvRow.RowIndex;
             Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
 
-            if (new BUser().UpdateUserResetPasswordByAdmin(Convert.ToInt64(lblUserID.Text), PSession.User.UserID))
+            if (new BUser().UpdateUserResetPasswordByAdmin(Convert.ToInt64(lblUserID.Text)))
             {
                 lblMessage.Text = "User reset successfully.";
                 lblMessage.ForeColor = Color.Green;

@@ -60,111 +60,7 @@ namespace Business
                 + "&DealerPayPercentage=" + DealerPayPercentage + "&AEPayPercentage=" + AEPayPercentage;
             return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
-        public List<PDMS_ICTicket> GetICTicketForDeclinedApproval(string DealerCode, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT)
-        {
-            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
-            PDMS_ICTicket W = null;
-            try
-            {
-                DbParameter DealerCodeP;
-                if (!string.IsNullOrEmpty(DealerCode))
-                    DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
-                else
-                    DealerCodeP = provider.CreateParameter("DealerCode", null, DbType.String);
-                DbParameter CustomerCodeP;
-                if (!string.IsNullOrEmpty(CustomerCode))
-                    CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                else
-                    CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
-                DbParameter ICTicketNumberP;
-                if (!string.IsNullOrEmpty(ICTicketNumber))
-                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", ICTicketNumber, DbType.String);
-                else
-                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", null, DbType.String);
-
-                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
-                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
-
-                DbParameter[] Params = new DbParameter[5] { DealerCodeP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketForDeclinedApproval", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicket();
-                            Ws.Add(W);
-                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-                            W.Equipment = new PDMS_EquipmentHeader();
-
-                            W.Equipment.EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]);
-                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
-                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
-                            W.Equipment.EngineModel = Convert.ToString(dr["EngineModel"]);
-                            W.Equipment.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
-                            W.Equipment.CorrectSMR = Convert.ToString(dr["CorrectSMR"]);
-                            W.Equipment.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
-                            W.Equipment.CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]);
-                            W.Equipment.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
-
-                            W.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
-                            W.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                            W.ComplaintCode = Convert.ToString(dr["ComplaintCode"]);
-                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
-                            W.Information = Convert.ToString(dr["Information"]);
-                            W.ReasonForCloser = Convert.ToString(dr["ReasonForCloser"]);
-                            W.OldICTicketNumber = Convert.ToString(dr["OldICTicketNumber"]);
-                            if (dr["ServiceTypeID"] != DBNull.Value)
-                            {
-                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
-                            }
-                            if (dr["ServicePriorityID"] != DBNull.Value)
-                            {
-                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
-                            }
-
-                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
-
-                            if (dr["ServiceStatusID"] != DBNull.Value)
-                            {
-                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
-                            }
-                            W.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
-                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
-
-                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]);
-                             
-                            W.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
-                            W.RegisteredBy = new PUser();
-                            if (dr["RegisteredByID"] != DBNull.Value)
-                                W.RegisteredBy = new PUser() { UserID = Convert.ToInt32(dr["RegisteredByID"]), ContactName = Convert.ToString(dr["RegisteredByName"]) };
-
-                            if (dr["TechnicianID"] != DBNull.Value)
-                            {
-                                W.Technician = new PUser() { UserID = Convert.ToInt32(dr["TechnicianID"]), ContactName = Convert.ToString(dr["TechnicianName"]) };
-                            }
-                            else
-                            {
-                                W.Technician = new PUser();
-                            }
-                            W.ReqDeclinedReason = Convert.ToString(dr["ReqDeclinedReason"]);
-                            // W.Address = new PDMS_Address();
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
-        }
-
+       
          public PDMS_ICTicket GetICTicketByICTIcketID(long ICTicketID)
         {
             string endPoint = "Service/ICTicketByID?ICTicketID=" + ICTicketID;
@@ -175,124 +71,7 @@ namespace Business
             string endPoint = "ICTicket/ICTicketByID_All?ICTicketID=" + ICTicketID;
             return JsonConvert.DeserializeObject<PDMS_ICTicket>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PDMS_ICTicket> GetICTicketByEquipmentSerialNo(string EquipmentSerialNo)
-        {
-            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
-            PDMS_ICTicket W = null;
-            try
-            {
-                DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
-                DbParameter[] Params = new DbParameter[1] { EquipmentSerialNoP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketByEquipmentSerialNo", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicket();
-                            Ws.Add(W);
-                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-                            W.Equipment = new PDMS_EquipmentHeader();
-
-                            //  W.Equipment.EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]);
-                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
-                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
-                            //    W.Equipment.EngineModel = Convert.ToString(dr["EngineModel"]);
-                            //    W.Equipment.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
-                            //    W.Equipment.CorrectSMR = Convert.ToString(dr["CorrectSMR"]);
-                            W.Equipment.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
-                            W.Equipment.CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]);
-                            W.Equipment.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
-
-                            W.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
-                            W.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                            W.ComplaintCode = Convert.ToString(dr["ComplaintCode"]);
-                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
-                            W.Information = Convert.ToString(dr["Information"]);
-                            W.ReasonForCloser = Convert.ToString(dr["ReasonForCloser"]);
-                            W.OldICTicketNumber = Convert.ToString(dr["OldICTicketNumber"]);
-                            if (dr["ServiceTypeID"] != DBNull.Value)
-                            {
-                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
-                            }
-                            if (dr["ServicePriorityID"] != DBNull.Value)
-                            {
-                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
-                            }
-
-                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
-
-                            if (dr["ServiceStatusID"] != DBNull.Value)
-                            {
-                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
-                            }
-                            W.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
-                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
-
-                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            //W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]); 
-                            W.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
-                            W.RegisteredBy = new PUser();
-                            if (dr["RegisteredByID"] != DBNull.Value)
-                                W.RegisteredBy = new PUser() { UserID = Convert.ToInt32(dr["RegisteredByID"]), ContactName = Convert.ToString(dr["RegisteredByName"]) };
-
-                            if (dr["TechnicianID"] != DBNull.Value)
-                            {
-                                W.Technician = new PUser() { UserID = Convert.ToInt32(dr["TechnicianID"]), ContactName = Convert.ToString(dr["TechnicianName"]) };
-                            }
-                            else
-                            {
-                                W.Technician = new PUser();
-                            }
-
-                            //  W.ServiceMaterial.Date = Convert.ToString(dr["InvoiceNumber"]);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
-        }
-        
-        public Boolean InsertOrUpdateTechnicianWorkedDateAddOrRemoveICTicket(long ServiceTechnicianWorkDateID, long? ICTicket, int? TechnicianID, DateTime? WorkedDay, decimal WorkedHours, Boolean IsDeleted, int UserID)
-        {
-            int success = 0;
-            DbParameter ServiceTechnicianWorkDateIDP = provider.CreateParameter("ServiceTechnicianWorkDateID", ServiceTechnicianWorkDateID, DbType.Int64);
-            DbParameter ICTicketP = provider.CreateParameter("ICTicket", ICTicket, DbType.Int64);
-            DbParameter TechnicianIDP = provider.CreateParameter("TechnicianID", TechnicianID, DbType.Int32);
-            DbParameter WorkedDayP = provider.CreateParameter("WorkedDay", WorkedDay, DbType.DateTime);
-            DbParameter WorkedHoursP = provider.CreateParameter("WorkedHours", WorkedHours, DbType.Decimal);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter IsDeleteP = provider.CreateParameter("IsDeleted", IsDeleted, DbType.Boolean);
-            DbParameter[] Params = new DbParameter[7] { ServiceTechnicianWorkDateIDP, ICTicketP, TechnicianIDP, WorkedDayP, WorkedHoursP, UserIDP, IsDeleteP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("ZDMS_InsertOrUpdateTechnicianWorkedDateForICTicket", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "InsertOrUpdateTechnicianAddOrRemoveICTicket", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " InsertOrUpdateTechnicianAddOrRemoveICTicket", ex);
-                return false;
-            }
-            return true;
-        }
-
+       
         
 
         //public Boolean UpdateICTicketWarrantyDistribution(long ICTicket, decimal? CustomerPayPercentage, decimal? DealerPayPercentage, decimal? AEPayPercentage)
@@ -495,327 +274,7 @@ namespace Business
         public string dppor_purc_order_item = "insert into  dppor_purc_order_item (s_establishment, k_po_id, p_po_item, s_tenant_id, f_so_item, f_oem_id, f_location, f_material_id, r_order_qty, s_modified_by, r_item_type, r_tax_amt, f_uom, s_created_on, r_indicator, s_status, r_net_amt, r_doc_flow_id, d_material_desc, r_resvered_qty, r_gross_amt, r_hgl_item, f_so_id, r_cancel_qty, r_shiped_qty, r_discount_amt, s_created_by, r_unit_price, r_pending_qty, s_modified_on, f_office, s_object_type, r_exp_del_date, r_approved_qty, r_add_discount_amt, s_sync_status, s_action, channel, f_division, is_ack, r_ref_obj_type, r_ref_obj_name, s_last_request_id, s_last_request_index, s_channel, s_status_custom, r_delv_qty, r_gr_qty) values ";
        
        
-        public List<PDMS_ICTicket> GetICTicketStatusReport(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
-        {
-            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
-            PDMS_ICTicket W = null;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
-                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
-
-                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
-                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
-                DbParameter StatusIDP = provider.CreateParameter("ServiceStatusID", StatusID, DbType.Int32);
-                DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
-                DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketStatusReport", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicket();
-                            Ws.Add(W);
-                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-
-                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
-                            W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
-                            W.ReqDeclinedReason = Convert.ToString(dr["DeclineReason"]);
-                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
-
-                            W.Equipment = new PDMS_EquipmentHeader();
-                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
-                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
-                            W.NoClaim = dr["NoClaim"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoClaim"]);
-                            W.NoClaimReason = Convert.ToString(dr["NoClaimReason"]);
-
-                            W.Invoice = dr["InvoiceNumber"] == DBNull.Value ? null : new PDMS_PaidServiceInvoice() { InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]), InvoiceDate = Convert.ToDateTime(dr["ICTicketDate"]) };
-                          
-                            
-                            W.Claim =  new PDMS_WarrantyInvoiceHeader();
-                            if (dr["ClaimNumber"] != DBNull.Value)
-                            {
-                                W.Claim.InvoiceNumber = Convert.ToString(dr["ClaimNumber"]);
-                                W.Claim.InvoiceDate = Convert.ToDateTime(dr["ClaimDate"]);
-                                W.Claim.ClaimStatus = Convert.ToString(dr["ClaimStatus"]);
-                                if (Convert.ToInt32(dr["ClaimStatusID"]) == 1 || Convert.ToInt32(dr["ClaimStatusID"]) == 3 || Convert.ToInt32(dr["ClaimStatusID"]) == 11)
-                                {
-                                    W.Claim.DaysSinceClaimCreation = ((DateTime.Now - Convert.ToDateTime(dr["ClaimDate"])).Days);
-                                }
-                                else
-                                {
-                                    W.Claim.DaysSinceClaimCreation = 0;
-                                }
-                            }
-                            else
-                            {
-                                W.Claim.DaysSinceClaimCreation = 0;
-                            }
-
-                            int ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]);
-                            if (ServiceTypeID == 1 || ServiceTypeID == 6)
-                            {
-                                W.DayLeftForClaimCreation = 0;
-                            }
-                            else if ((dr["NoClaim"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoClaim"])) == true)
-                            {
-                                W.DayLeftForClaimCreation = 0;
-                            }
-                            else
-                            {
-                                W.DayLeftForClaimCreation = dr["ClaimNumber"] == DBNull.Value ? 15 - ((DateTime.Now - W.ICTicketDate).Days) : (int?)null;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
-            }
-            return Ws;
-        }
-        public DataTable GetICTicketStatusReportForIC(long? EquipmentHeaderID, int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
-        {
-             
-            try
-            {
-                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
-                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
-
-                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
-                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
-                DbParameter StatusIDP = provider.CreateParameter("ServiceStatusID", StatusID, DbType.Int32);
-                DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
-                DbParameter[] Params = new DbParameter[8] { EquipmentHeaderIDP, DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
-                using (DataSet DataSet = provider.Select("GetICTicketStatusReportForIC", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        return DataSet.Tables[0];
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
-                throw ex;
-            }
-            return null;
-        }
-
-        public Boolean InsertDeviatedICTicketRequestForApproval(long ICTicketID, int ICTicketDeviationTypeID, int UserID)
-        { 
-
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[3] { ICTicketIDP, ICTicketDeviationTypeIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_InsertDeviatedICTicketRequestForApproval", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
-                return false;
-            }
-            return true;
-        }
-        public Boolean ApproveOrRejectDeviatedICTicketRequest(long ICTicketID, Boolean? IsApproved, Boolean? IsRejected, int UserID)
-        { 
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-            DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Int32);
-            DbParameter IsRejectedP = provider.CreateParameter("IsRejected", IsRejected, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[4] { ICTicketIDP, IsApprovedP, IsRejectedP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                     provider.Insert("ZDMS_ApproveOrRejectDeviatedICTicketRequest", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
-                return false;
-            }
-            return true;
-        }
-        public List<PDMS_ICTicket> GetDeviatedICTicketForApproval(int? DealerID, string ICTicketNumber, int ICTicketDeviationTypeID, DateTime? RequestedDateF, DateTime? RequestedDateT)
-        {
-            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
-            PDMS_ICTicket W = null;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);                
-                DbParameter ICTicketNumberP   = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber)? null:ICTicketNumber, DbType.String);
-                DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
-                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
-                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
-
-                DbParameter[] Params = new DbParameter[5] { DealerIDP, ICTicketNumberP, ICTicketDeviationTypeIDP, RequestedDateFP, RequestedDateTP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedICTicketForApproval", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicket();
-                            Ws.Add(W);
-                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-
-                            W.Equipment = new PDMS_EquipmentHeader();
-                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
-
-                       
-                            if (dr["ServiceTypeID"] != DBNull.Value)
-                            {
-                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
-                            }
-                            if (dr["ServicePriorityID"] != DBNull.Value)
-                            {
-                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
-                            }
-
-                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
-
-                            if (dr["ServiceStatusID"] != DBNull.Value)
-                            {
-                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
-                            }
-                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]); 
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
-        }
-        public DataTable GetDeviatedICTicketReport(int? DealerID, string ICTicketNumber, int? ICTicketDeviationTypeID, DateTime? RequestedDateF, DateTime? RequestedDateT, int UserID)
-        {
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
-                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
-                DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[6] { DealerIDP, ICTicketNumberP, ICTicketDeviationTypeIDP, RequestedDateFP, RequestedDateTP, UserIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedICTicketReport", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        return DataSet.Tables[0]; 
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return null;
-        }
-
-        public DataSet GetICTicketServiceEngineerUtilisationReport(int? DealerID, string EmployeeCode, DateTime? DateF, DateTime? DateT, int? StatusID, int UserID)
-        {
-            
-            try
-            {
-                DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter EmployeeCodeP = provider.CreateParameter("EmployeeCode", string.IsNullOrEmpty(EmployeeCode) ? null : EmployeeCode, DbType.String);
-
-                DbParameter ICTicketDateFP = provider.CreateParameter("DateF", DateF, DbType.DateTime);
-                DbParameter ICTicketDateTP = provider.CreateParameter("DateT", DateT, DbType.DateTime);
-                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[6] { DealerCodeP, EmployeeCodeP, ICTicketDateFP, ICTicketDateTP, StatusIDP, UserIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketServiceEngineerUtilisationReport", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        return DataSet;
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return null;
-        }
-        public DataSet GetICTicketServiceEngineerUtilisationReportDetails(int? DealerID, string EmployeeCode, DateTime? DateF, DateTime? DateT, int? StatusID, int UserID)
-        {
-
-            try
-            {
-                DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter EmployeeCodeP = provider.CreateParameter("EmployeeCode", string.IsNullOrEmpty(EmployeeCode) ? null : EmployeeCode, DbType.String);
-
-                DbParameter ICTicketDateFP = provider.CreateParameter("DateF", DateF, DbType.DateTime);
-                DbParameter ICTicketDateTP = provider.CreateParameter("DateT", DateT, DbType.DateTime);
-                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[6] { DealerCodeP, EmployeeCodeP, ICTicketDateFP, ICTicketDateTP, StatusIDP, UserIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketServiceEngineerUtilisationReportDetails", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        return DataSet;
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return null;
-        }
-        
-
+      
 
         //public Boolean InsertDeviatedICTicketCommissioningRequestForApproval(long ICTicketID, int UserID)
         //{
@@ -1270,7 +729,7 @@ namespace Business
         public PApiResult GetOnlineServiceTicket(long? OnlineServiceTicketID, string CustomerCode, string ICTicketNumber, string DateF, string DateT, int? StatusID, string Division, long? EquipmentHeaderID, int Excel, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "ICTicket/GetOnlineServiceTicket?OnlineServiceTicketID=" + OnlineServiceTicketID + "&CustomerCode=" + CustomerCode
-                + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + DateF + "&ICTicketDateT=" + DateT + "&StatusID=" + StatusID
+                + "&ICTicketNumber=" + ICTicketNumber + "&DateF=" + DateF + "&DateT=" + DateT + "&StatusID=" + StatusID
                 + "&Division=" + Division + "&EquipmentHeaderID=" + EquipmentHeaderID + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
@@ -1291,6 +750,551 @@ namespace Business
             string endPoint = "ICTicket/GetUserForOnlineServiceTicketSupport";
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+
+
+
+
+        public List<PDMS_ICTicket> GetICTicketForDeclinedApproval(string DealerCode, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT)
+        {
+            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
+            PDMS_ICTicket W = null;
+            try
+            {
+                DbParameter DealerCodeP;
+                if (!string.IsNullOrEmpty(DealerCode))
+                    DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
+                else
+                    DealerCodeP = provider.CreateParameter("DealerCode", null, DbType.String);
+                DbParameter CustomerCodeP;
+                if (!string.IsNullOrEmpty(CustomerCode))
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                else
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
+                DbParameter ICTicketNumberP;
+                if (!string.IsNullOrEmpty(ICTicketNumber))
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", ICTicketNumber, DbType.String);
+                else
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", null, DbType.String);
+
+                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+
+                DbParameter[] Params = new DbParameter[5] { DealerCodeP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketForDeclinedApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_ICTicket();
+                            Ws.Add(W);
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+                            W.Equipment = new PDMS_EquipmentHeader();
+
+                            W.Equipment.EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]);
+                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
+                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            W.Equipment.EngineModel = Convert.ToString(dr["EngineModel"]);
+                            W.Equipment.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+                            W.Equipment.CorrectSMR = Convert.ToString(dr["CorrectSMR"]);
+                            W.Equipment.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
+                            W.Equipment.CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]);
+                            W.Equipment.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
+
+                            W.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
+                            W.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                            W.ComplaintCode = Convert.ToString(dr["ComplaintCode"]);
+                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
+                            W.Information = Convert.ToString(dr["Information"]);
+                            W.ReasonForCloser = Convert.ToString(dr["ReasonForCloser"]);
+                            W.OldICTicketNumber = Convert.ToString(dr["OldICTicketNumber"]);
+                            if (dr["ServiceTypeID"] != DBNull.Value)
+                            {
+                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
+                            }
+                            if (dr["ServicePriorityID"] != DBNull.Value)
+                            {
+                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
+                            }
+
+                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
+
+                            if (dr["ServiceStatusID"] != DBNull.Value)
+                            {
+                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
+                            }
+                            W.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
+
+                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                            W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]);
+
+                            W.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
+                            W.RegisteredBy = new PUser();
+                            if (dr["RegisteredByID"] != DBNull.Value)
+                                W.RegisteredBy = new PUser() { UserID = Convert.ToInt32(dr["RegisteredByID"]), ContactName = Convert.ToString(dr["RegisteredByName"]) };
+
+                            if (dr["TechnicianID"] != DBNull.Value)
+                            {
+                                W.Technician = new PUser() { UserID = Convert.ToInt32(dr["TechnicianID"]), ContactName = Convert.ToString(dr["TechnicianName"]) };
+                            }
+                            else
+                            {
+                                W.Technician = new PUser();
+                            }
+                            W.ReqDeclinedReason = Convert.ToString(dr["ReqDeclinedReason"]);
+                            // W.Address = new PDMS_Address();
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+        public List<PDMS_ICTicket> GetICTicketByEquipmentSerialNo(string EquipmentSerialNo)
+        {
+            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
+            PDMS_ICTicket W = null;
+            try
+            {
+                DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
+                DbParameter[] Params = new DbParameter[1] { EquipmentSerialNoP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketByEquipmentSerialNo", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_ICTicket();
+                            Ws.Add(W);
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+                            W.Equipment = new PDMS_EquipmentHeader();
+
+                            //  W.Equipment.EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]);
+                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
+                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            //    W.Equipment.EngineModel = Convert.ToString(dr["EngineModel"]);
+                            //    W.Equipment.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+                            //    W.Equipment.CorrectSMR = Convert.ToString(dr["CorrectSMR"]);
+                            W.Equipment.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
+                            W.Equipment.CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]);
+                            W.Equipment.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
+
+                            W.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
+                            W.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                            W.ComplaintCode = Convert.ToString(dr["ComplaintCode"]);
+                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
+                            W.Information = Convert.ToString(dr["Information"]);
+                            W.ReasonForCloser = Convert.ToString(dr["ReasonForCloser"]);
+                            W.OldICTicketNumber = Convert.ToString(dr["OldICTicketNumber"]);
+                            if (dr["ServiceTypeID"] != DBNull.Value)
+                            {
+                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
+                            }
+                            if (dr["ServicePriorityID"] != DBNull.Value)
+                            {
+                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
+                            }
+
+                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
+
+                            if (dr["ServiceStatusID"] != DBNull.Value)
+                            {
+                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
+                            }
+                            W.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
+
+                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                            //W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]); 
+                            W.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
+                            W.RegisteredBy = new PUser();
+                            if (dr["RegisteredByID"] != DBNull.Value)
+                                W.RegisteredBy = new PUser() { UserID = Convert.ToInt32(dr["RegisteredByID"]), ContactName = Convert.ToString(dr["RegisteredByName"]) };
+
+                            if (dr["TechnicianID"] != DBNull.Value)
+                            {
+                                W.Technician = new PUser() { UserID = Convert.ToInt32(dr["TechnicianID"]), ContactName = Convert.ToString(dr["TechnicianName"]) };
+                            }
+                            else
+                            {
+                                W.Technician = new PUser();
+                            }
+
+                            //  W.ServiceMaterial.Date = Convert.ToString(dr["InvoiceNumber"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+
+        public Boolean InsertOrUpdateTechnicianWorkedDateAddOrRemoveICTicket(long ServiceTechnicianWorkDateID, long? ICTicket, int? TechnicianID, DateTime? WorkedDay, decimal WorkedHours, Boolean IsDeleted, int UserID)
+        {
+            int success = 0;
+            DbParameter ServiceTechnicianWorkDateIDP = provider.CreateParameter("ServiceTechnicianWorkDateID", ServiceTechnicianWorkDateID, DbType.Int64);
+            DbParameter ICTicketP = provider.CreateParameter("ICTicket", ICTicket, DbType.Int64);
+            DbParameter TechnicianIDP = provider.CreateParameter("TechnicianID", TechnicianID, DbType.Int32);
+            DbParameter WorkedDayP = provider.CreateParameter("WorkedDay", WorkedDay, DbType.DateTime);
+            DbParameter WorkedHoursP = provider.CreateParameter("WorkedHours", WorkedHours, DbType.Decimal);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter IsDeleteP = provider.CreateParameter("IsDeleted", IsDeleted, DbType.Boolean);
+            DbParameter[] Params = new DbParameter[7] { ServiceTechnicianWorkDateIDP, ICTicketP, TechnicianIDP, WorkedDayP, WorkedHoursP, UserIDP, IsDeleteP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("ZDMS_InsertOrUpdateTechnicianWorkedDateForICTicket", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "InsertOrUpdateTechnicianAddOrRemoveICTicket", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " InsertOrUpdateTechnicianAddOrRemoveICTicket", ex);
+                return false;
+            }
+            return true;
+        }
+        public List<PDMS_ICTicket> GetICTicketStatusReport(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
+        {
+            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
+            PDMS_ICTicket W = null;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+
+                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+                DbParameter StatusIDP = provider.CreateParameter("ServiceStatusID", StatusID, DbType.Int32);
+                DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
+                DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketStatusReport", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_ICTicket();
+                            Ws.Add(W);
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+
+                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                            W.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
+                            W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
+                            W.ReqDeclinedReason = Convert.ToString(dr["DeclineReason"]);
+                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
+
+                            W.Equipment = new PDMS_EquipmentHeader();
+                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
+                            W.NoClaim = dr["NoClaim"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoClaim"]);
+                            W.NoClaimReason = Convert.ToString(dr["NoClaimReason"]);
+
+                            W.Invoice = dr["InvoiceNumber"] == DBNull.Value ? null : new PDMS_PaidServiceInvoice() { InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]), InvoiceDate = Convert.ToDateTime(dr["ICTicketDate"]) };
+
+
+                            W.Claim = new PDMS_WarrantyInvoiceHeader();
+                            if (dr["ClaimNumber"] != DBNull.Value)
+                            {
+                                W.Claim.InvoiceNumber = Convert.ToString(dr["ClaimNumber"]);
+                                W.Claim.InvoiceDate = Convert.ToDateTime(dr["ClaimDate"]);
+                                W.Claim.ClaimStatus = Convert.ToString(dr["ClaimStatus"]);
+                                if (Convert.ToInt32(dr["ClaimStatusID"]) == 1 || Convert.ToInt32(dr["ClaimStatusID"]) == 3 || Convert.ToInt32(dr["ClaimStatusID"]) == 11)
+                                {
+                                    W.Claim.DaysSinceClaimCreation = ((DateTime.Now - Convert.ToDateTime(dr["ClaimDate"])).Days);
+                                }
+                                else
+                                {
+                                    W.Claim.DaysSinceClaimCreation = 0;
+                                }
+                            }
+                            else
+                            {
+                                W.Claim.DaysSinceClaimCreation = 0;
+                            }
+
+                            int ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]);
+                            if (ServiceTypeID == 1 || ServiceTypeID == 6)
+                            {
+                                W.DayLeftForClaimCreation = 0;
+                            }
+                            else if ((dr["NoClaim"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoClaim"])) == true)
+                            {
+                                W.DayLeftForClaimCreation = 0;
+                            }
+                            else
+                            {
+                                W.DayLeftForClaimCreation = dr["ClaimNumber"] == DBNull.Value ? 15 - ((DateTime.Now - W.ICTicketDate).Days) : (int?)null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
+            }
+            return Ws;
+        }
+        public DataTable GetICTicketStatusReportForIC(long? EquipmentHeaderID, int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
+        {
+
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+
+                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+                DbParameter StatusIDP = provider.CreateParameter("ServiceStatusID", StatusID, DbType.Int32);
+                DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
+                DbParameter[] Params = new DbParameter[8] { EquipmentHeaderIDP, DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
+                using (DataSet DataSet = provider.Select("GetICTicketStatusReportForIC", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
+                throw ex;
+            }
+            return null;
+        }
+
+        public Boolean InsertDeviatedICTicketRequestForApproval(long ICTicketID, int ICTicketDeviationTypeID, int UserID)
+        {
+
+            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[3] { ICTicketIDP, ICTicketDeviationTypeIDP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_InsertDeviatedICTicketRequestForApproval", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
+                return false;
+            }
+            return true;
+        }
+        public Boolean ApproveOrRejectDeviatedICTicketRequest(long ICTicketID, Boolean? IsApproved, Boolean? IsRejected, int UserID)
+        {
+            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+            DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Int32);
+            DbParameter IsRejectedP = provider.CreateParameter("IsRejected", IsRejected, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[4] { ICTicketIDP, IsApprovedP, IsRejectedP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_ApproveOrRejectDeviatedICTicketRequest", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
+                return false;
+            }
+            return true;
+        }
+        public List<PDMS_ICTicket> GetDeviatedICTicketForApproval(int? DealerID, string ICTicketNumber, int ICTicketDeviationTypeID, DateTime? RequestedDateF, DateTime? RequestedDateT)
+        {
+            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
+            PDMS_ICTicket W = null;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+                DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
+                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
+                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+
+                DbParameter[] Params = new DbParameter[5] { DealerIDP, ICTicketNumberP, ICTicketDeviationTypeIDP, RequestedDateFP, RequestedDateTP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedICTicketForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_ICTicket();
+                            Ws.Add(W);
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+
+                            W.Equipment = new PDMS_EquipmentHeader();
+                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) };
+
+
+                            if (dr["ServiceTypeID"] != DBNull.Value)
+                            {
+                                W.ServiceType = new PDMS_ServiceType() { ServiceTypeID = Convert.ToInt32(dr["ServiceTypeID"]), ServiceType = Convert.ToString(dr["ServiceType"]) };
+                            }
+                            if (dr["ServicePriorityID"] != DBNull.Value)
+                            {
+                                W.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(dr["ServicePriorityID"]), ServicePriority = Convert.ToString(dr["ServicePriority"]) };
+                            }
+
+                            W.ServiceDescription = Convert.ToString(dr["ServiceDescription"]);
+
+                            if (dr["ServiceStatusID"] != DBNull.Value)
+                            {
+                                W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatusID = Convert.ToInt32(dr["ServiceStatusID"]), ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
+                            }
+                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+        public DataTable GetDeviatedICTicketReport(int? DealerID, string ICTicketNumber, int? ICTicketDeviationTypeID, DateTime? RequestedDateF, DateTime? RequestedDateT, int UserID)
+        {
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
+                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+                DbParameter ICTicketDeviationTypeIDP = provider.CreateParameter("ICTicketDeviationTypeID", ICTicketDeviationTypeID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[6] { DealerIDP, ICTicketNumberP, ICTicketDeviationTypeIDP, RequestedDateFP, RequestedDateTP, UserIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedICTicketReport", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+
+        public DataSet GetICTicketServiceEngineerUtilisationReport(int? DealerID, string EmployeeCode, DateTime? DateF, DateTime? DateT, int? StatusID, int UserID)
+        {
+
+            try
+            {
+                DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter EmployeeCodeP = provider.CreateParameter("EmployeeCode", string.IsNullOrEmpty(EmployeeCode) ? null : EmployeeCode, DbType.String);
+
+                DbParameter ICTicketDateFP = provider.CreateParameter("DateF", DateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("DateT", DateT, DbType.DateTime);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[6] { DealerCodeP, EmployeeCodeP, ICTicketDateFP, ICTicketDateTP, StatusIDP, UserIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketServiceEngineerUtilisationReport", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet;
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public DataSet GetICTicketServiceEngineerUtilisationReportDetails(int? DealerID, string EmployeeCode, DateTime? DateF, DateTime? DateT, int? StatusID, int UserID)
+        {
+
+            try
+            {
+                DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter EmployeeCodeP = provider.CreateParameter("EmployeeCode", string.IsNullOrEmpty(EmployeeCode) ? null : EmployeeCode, DbType.String);
+
+                DbParameter ICTicketDateFP = provider.CreateParameter("DateF", DateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("DateT", DateT, DbType.DateTime);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[6] { DealerCodeP, EmployeeCodeP, ICTicketDateFP, ICTicketDateTP, StatusIDP, UserIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketServiceEngineerUtilisationReportDetails", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet;
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+
 
     }
 }

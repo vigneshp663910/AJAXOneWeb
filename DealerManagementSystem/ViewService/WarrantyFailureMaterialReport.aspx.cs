@@ -419,7 +419,7 @@ namespace DealerManagementSystem.ViewService
                             , M.PaymentTerm, M.IncoTerms, M.OrderReason
                             , "'" + Item.Material + ".FL", Item.Qty
                             , "S001"
-                            , "6005"
+                            , "6030"
                             , ""
                             , "01"
                             , ""

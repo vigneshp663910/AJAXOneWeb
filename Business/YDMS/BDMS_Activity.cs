@@ -309,31 +309,40 @@ namespace Business
         }
         public String SaveActivityPlan(int PKPlanID, int ActivityID, int DealerID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID)
         {
-            string sReturn = "";
-            try
+            string endPoint = "MarketingActivity/SaveActivityPlan?PKPlanID=" + PKPlanID + "&ActivityID=" + ActivityID + "&DealerID="+ DealerID 
+                + "&NoofUnits=" + NoofUnits + "&FromDate=" + FromDate + "&ToDate=" + ToDate + "&Location=" + Location + "&Remarks=" + Remarks;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                DbParameter AP_PKPlanID = provider.CreateParameter("AP_PKPlanID", PKPlanID, DbType.Int32);
-                DbParameter AP_FKDealerID = provider.CreateParameter("AP_FKDealerID", DealerID, DbType.Int32);
-                DbParameter AP_FKActivityID = provider.CreateParameter("AP_FKActivityID", ActivityID, DbType.Int32);
-                DbParameter AP_NoofUnits = provider.CreateParameter("AP_NoofUnits", NoofUnits, DbType.Int32);
-                DbParameter AP_FromDate = provider.CreateParameter("AP_FromDate", FromDate, DbType.Date);
-                DbParameter AP_ToDate = provider.CreateParameter("AP_ToDate", ToDate, DbType.Date);
-                DbParameter AP_Location = provider.CreateParameter("AP_Location", Location, DbType.String);
-                DbParameter AP_Remarks = provider.CreateParameter("AP_Remarks", Remarks, DbType.String);
-
-                DbParameter AP_CreatedBy = provider.CreateParameter("AP_CreatedBy", UserID, DbType.Int64);
-
-
-                DbParameter[] Params = new DbParameter[9] { AP_PKPlanID, AP_FKDealerID, AP_FKActivityID, AP_NoofUnits, AP_FromDate, AP_ToDate, AP_Location, AP_Remarks, AP_CreatedBy };
-
-                sReturn = "Saved|" + Convert.ToString(provider.GetScalar("YDMS_SP_TActivityPlan_Save", Params));
+                throw new Exception(Results.Message);
             }
-            catch (Exception ex)
-            {
-                sReturn = ex.Message;
-            }
+            return JsonConvert.DeserializeObject<String>(JsonConvert.SerializeObject(Results.Data));
 
-            return sReturn;
+            //string sReturn = "";
+            //try
+            //{
+            //    DbParameter AP_PKPlanID = provider.CreateParameter("AP_PKPlanID", PKPlanID, DbType.Int32);
+            //    DbParameter AP_FKDealerID = provider.CreateParameter("AP_FKDealerID", DealerID, DbType.Int32);
+            //    DbParameter AP_FKActivityID = provider.CreateParameter("AP_FKActivityID", ActivityID, DbType.Int32);
+            //    DbParameter AP_NoofUnits = provider.CreateParameter("AP_NoofUnits", NoofUnits, DbType.Int32);
+            //    DbParameter AP_FromDate = provider.CreateParameter("AP_FromDate", FromDate, DbType.Date);
+            //    DbParameter AP_ToDate = provider.CreateParameter("AP_ToDate", ToDate, DbType.Date);
+            //    DbParameter AP_Location = provider.CreateParameter("AP_Location", Location, DbType.String);
+            //    DbParameter AP_Remarks = provider.CreateParameter("AP_Remarks", Remarks, DbType.String);
+
+            //    DbParameter AP_CreatedBy = provider.CreateParameter("AP_CreatedBy", UserID, DbType.Int64);
+
+
+            //    DbParameter[] Params = new DbParameter[9] { AP_PKPlanID, AP_FKDealerID, AP_FKActivityID, AP_NoofUnits, AP_FromDate, AP_ToDate, AP_Location, AP_Remarks, AP_CreatedBy };
+
+            //    sReturn = "Saved|" + Convert.ToString(provider.GetScalar("YDMS_SP_TActivityPlan_Save", Params));
+            //}
+            //catch (Exception ex)
+            //{
+            //    sReturn = ex.Message;
+            //}
+
+            //return sReturn;
         }
         public void BindActivityPlanData(GridView gvData, int DealerID, int ActivityID, string FromDate, string ToDate, long UserID, int Status)
         {
@@ -447,31 +456,40 @@ namespace Business
         }
         public String SaveActivityClaim(int PKActualID, int DealerID, int ActivityID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID, double dblExpenses)
         {
-            string sReturn = "";
-            try
+            string endPoint = "MarketingActivity/SaveActivityClaim?PKActualID=" + PKActualID + "&DealerID=" + DealerID + "&ActivityID=" + ActivityID
+               + "&NoofUnits=" + NoofUnits + "&FromDate=" + FromDate + "&ToDate=" + ToDate + "&Location=" + Location + "&Remarks=" + Remarks + "&dblExpenses=" + dblExpenses;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                DbParameter AA_PKActualID = provider.CreateParameter("AA_PKActualID", PKActualID, DbType.Int32);
-                DbParameter AA_FKDEALERID = provider.CreateParameter("AA_FKDEALERID", DealerID, DbType.Int32);
-                DbParameter AA_FKActivityID = provider.CreateParameter("AA_FKActivityID", ActivityID, DbType.Int32);
-                DbParameter AA_NoofUnits = provider.CreateParameter("AA_NoofUnits", NoofUnits, DbType.Int32);
-                DbParameter AA_FromDate = provider.CreateParameter("AA_FromDate", FromDate, DbType.Date);
-                DbParameter AA_ToDate = provider.CreateParameter("AA_ToDate", ToDate, DbType.Date);
-                DbParameter AA_Location = provider.CreateParameter("AA_Location", Location, DbType.String);
-                DbParameter AA_Remarks = provider.CreateParameter("AA_Remarks", Remarks, DbType.String);
-
-                DbParameter AA_CreatedBy = provider.CreateParameter("AA_CreatedBy", UserID, DbType.Int64);
-                DbParameter AA_Expense = provider.CreateParameter("AA_Expenses", dblExpenses, DbType.Double);
-
-
-                DbParameter[] Params = new DbParameter[10] { AA_PKActualID, AA_FKDEALERID, AA_FKActivityID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy, AA_Expense };
-                sReturn = Convert.ToInt32(provider.GetScalar("YDMS_SP_DirectActivityClaim_Save", Params)).ToString();
+                throw new Exception(Results.Message);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return JsonConvert.DeserializeObject<String>(JsonConvert.SerializeObject(Results.Data));
 
-            return sReturn;
+            //string sReturn = "";
+            //try
+            //{
+            //    DbParameter AA_PKActualID = provider.CreateParameter("AA_PKActualID", PKActualID, DbType.Int32);
+            //    DbParameter AA_FKDEALERID = provider.CreateParameter("AA_FKDEALERID", DealerID, DbType.Int32);
+            //    DbParameter AA_FKActivityID = provider.CreateParameter("AA_FKActivityID", ActivityID, DbType.Int32);
+            //    DbParameter AA_NoofUnits = provider.CreateParameter("AA_NoofUnits", NoofUnits, DbType.Int32);
+            //    DbParameter AA_FromDate = provider.CreateParameter("AA_FromDate", FromDate, DbType.Date);
+            //    DbParameter AA_ToDate = provider.CreateParameter("AA_ToDate", ToDate, DbType.Date);
+            //    DbParameter AA_Location = provider.CreateParameter("AA_Location", Location, DbType.String);
+            //    DbParameter AA_Remarks = provider.CreateParameter("AA_Remarks", Remarks, DbType.String);
+
+            //    DbParameter AA_CreatedBy = provider.CreateParameter("AA_CreatedBy", UserID, DbType.Int64);
+            //    DbParameter AA_Expense = provider.CreateParameter("AA_Expenses", dblExpenses, DbType.Double);
+
+
+            //    DbParameter[] Params = new DbParameter[10] { AA_PKActualID, AA_FKDEALERID, AA_FKActivityID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy, AA_Expense };
+            //    sReturn = Convert.ToInt32(provider.GetScalar("YDMS_SP_DirectActivityClaim_Save", Params)).ToString();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+
+            //return sReturn;
         }
         public string SaveActivityAttachments(int PKPlanID, List<PDMS_ActivityDocs> lstDocs)
         {
@@ -705,47 +723,61 @@ namespace Business
         }
         public string SaveActivityApproval(int AAP_FKActualID, int AAP_ApprovalLevel, long AAP_UpdatedBy, int AAP_Status, double AAP_Amount, string AAP_Remarks)
         {
-            string sReturn = "";
-            try
+            string endPoint = "MarketingActivity/SaveActivityApproval?AAP_FKActualID=" + AAP_FKActualID + "&AAP_ApprovalLevel=" + AAP_ApprovalLevel + "&AAP_UpdatedBy=" + AAP_UpdatedBy
+              + "&AAP_Status=" + AAP_Status + "&AAP_Amount=" + AAP_Amount + "&AAP_Remarks=" + AAP_Remarks;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                DbParameter AAP_FKActualIDDP = provider.CreateParameter("AAP_FKActualID", AAP_FKActualID, DbType.Int32);
-                DbParameter AAP_ApprovalLevelDP = provider.CreateParameter("AAP_ApprovalLevel", AAP_ApprovalLevel, DbType.Int32);
-                DbParameter AAP_UpdatedByDP = provider.CreateParameter("AAP_UpdatedBy", AAP_UpdatedBy, DbType.Int64);
-                DbParameter AAP_StatusDP = provider.CreateParameter("AAP_Status", AAP_Status, DbType.Int32);
-                DbParameter AAP_AmountDP = provider.CreateParameter("AAP_Amount", AAP_Amount, DbType.Double);
-                DbParameter AAP_RemarksDP = provider.CreateParameter("AAP_Remarks", AAP_Remarks, DbType.String);
-                DbParameter[] Params = new DbParameter[6] { AAP_FKActualIDDP, AAP_ApprovalLevelDP, AAP_UpdatedByDP, AAP_StatusDP, AAP_AmountDP, AAP_RemarksDP };
-                provider.Insert("YDMS_SP_ActivityApproval_Save", Params, false);
-                sReturn = "Saved";
-
-
+                throw new Exception(Results.Message);
             }
-            catch (Exception ex)
-            {
-                sReturn = ex.Message;
-            }
+            return JsonConvert.DeserializeObject<String>(JsonConvert.SerializeObject(Results.Data));
 
-            return sReturn;
+            //string sReturn = "";
+            //try
+            //{
+            //    DbParameter AAP_FKActualIDDP = provider.CreateParameter("AAP_FKActualID", AAP_FKActualID, DbType.Int32);
+            //    DbParameter AAP_ApprovalLevelDP = provider.CreateParameter("AAP_ApprovalLevel", AAP_ApprovalLevel, DbType.Int32);
+            //    DbParameter AAP_UpdatedByDP = provider.CreateParameter("AAP_UpdatedBy", AAP_UpdatedBy, DbType.Int64);
+            //    DbParameter AAP_StatusDP = provider.CreateParameter("AAP_Status", AAP_Status, DbType.Int32);
+            //    DbParameter AAP_AmountDP = provider.CreateParameter("AAP_Amount", AAP_Amount, DbType.Double);
+            //    DbParameter AAP_RemarksDP = provider.CreateParameter("AAP_Remarks", AAP_Remarks, DbType.String);
+            //    DbParameter[] Params = new DbParameter[6] { AAP_FKActualIDDP, AAP_ApprovalLevelDP, AAP_UpdatedByDP, AAP_StatusDP, AAP_AmountDP, AAP_RemarksDP };
+            //    provider.Insert("YDMS_SP_ActivityApproval_Save", Params, false);
+            //    sReturn = "Saved";
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    sReturn = ex.Message;
+            //}
+
+            //return sReturn;
         }
         public string GenerateInvoice(int PkActualID, long UserID)
         {
-            string sReturn = "";
-            try
+
+            string endPoint = "MarketingActivity/GenerateInvoice?PkActualID=" + PkActualID + "&UserID=" + UserID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                DbParameter PkActualIDDP = provider.CreateParameter("PkActualID", PkActualID, DbType.Int32);
-                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[2] { PkActualIDDP, UserIDDP };
-                sReturn = provider.GetScalar("YDMS_Activity_GenerateInvoice", Params).ToString();
-
-
-
+                throw new Exception(Results.Message);
             }
-            catch (Exception ex)
-            {
-                sReturn = "Error:" + ex.Message;
-            }
+            return JsonConvert.DeserializeObject<String>(JsonConvert.SerializeObject(Results.Data));
+            //string sReturn = "";
+            //try
+            //{
+            //    DbParameter PkActualIDDP = provider.CreateParameter("PkActualID", PkActualID, DbType.Int32);
+            //    DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+            //    DbParameter[] Params = new DbParameter[2] { PkActualIDDP, UserIDDP };
+            //    sReturn = provider.GetScalar("YDMS_Activity_GenerateInvoice", Params).ToString(); 
+            //}
+            //catch (Exception ex)
+            //{
+            //    sReturn = "Error:" + ex.Message;
+            //}
 
-            return sReturn;
+            //return sReturn;
         }
         public string EncryptStringToBase64String(string plainText, byte[] Key, byte[] IV)
         {

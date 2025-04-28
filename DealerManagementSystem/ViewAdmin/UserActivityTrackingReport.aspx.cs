@@ -90,14 +90,13 @@ namespace DealerManagementSystem.ViewAdmin
             bool? IsEnabled = null;
             if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
 
-            bool? ajaxOne = null;
-            if (ddlAJAXOne.SelectedValue == "1") { ajaxOne = true; } else if (ddlAJAXOne.SelectedValue == "2") { ajaxOne = false; }
+            
 
             int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
 
             int RowCount = 0;
-            UserActivityTracking = new BUser().GetUsersActivityTracking(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID, IsLocked, ajaxOne, PageIndex, gvUser.PageSize, out RowCount);
+            UserActivityTracking = new BUser().GetUsersActivityTracking(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID, IsLocked,  PageIndex, gvUser.PageSize, out RowCount);
 
             gvUser.DataSource = null;
             gvUser.DataBind();

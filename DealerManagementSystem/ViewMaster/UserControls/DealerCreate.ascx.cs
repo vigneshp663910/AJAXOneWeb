@@ -26,16 +26,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtPAN.Text = "";
             txtContactPerson.Text = "";
             txtEmail.Text = "";
-            txtMobile.Text = "";
-            ddlDealerType.SelectedValue = "0";
+            txtMobile.Text = ""; 
             
             txtAddress1.Text = "";
             txtAddress2.Text = "";
             txtAddress3.Text = "";
             txtCity.Text = "";
-            ddlDistrict.SelectedValue = "0";
-            ddlState.SelectedValue = "0";
-            ddlCountry.SelectedValue = "0";
+            
             txtPincode.Text = "";
 
             txtBank.Text = "";
@@ -47,23 +44,23 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtOfficeName.Text = "";
             txtSapLocationCode.Text = "";
 
-            cbEInvoice.Checked = false;
-            cxEInvoiceDate.StartDate = DateTime.Now;
+            cbEInvoice.Checked = false; 
             txtApiUserName.Text = "";
             txtApiPassword.Text = "";
             cbServicePaidEInvoice.Checked = false;
 
-            //FillMaster();
+            ddlDistrict.Items.Clear();
+            ddlState.Items.Clear(); 
         }
         public void FillMaster()
         {
             new DDLBind(ddlDealerType, new BDMS_Dealer().GetDealerType(null, null), "DealerType", "DealerTypeID");
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-            PDealer Dealer = PSession.User.Dealer[0];
-            int CountryID = Dealer.Country.CountryID;
-            ddlCountry.SelectedValue = Convert.ToString(CountryID);
+            //PDealer Dealer = PSession.User.Dealer[0];
+            //int CountryID = Dealer.Country.CountryID;
+            //ddlCountry.SelectedValue = Convert.ToString(CountryID);
             //new DDLBind(ddlState, new BDMS_Address().GetState(Dealer.DealerID, CountryID, null, null, null), "State", "StateID");
-            new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
+            //new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
             cxEInvoiceDate.StartDate = DateTime.Now;
             //txtEInvoiceDate.Text = DateTime.Now.ToShortDateString();
             

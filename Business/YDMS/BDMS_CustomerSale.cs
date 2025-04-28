@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
 
 namespace Business
 {
@@ -116,38 +117,51 @@ namespace Business
             int CS_FkCompmakeID , int CS_FKcompModelID, double CS_CompPrice, int CS_Qty,int  CS_Noofvisit,
             int CS_FKResonTypeID,string CS_ReasonRemarks, long CS_CeatedBy,int CS_PkCustSaleID)
         {
-            TraceLogger.Log(DateTime.Now);
-            string sReturn = "";
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("CS_FkDealerID", CS_FkDealerID, DbType.Int64);
-                DbParameter MonthP = provider.CreateParameter("CS_Month", CS_Month, DbType.Int32);
-                DbParameter YearP = provider.CreateParameter("CS_Year", CS_Year, DbType.Int32);
-                DbParameter CustomerNameP = provider.CreateParameter("CS_CustomerName", CS_CustomerName, DbType.String);
-                DbParameter ConPersonP = provider.CreateParameter("CS_ContactPerson", CS_ContactPerson, DbType.String);
 
-                DbParameter ContNoP = provider.CreateParameter("CS_ContaceNumber", CS_ContaceNumber, DbType.String);
-                DbParameter ModelIDP = provider.CreateParameter("CS_FKAjaxModelID", CS_FKAjaxModelID, DbType.Int32);
-                DbParameter PriceP = provider.CreateParameter("CS_AjaxPrice", CS_AjaxPrice, DbType.Decimal);
-                DbParameter CompMakeIDP = provider.CreateParameter("CS_FkCompmakeID", CS_FkCompmakeID, DbType.Int64);
-                DbParameter CompModelIDP = provider.CreateParameter("CS_FKcompModelID", CS_FKcompModelID, DbType.Int64);
-
-                DbParameter compPriceP = provider.CreateParameter("CS_CompPrice", CS_CompPrice, DbType.Decimal);
-                DbParameter QtyP = provider.CreateParameter("CS_Qty", CS_Qty, DbType.Int32);
-                DbParameter NoofVP = provider.CreateParameter("CS_Noofvisit", CS_Noofvisit, DbType.Int64);
-                DbParameter ReasonIDP = provider.CreateParameter("CS_FKResonTypeID", CS_FKResonTypeID, DbType.Int64);
-                DbParameter ReasonRemarksP = provider.CreateParameter("CS_ReasonRemarks", CS_ReasonRemarks, DbType.String);
-                DbParameter CreatedBYP = provider.CreateParameter("CS_CeatedBy", CS_CeatedBy, DbType.Int64);
-                DbParameter PKIDP = provider.CreateParameter("CS_PkCustSaleID", CS_PkCustSaleID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[17] {DealerIDP, MonthP, YearP,CustomerNameP,ConPersonP,ContNoP,ModelIDP,PriceP,CompMakeIDP,CompModelIDP,compPriceP,QtyP,NoofVP,ReasonIDP,ReasonRemarksP, CreatedBYP, PKIDP};
-                sReturn = provider.GetScalar("YDMS_SP_AddUpdate_CustomerSale", Params).ToString();
-            }
-            catch (Exception ex)
+            string endPoint = "MarketingActivity/SaveCustomerSale?CS_FkDealerID=" + CS_FkDealerID + "&CS_Month=" + CS_Month + "&CS_Year=" + CS_Year
+            + "&CS_CustomerName=" + CS_CustomerName + "&CS_ContactPerson=" + CS_ContactPerson + "&CS_ContaceNumber=" + CS_ContaceNumber
+            + "&CS_FKAjaxModelID=" + CS_FKAjaxModelID + "&CS_AjaxPrice=" + CS_AjaxPrice + "&CS_FkCompmakeID=" + CS_FkCompmakeID + "&CS_FKcompModelID=" + CS_FKcompModelID
+            + "&CS_CompPrice=" + CS_CompPrice + "&CS_Qty=" + CS_Qty + "&CS_Noofvisit=" + CS_Noofvisit + "&CS_FKResonTypeID=" + CS_FKResonTypeID
+            + "&CS_ReasonRemarks=" + CS_ReasonRemarks + "&CS_CeatedBy=" + CS_CeatedBy + "&CS_PkCustSaleID=" + CS_PkCustSaleID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                sReturn = ex.Message;
+                throw new Exception(Results.Message);
             }
-            TraceLogger.Log(DateTime.Now);
-            return sReturn;
+            return JsonConvert.DeserializeObject<String>(JsonConvert.SerializeObject(Results.Data));
+
+            // TraceLogger.Log(DateTime.Now);
+            //string sReturn = "";
+            //try
+            //{
+            //    DbParameter DealerIDP = provider.CreateParameter("CS_FkDealerID", CS_FkDealerID, DbType.Int64);
+            //    DbParameter MonthP = provider.CreateParameter("CS_Month", CS_Month, DbType.Int32);
+            //    DbParameter YearP = provider.CreateParameter("CS_Year", CS_Year, DbType.Int32);
+            //    DbParameter CustomerNameP = provider.CreateParameter("CS_CustomerName", CS_CustomerName, DbType.String);
+            //    DbParameter ConPersonP = provider.CreateParameter("CS_ContactPerson", CS_ContactPerson, DbType.String);
+
+            //    DbParameter ContNoP = provider.CreateParameter("CS_ContaceNumber", CS_ContaceNumber, DbType.String);
+            //    DbParameter ModelIDP = provider.CreateParameter("CS_FKAjaxModelID", CS_FKAjaxModelID, DbType.Int32);
+            //    DbParameter PriceP = provider.CreateParameter("CS_AjaxPrice", CS_AjaxPrice, DbType.Decimal);
+            //    DbParameter CompMakeIDP = provider.CreateParameter("CS_FkCompmakeID", CS_FkCompmakeID, DbType.Int64);
+            //    DbParameter CompModelIDP = provider.CreateParameter("CS_FKcompModelID", CS_FKcompModelID, DbType.Int64);
+
+            //    DbParameter compPriceP = provider.CreateParameter("CS_CompPrice", CS_CompPrice, DbType.Decimal);
+            //    DbParameter QtyP = provider.CreateParameter("CS_Qty", CS_Qty, DbType.Int32);
+            //    DbParameter NoofVP = provider.CreateParameter("CS_Noofvisit", CS_Noofvisit, DbType.Int64);
+            //    DbParameter ReasonIDP = provider.CreateParameter("CS_FKResonTypeID", CS_FKResonTypeID, DbType.Int64);
+            //    DbParameter ReasonRemarksP = provider.CreateParameter("CS_ReasonRemarks", CS_ReasonRemarks, DbType.String);
+            //    DbParameter CreatedBYP = provider.CreateParameter("CS_CeatedBy", CS_CeatedBy, DbType.Int64);
+            //    DbParameter PKIDP = provider.CreateParameter("CS_PkCustSaleID", CS_PkCustSaleID, DbType.Int64);
+            //    DbParameter[] Params = new DbParameter[17] {DealerIDP, MonthP, YearP,CustomerNameP,ConPersonP,ContNoP,ModelIDP,PriceP,CompMakeIDP,CompModelIDP,compPriceP,QtyP,NoofVP,ReasonIDP,ReasonRemarksP, CreatedBYP, PKIDP};
+            //    sReturn = provider.GetScalar("YDMS_SP_AddUpdate_CustomerSale", Params).ToString();
+            //}
+            //catch (Exception ex)
+            //{
+            //    sReturn = ex.Message;
+            //}
+            //TraceLogger.Log(DateTime.Now);
+            //return sReturn;
         }
 
     }

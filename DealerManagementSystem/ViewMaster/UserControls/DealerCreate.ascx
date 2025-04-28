@@ -51,7 +51,7 @@
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Dealer Type</label>
                         <asp:DropDownList ID="ddlDealerType" runat="server" CssClass="form-control" DataTextField="DealerType" DataValueField="DealerTypeID" />
-                    </div> 
+                    </div>
                 </fieldset>
             </div>
             <div class="col-md-4">
@@ -143,10 +143,9 @@
                     </div>
                 </fieldset>
             </div>
-            
-           <div class="col-md-4">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend> 
+            <div class="col-md-4">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">E Invoice</label>
                         <asp:CheckBox ID="cbEInvoice" runat="server" />
@@ -170,9 +169,9 @@
                         <label class="modal-label">API Password</label>
                         <asp:TextBox ID="txtApiPassword" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender16" runat="server" TargetControlID="txtApiPassword" WatermarkText="API Password" WatermarkCssClass="WatermarkCssClass" />
-                    </div> 
-            </fieldset>
-                </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </ContentTemplate>
 </asp:UpdatePanel>

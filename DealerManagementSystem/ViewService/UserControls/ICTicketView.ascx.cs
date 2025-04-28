@@ -2438,10 +2438,10 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             }
 
-            if ((ServiceTypeID == (short)DMS_ServiceType.NEPI) || (ServiceTypeID == (short)DMS_ServiceType.Commission) || (ServiceTypeID == (short)DMS_ServiceType.PreCommission))
-            {
-                lbtnAddMaterialCharges.Visible = false; 
-            }
+            //if ((ServiceTypeID == (short)DMS_ServiceType.NEPI) || (ServiceTypeID == (short)DMS_ServiceType.Commission) || (ServiceTypeID == (short)DMS_ServiceType.PreCommission))
+            //{
+            //    lbtnAddMaterialCharges.Visible = false; 
+            //}
 
             if ((SDMS_ICTicket.ServiceType == null) || (SDMS_ICTicket.DealerOffice == null) || (SDMS_ICTicket.CurrentHMRDate == null) || (SDMS_ICTicket.CurrentHMRValue == null))
             {

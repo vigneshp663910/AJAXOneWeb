@@ -45,14 +45,7 @@
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-1 text-left">
-                        <label>AJAXOne</label>
-                        <asp:DropDownList ID="ddlAJAXOne" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0">ALL</asp:ListItem>
-                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
-                            <asp:ListItem Value="2">InActive</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
+                    
                     <div class="col-md-2 text-left">
                         <label>Department</label>
                         <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
@@ -154,12 +147,7 @@
                                     <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="AJAX One" ItemStyle-Width="80px">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                           
                             <asp:TemplateField HeaderText="Is Technician" ItemStyle-Width="80px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                 <ItemTemplate>

@@ -787,46 +787,43 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.7391cm</Width>
+                  <Width>0.82488cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.82563cm</Width>
+                  <Width>2.91141cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.59266cm</Width>
+                  <Width>5.91128cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.82562cm</Width>
+                  <Width>2.08074cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.72729cm</Width>
+                  <Width>0.96124cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.01283cm</Width>
+                  <Width>1.33145cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.42984cm</Width>
+                  <Width>2.51562cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.58578cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23101cm</Width>
+                  <Width>2.29077cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.20499cm</Width>
+                  <Width>1.40574cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.25646cm</Width>
+                  <Width>2.08578cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2cm</Width>
+                  <Width>1.47454cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.28292cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2cm</Width>
+                  <Width>2.21278cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1092,40 +1089,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox65</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox67">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Discount</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox67</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1443,7 +1406,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Qty</rd:DefaultName>
@@ -1497,11 +1462,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitPrice.Value</Value>
+                                  <Value>=Fields!Taxable.Value/Fields!Qty.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>UnitPrice</rd:DefaultName>
@@ -1519,50 +1486,23 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TotalValue">
+                        <Textbox Name="Taxable1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotalValue.Value</Value>
+                                  <Value>=Fields!Taxable.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalValue</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Discount">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Discount.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Discount</rd:DefaultName>
+                          <rd:DefaultName>Taxable1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1588,7 +1528,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Taxable</rd:DefaultName>
@@ -1617,7 +1559,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CGSTPer</rd:DefaultName>
@@ -1646,7 +1590,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CGSTVal</rd:DefaultName>
@@ -1675,7 +1621,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>SGSTPer</rd:DefaultName>
@@ -1704,7 +1652,9 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>SGSTVal</rd:DefaultName>
@@ -1777,10 +1727,9 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>9</ColSpan>
+                        <ColSpan>8</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
@@ -1942,10 +1891,9 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>9</ColSpan>
+                        <ColSpan>8</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
@@ -2043,7 +1991,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -2066,7 +2013,7 @@
             <Top>4.71924cm</Top>
             <Left>0.10678cm</Left>
             <Height>3.4107cm</Height>
-            <Width>28.62835cm</Width>
+            <Width>28.59202cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>

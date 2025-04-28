@@ -64,6 +64,7 @@ namespace Properties
         
         #endregion
     }
+
     [Serializable]
     public class PUserType
     {
