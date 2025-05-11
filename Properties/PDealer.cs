@@ -331,6 +331,17 @@ namespace Properties
         public PDMS_Material Material { get; set; }
     }
     [Serializable]
+    public class PDealerBinLocation_Insert
+    {
+        public int DealerBinLocationMaterialMappingID { get; set; }
+        public int DealerBinLocationID { get; set; }
+        public string BinName { get; set; }
+        public int DealerID { get; set; }
+        public int OfficeID { get; set; }
+        public int MaterialID { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
     public class PDealerType
     {
         public int DealerTypeID { get; set; }
