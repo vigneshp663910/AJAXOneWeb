@@ -24,22 +24,7 @@ namespace DealerManagementSystem.ViewMaster
         int? CDealerID = null;
         int? COfficeCodeID = null;
         int? CDealerBinLocationID = null;
-        string MaterialCode = null;
-        public List<PDealerBinLocation> PDealerBinLocationHeader
-        {
-            get
-            {
-                if (ViewState["PDealerBinLocationHeader"] == null)
-                {
-                    ViewState["PDealerBinLocationHeader"] = new List<PDealerBinLocation>();
-                }
-                return (List<PDealerBinLocation>)ViewState["PDealerBinLocationHeader"];
-            }
-            set
-            {
-                ViewState["PDealerBinLocationHeader"] = value;
-            }
-        }
+        string MaterialCode = null; 
         public List<PDealerBinLocation> PDealerBinLocationConfigHeader
         {
             get
@@ -127,6 +112,8 @@ namespace DealerManagementSystem.ViewMaster
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Dealer Bin Location');</script>");
             lblMessage.Text = "";
+            lblMsg_DealerBinLocationUpload.Text = "";
+            lblMsg_DealerBinLocationConfigUpload.Text = "";
 
             if (PSession.User == null)
             {
@@ -151,6 +138,7 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                 }
             }
+            ActionControlMange();
         }
         void LoadDropdown()
         {
@@ -216,7 +204,7 @@ namespace DealerManagementSystem.ViewMaster
                 int RowCount = 0;
 
                 PApiResult Result = new BDMS_Dealer().GetDealerBinLocation(DealerID, OfficeCodeID, PageIndex, gvDealerBinLocation.PageSize);
-                PDealerBinLocationHeader = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(Result.Data));
+                List<PDealerBinLocation> PDealerBinLocationHeader = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(Result.Data));
                 RowCount = Result.RowCount;
 
                 gvDealerBinLocation.PageIndex = 0;
@@ -240,6 +228,16 @@ namespace DealerManagementSystem.ViewMaster
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
                     lblRowCount.Text = (((PageIndex - 1) * gvDealerBinLocation.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerBinLocation.PageSize) + gvDealerBinLocation.Rows.Count) + " of " + RowCount;
+
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                    if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() == 0)
+                    {
+                        for (int i = 0; i < gvDealerBinLocation.Rows.Count; i++)
+                        {
+                            ((LinkButton)gvDealerBinLocation.Rows[i].FindControl("lnkEditDealerBinLocation")).Visible = false;
+                            ((LinkButton)gvDealerBinLocation.Rows[i].FindControl("lnkDeleteDealerBinLocation")).Visible = false;
+                        }
+                    }
                 }
                 TraceLogger.Log(DateTime.Now);
             }
@@ -473,6 +471,15 @@ namespace DealerManagementSystem.ViewMaster
                     ibtnCArrowLeft.Visible = true;
                     ibtnCArrowRight.Visible = true;
                     lblCRowCount.Text = (((PageIndex - 1) * gvDealerBinLocationConfig.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerBinLocationConfig.PageSize) + gvDealerBinLocationConfig.Rows.Count) + " of " + RowCount;
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                    if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() == 0)
+                    {
+                        for (int i = 0; i < gvDealerBinLocationConfig.Rows.Count; i++)
+                        {
+                            ((LinkButton)gvDealerBinLocationConfig.Rows[i].FindControl("lnkEditDealerBinLocationConfig")).Visible = false;
+                            ((LinkButton)gvDealerBinLocationConfig.Rows[i].FindControl("lnkDeleteDealerBinLocationConfig")).Visible = false;
+                        }
+                    }
                 }
                 TraceLogger.Log(DateTime.Now);
             }
@@ -704,12 +711,8 @@ namespace DealerManagementSystem.ViewMaster
             new DDLBind(ddlBinLocationOffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
             GVUploadBinLocation.DataSource = null;
             GVUploadBinLocation.DataBind();
-            BtnSaveBinLocation.Visible = false;
-            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() > 0)
-            {
-                btnViewBinLocation.Visible = true;
-            }
+            BtnSaveBinLocation.Visible = false; 
+            btnViewBinLocation.Visible = true; 
             MPE_DealerBinLocationUpload.Show();
         }
         protected void btnDownloadBinLocation_Click(object sender, EventArgs e)
@@ -788,8 +791,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = Results.Message;
-                fillDealerBinLocation();
-                BtnSaveBinLocation.Visible = false;
+                fillDealerBinLocation(); 
             }
             catch (Exception ex)
             {
@@ -834,33 +836,29 @@ namespace DealerManagementSystem.ViewMaster
 
                     List<PDealerBinLocation> BinLocationUploadIsExist = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(new BDMS_Dealer().GetDealerBinLocation(Convert.ToInt32(ddlBinLocationDealer.SelectedValue), Convert.ToInt32(ddlBinLocationOffice.SelectedValue), null, null).Data));
                     InsertBinLocationUpload = new List<PDealerBinLocation_Insert>();
-                    foreach (PDealerBinLocation bin in BinLocationUploadIsExist)
-                    {
-                        bool containsItem = BinLocationUploadIsExist.Any(item => item.BinName == bin.BinName);
-                        if (containsItem)
+                    foreach (PDealerBinLocation bin in BinLocationUpload)
+                    { 
+                        if (BinLocationUploadIsExist.Any(item => item.BinName == bin.BinName))
                         {
                             lblMsg_DealerBinLocationUpload.Text = "Bin Location already available : " + bin.BinName + ".";
                             lblMsg_DealerBinLocationUpload.ForeColor = Color.Red;
                             Success = false;
                             return Success;
-                        }
-                        PDealerBinLocation_Insert Bin = new PDealerBinLocation_Insert();
-                        Bin.DealerBinLocationID = bin.DealerBinLocationID;
-                        Bin.BinName = bin.BinName;
-                        Bin.OfficeID = bin.DealerOffice.OfficeID;
-                        Bin.IsActive = true;
-                        InsertBinLocationUpload.Add(Bin);
+                        } 
+                        InsertBinLocationUpload.Add(new PDealerBinLocation_Insert()
+                        {
+                            DealerBinLocationID = 0,
+                            BinName = bin.BinName,
+                            OfficeID = Convert.ToInt32(ddlBinLocationOffice.SelectedValue),
+                            IsActive = true
+                        });
                     }
                     if (BinLocationUpload.Count > 0)
                     {
                         GVUploadBinLocation.DataSource = BinLocationUpload;
-                        GVUploadBinLocation.DataBind();
-                        List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() > 0)
-                        {
-                            BtnSaveBinLocation.Visible = true;
-                        }
+                        GVUploadBinLocation.DataBind(); 
                         btnViewBinLocation.Visible = false;
+                        BtnSaveBinLocation.Visible = true;
                     }
                 }
             }
@@ -890,11 +888,7 @@ namespace DealerManagementSystem.ViewMaster
             GVUploadBinLocationConfig.DataSource = null;
             GVUploadBinLocationConfig.DataBind();
             BtnSaveBinLocationConfig.Visible = false;
-            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() > 0)
-            {
-                btnViewBinLocationConfig.Visible = true;
-            }
+            btnViewBinLocationConfig.Visible = true;
             MPE_DealerBinLocationConfigUpload.Show();
         }
         protected void btnDownloadBinLocationConfig_Click(object sender, EventArgs e)
@@ -1005,7 +999,16 @@ namespace DealerManagementSystem.ViewMaster
                                     }
                                     if (i == 1)
                                     {
-                                        PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, cell.Value.ToString().Trim(), null, null, null)[0];
+
+                                        List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, cell.Value.ToString().Trim(), null, null, null);
+                                        if(Materials.Count != 1)
+                                        {
+                                            lblMsg_DealerBinLocationConfigUpload.Text = "Material not available : " + cell.Value.ToString().Trim() + ".";
+                                            lblMsg_DealerBinLocationConfigUpload.ForeColor = Color.Red;
+                                            Success = false;
+                                            return Success;
+                                        }
+                                        PDMS_Material MM = Materials[0];
                                         db.Material = new PDMS_Material() { MaterialID = MM.MaterialID, MaterialCode = cell.Value.ToString().Trim() };
                                     }
                                     i++;
@@ -1047,13 +1050,9 @@ namespace DealerManagementSystem.ViewMaster
                     if (BinLocationConfigUpload.Count > 0)
                     {
                         GVUploadBinLocationConfig.DataSource = BinLocationConfigUpload;
-                        GVUploadBinLocationConfig.DataBind();
-                        List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() > 0)
-                        {
-                            BtnSaveBinLocationConfig.Visible = true;
-                        }
+                        GVUploadBinLocationConfig.DataBind(); 
                         btnViewBinLocationConfig.Visible = false;
+                        BtnSaveBinLocationConfig.Visible = true;
                     }
                 }
             }
@@ -1075,7 +1074,7 @@ namespace DealerManagementSystem.ViewMaster
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMsg_DealerBinLocationConfigUpload.ForeColor = Color.Red;
-                    lblMsg_DealerBinLocationConfigUpload.Text = "Bin Location Configuration is Not Created Successfully..!";
+                    lblMsg_DealerBinLocationConfigUpload.Text = Results.Message;
                     MPE_DealerBinLocationConfigUpload.Show();
                     return;
                 }
@@ -1168,6 +1167,32 @@ namespace DealerManagementSystem.ViewMaster
         PApiResult InsertOrUpdateDealerBinLocation(List<PDealerBinLocation_Insert> InsertBinLocationUpload_)
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/InsertOrUpdateDealerBinLocation", InsertBinLocationUpload_));
+        }
+
+
+        void ActionControlMange()
+        {
+            btnCreateBinLocation.Visible = true;
+            BtnUploadBinLocation.Visible = true;
+            btnDownloadBinLocation.Visible = true;
+
+            btnCreateBinConfiguration.Visible = true;
+            BtnUploadBinLocationConfig.Visible = true;
+            btnDownloadBinLocationConfig.Visible = true;
+
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() == 0)
+            {
+                btnCreateBinLocation.Visible = false;
+                BtnUploadBinLocation.Visible = false;
+                btnDownloadBinLocation.Visible = false;
+
+                btnCreateBinConfiguration.Visible = false;
+                BtnUploadBinLocationConfig.Visible = false;
+                btnDownloadBinLocationConfig.Visible = false;
+            }
+ 
         }
     }
 }
