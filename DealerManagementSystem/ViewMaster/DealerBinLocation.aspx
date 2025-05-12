@@ -3,13 +3,13 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .Popup{
-            transition:initial;
+        .Popup {
+            transition: initial;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <asp:TabContainer ID="tbpBinLocation" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
         <asp:TabPanel ID="tpnlCreate" runat="server" HeaderText="Bin Creation" Font-Bold="True" ToolTip="">
             <ContentTemplate>
@@ -27,10 +27,12 @@
                                         <label class="modal-label">Office</label>
                                         <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
                                     </div>
-                                    <div class="col-md-4 text-left">
+                                    <div class="col-md-8 text-center">
                                         <label class="modal-label">-</label>
                                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="80px" />
                                         <asp:Button ID="btnCreateBinLocation" runat="server" CssClass="btn Save" Text="Create" OnClick="btnCreateBinLocation_Click" Width="80px"></asp:Button>
+                                        <asp:Button ID="BtnUploadBinLocation" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnUploadBinLocation_Click" />
+                                        <asp:Button ID="btnDownloadBinLocation" runat="server" Text="Download Template" CssClass="btn Search" OnClick="btnDownloadBinLocation_Click" Width="180px" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -51,6 +53,9 @@
                                                             <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                                         <td>
                                                             <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="imgBtnExportExcelDealerBinLocation" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="imgBtnExportExcelDealerBinLocation_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -145,10 +150,11 @@
                                         <label class="modal-label">Material Code</label>
                                         <asp:TextBox ID="txtSMaterial" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-4 text-left">
-                                        <label class="modal-label">-</label>
+                                    <div class="col-md-12 text-center">
                                         <asp:Button ID="btnCSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" Width="80px" OnClick="btnCSearch_Click" />
                                         <asp:Button ID="btnCreateBinConfiguration" runat="server" CssClass="btn Save" Text="Create" Width="80px" OnClick="btnCreateBinConfiguration_Click"></asp:Button>
+                                        <asp:Button ID="BtnUploadBinLocationConfig" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnUploadBinLocationConfig_Click" />
+                                        <asp:Button ID="btnDownloadBinLocationConfig" runat="server" Text="Download Template" CssClass="btn Search" OnClick="btnDownloadBinLocationConfig_Click" Width="180px" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -169,6 +175,9 @@
                                                             <asp:ImageButton ID="ibtnCArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnCArrowLeft_Click" /></td>
                                                         <td>
                                                             <asp:ImageButton ID="ibtnCArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCArrowRight_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="imgBtnExportExcelDealerBinLocationMatMapping" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="imgBtnExportExcelDealerBinLocationMatMapping_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -261,7 +270,7 @@
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblMessageDealerBinLocation" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblMessageDealerBinLocation" runat="server" Text="" CssClass="message" />
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Bin Location</legend>
                     <div class="col-md-12">
@@ -294,7 +303,7 @@
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblMessageDealerBinLocationConfig" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblMessageDealerBinLocationConfig" runat="server" Text="" CssClass="message" />
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Bin Location Configuration</legend>
                     <div class="col-md-12">
@@ -323,6 +332,126 @@
         </div>
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_DealerBinLocationConfigCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealerBinLocationConfigCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+    <asp:Panel ID="pnlDealerBinLocationUpload" runat="server" CssClass="Popup" Style="display: none;">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Upload Dealer Bin Location</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div class="model-scroll">
+                <asp:Label ID="lblMsg_DealerBinLocationUpload" runat="server" Text="" CssClass="message" />
+                <fieldset class="fieldset-border" runat="server">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Bin Location</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlBinLocationDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlBinLocationDealer_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Office</label>
+                            <asp:DropDownList ID="ddlBinLocationOffice" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Upload</label>
+                            <asp:FileUpload ID="fileUploadBinLocation" runat="server" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 text-center">
+                            <asp:Button ID="btnViewBinLocation" runat="server" Text="View" CssClass="btn Save" OnClick="btnViewBinLocation_Click" Width="100px" />
+                            <asp:Button ID="BtnSaveBinLocation" runat="server" Text="Save" CssClass="btn Save" OnClick="BtnSaveBinLocation_Click" Width="100px" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-12 Report">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                                <div class="col-md-12 Report">
+                                    <asp:GridView ID="GVUploadBinLocation" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
+                                        EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%">
+                                        <Columns>
+                                            <asp:BoundField HeaderText="Dealer" DataField="Dealer.DealerName"></asp:BoundField>
+                                            <asp:BoundField HeaderText="Dealer" DataField="DealerOffice.OfficeName"></asp:BoundField>
+                                            <asp:BoundField HeaderText="Bin Name" DataField="BinName"></asp:BoundField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="#ffffff" />
+                                        <FooterStyle ForeColor="White" />
+                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_DealerBinLocationUpload" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealerBinLocationUpload" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+    <asp:Panel ID="pnlDealerBinLocationConfigUpload" runat="server" CssClass="Popup" Style="display: none;">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Upload Dealer Bin Location Material Configuration</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div class="model-scroll">
+                <asp:Label ID="lblMsg_DealerBinLocationConfigUpload" runat="server" Text="" CssClass="message" />
+                <fieldset class="fieldset-border" runat="server">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Bin Location Material Configuration</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlBinLocationConfigDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlBinLocationConfigDealer_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Office</label>
+                            <asp:DropDownList ID="ddlBinLocationConfigOffice" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Upload</label>
+                            <asp:FileUpload ID="fileUploadBinLocationConfig" runat="server" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 text-center">
+                            <asp:Button ID="btnViewBinLocationConfig" runat="server" Text="View" CssClass="btn Save" OnClick="btnViewBinLocationConfig_Click" Width="100px" />
+                            <asp:Button ID="BtnSaveBinLocationConfig" runat="server" Text="Save" CssClass="btn Save" OnClick="BtnSaveBinLocationConfig_Click" Width="100px" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-12 Report">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                                <div class="col-md-12 Report">
+                                    <asp:GridView ID="GVUploadBinLocationConfig" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
+                                        EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%">
+                                        <Columns>
+                                            <asp:BoundField HeaderText="Dealer" DataField="Dealer.DealerName"></asp:BoundField>
+                                            <asp:BoundField HeaderText="Dealer" DataField="DealerOffice.OfficeName"></asp:BoundField>
+                                            <asp:BoundField HeaderText="Bin Name" DataField="BinName"></asp:BoundField>
+                                            <asp:BoundField HeaderText="Material" DataField="Material.MaterialCode"></asp:BoundField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="#ffffff" />
+                                        <FooterStyle ForeColor="White" />
+                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_DealerBinLocationConfigUpload" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealerBinLocationConfigUpload" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

@@ -1,6 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
-using Properties; 
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,7 +49,7 @@ namespace Business
                             Dealer.GSTIN = Convert.ToString(Dr["Gstin"]);
                             Dealer.IsEInvoice = Dr["EInvoiceDate"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsEInvoice"]);
                             Dealer.EInvoiceDate = Dr["EInvoiceDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(Dr["EInvoiceDate"]);
-                            Dealer.ServicePaidEInvoice = Dr["ServicePaidEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(Dr["ServicePaidEInvoice"]); 
+                            Dealer.ServicePaidEInvoice = Dr["ServicePaidEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(Dr["ServicePaidEInvoice"]);
                             Dealer.StateN = DBNull.Value == Dr["StateID"] ? null : new PDMS_State() { StateID = Convert.ToInt32(Dr["StateID"]), State = Convert.ToString(Dr["State"]) };
                             Dealer.Country = Convert.ToString(Dr["Country"]);
                             Dealer.Email = Convert.ToString(Dr["MailID"]);
@@ -113,8 +113,8 @@ namespace Business
                                 District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District() { DistrictID = Convert.ToInt32(dr["DistrictID"]), District = Convert.ToString(dr["District"]) },
                                 City = Convert.ToString(dr["City"]),
                                 Pincode = Convert.ToString(dr["Pincode"]),
-                                Mobile= Convert.ToString(dr["Mobile"]),
-                                Email= Convert.ToString(dr["Email"]),
+                                Mobile = Convert.ToString(dr["Mobile"]),
+                                Email = Convert.ToString(dr["Email"]),
                                 GSTIN = Convert.ToString(dr["GSTIN"]),
                                 PAN = Convert.ToString(dr["Pan"]),
                                 IsHeadOffice = Convert.ToBoolean(dr["IsHeadOffice"])
@@ -1385,7 +1385,7 @@ namespace Business
 
                             EMP.Add(new PUser()
                             {
-                                UserID= Convert.ToInt32(dr["UserID"]),
+                                UserID = Convert.ToInt32(dr["UserID"]),
                                 ContactName = Convert.ToString(dr["Name"]),
                                 ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Mail = Convert.ToString(dr["EmailID"]),
@@ -1464,170 +1464,17 @@ namespace Business
             catch (Exception ex) { throw ex; }
             return DealerBinLocationList;
         }
-        public List<PDealerBinLocation> GetDealerBinLocation(int? DealerID, int? OfficeCodeID, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        public PApiResult GetDealerBinLocation(int? DealerID, int? OfficeCodeID, int? PageIndex, int? PageSize)
         {
-            List<PDealerBinLocation> DealerBinLocationList = new List<PDealerBinLocation>();
-            RowCount = 0;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
-                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[5] { DealerIDP, OfficeCodeIDP, UserIDP, PageIndexP, PageSizeP };
-
-                using (DataSet DataSet = provider.Select("GetDealerBinLocationHeader", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            DealerBinLocationList.Add(new PDealerBinLocation()
-                            {
-                                DealerBinLocationID = Convert.ToInt32(dr["DealerBinLocationID"]),
-                                BinName = Convert.ToString(dr["BinName"]),
-                                Dealer = new PDealer()
-                                {
-                                    DealerID = Convert.ToInt32(dr["DealerID"]),
-                                    DealerCode = Convert.ToString(dr["DealerCode"]),
-                                    DealerName = Convert.ToString(dr["DisplayName"])
-                                },
-                                DealerOffice = new PDMS_DealerOffice()
-                                {
-                                    OfficeID = Convert.ToInt32(dr["OfficeCodeID"]),
-                                    OfficeCode = Convert.ToString(dr["OfficeCode"]),
-                                    OfficeName = Convert.ToString(dr["OfficeName"])
-                                }
-                            });
-                            RowCount = Convert.ToInt32(dr["RowCount"]);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx) { throw sqlEx; }
-            catch (Exception ex) { throw ex; }
-            return DealerBinLocationList;
+            string endPoint = "Dealer/GetDealerBinLocation?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public List<PDealerBinLocation> GetDealerBinLocationMaterialMappingHeader(int? DealerID, int? OfficeCodeID, int? DealerBinLocationID, string MaterialCode, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        public PApiResult GetDealerBinLocationMaterialMappingHeader(int? DealerID, int? OfficeCodeID, int? DealerBinLocationID, string MaterialCode, int? PageIndex, int? PageSize)
         {
-            List<PDealerBinLocation> DealerBinLocationList = new List<PDealerBinLocation>();
-            RowCount = 0;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
-                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", DealerBinLocationID, DbType.Int32);
-                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", MaterialCode, DbType.String);
-                //DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
-                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[7] { DealerIDP, OfficeCodeIDP, DealerBinLocationIDP, MaterialCodeP, UserIDP, PageIndexP, PageSizeP };
-
-                using (DataSet DataSet = provider.Select("GetDealerBinLocationMaterialMappingHeader", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            DealerBinLocationList.Add(new PDealerBinLocation()
-                            {
-                                DealerBinLocationMaterialMappingID = Convert.ToInt32(dr["DealerBinLocationMaterialMappingID"]),
-                                DealerBinLocationID = Convert.ToInt32(dr["DealerBinLocationID"]),
-                                BinName = Convert.ToString(dr["BinName"]),
-                                Dealer = new PDealer()
-                                {
-                                    DealerID = Convert.ToInt32(dr["DealerID"]),
-                                    DealerCode = Convert.ToString(dr["DealerCode"]),
-                                    DealerName = Convert.ToString(dr["DisplayName"])
-                                },
-                                DealerOffice = new PDMS_DealerOffice()
-                                {
-                                    OfficeID = Convert.ToInt32(dr["OfficeCodeID"]),
-                                    OfficeCode = Convert.ToString(dr["OfficeCode"]),
-                                    OfficeName = Convert.ToString(dr["OfficeName"])
-                                },
-                                Material = new PDMS_Material()
-                                {
-                                    MaterialID = Convert.ToInt32(dr["MaterialID"]),
-                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"])
-                                }
-                            });
-                            RowCount = Convert.ToInt32(dr["RowCount"]);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx) { throw sqlEx; }
-            catch (Exception ex) { throw ex; }
-            return DealerBinLocationList;
+            string endPoint = "Dealer/GetDealerBinLocationMaterialMappingHeader?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DealerBinLocationID=" + DealerBinLocationID + "&MaterialCode=" + MaterialCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public Boolean InsertOrUpdateDealerBinLocation(PDealerBinLocation pDealerBin, Boolean IsActive, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            Boolean success = false;
-            long DealerBinLocationID = 0;
-            try
-            {
-                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", pDealerBin.DealerBinLocationID, DbType.Int32);
-                DbParameter BinNameP = provider.CreateParameter("BinName", pDealerBin.BinName, DbType.String);
-                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", pDealerBin.DealerOffice.OfficeID, DbType.Int32);
-                DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                DbParameter[] Params = new DbParameter[6] { DealerBinLocationIDP, BinNameP, OfficeCodeIDP, IsActiveP, UserIDP, OutValue };
-
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("InsertOrUpdateDealerBinLocation", Params);
-                    scope.Complete();
-                }
-                success = true;
-            }
-            catch (Exception e1)
-            {
-                new FileLogger().LogMessage("BDMS_Dealer", "InsertOrUpdateDealerBinLocation", e1);
-                throw e1;
-            }
-            TraceLogger.Log(DateTime.Now);
-            return success;
-        }
-        public Boolean InsertOrUpdateDealerBinLocationMaterialMapping(PDealerBinLocation pDealerBin, Boolean IsActive, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            Boolean success = false;
-            long DealerBinLocationMaterialMappingID = 0;
-            try
-            {
-                DbParameter DealerBinLocationMaterialMappingIDP = provider.CreateParameter("DealerBinLocationMaterialMappingID", pDealerBin.DealerBinLocationMaterialMappingID, DbType.Int64);
-                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", pDealerBin.DealerBinLocationID, DbType.Int32);
-                DbParameter OfficeIDP = provider.CreateParameter("OfficeID", pDealerBin.DealerOffice.OfficeID, DbType.Int32);
-                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", pDealerBin.Material.MaterialID, DbType.Int32);
-                DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                DbParameter[] Params = new DbParameter[7] { DealerBinLocationMaterialMappingIDP, DealerBinLocationIDP, OfficeIDP, MaterialIDP, IsActiveP, UserIDP, OutValue };
-
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("InsertOrUpdateDealerBinLocationMaterialMapping", Params);
-                    scope.Complete();
-                }
-                success = true;
-            }
-            catch (Exception e1)
-            {
-                new FileLogger().LogMessage("BDMS_Dealer", "InsertOrUpdateDealerBinLocationMaterialMapping", e1);
-                throw e1;
-            }
-            TraceLogger.Log(DateTime.Now);
-            return success;
-        }
-        public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID,int?District, int? DealerTypeID)
+        public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID, int? District, int? DealerTypeID)
         {
             string endPoint = "Dealer/GetDealerAll?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&RegionID=" + RegionID + "&DealerTypeID=" + DealerTypeID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
@@ -1649,8 +1496,8 @@ namespace Business
 
         public DataSet ZYA_GetDealerSalesTarget(string Dealer, string Region, string Year, string Month, string OrderBy, int Excel = 0)
         {
-            string endPoint = "Dealer/ZYA_GetDealerSalesTarget?Dealer=" + Dealer + "&Region=" + Region 
-                + "&Year=" + Year + "&Month=" + Month + "&OrderBy=" + OrderBy +"&Excel=" + Excel;
+            string endPoint = "Dealer/ZYA_GetDealerSalesTarget?Dealer=" + Dealer + "&Region=" + Region
+                + "&Year=" + Year + "&Month=" + Month + "&OrderBy=" + OrderBy + "&Excel=" + Excel;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
