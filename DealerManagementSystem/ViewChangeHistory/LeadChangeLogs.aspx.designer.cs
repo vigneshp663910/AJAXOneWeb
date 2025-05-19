@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewChangeHistory
 {
 
 
-    public partial class CustomerChangeLogs
+    public partial class LeadChangeLogs
     {
 
         /// <summary>
@@ -60,13 +60,13 @@ namespace DealerManagementSystem.ViewChangeHistory
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// txtCustomerCode control.
+        /// txtLeadNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
+        protected global::System.Web.UI.WebControls.TextBox txtLeadNumber;
 
         /// <summary>
         /// btnSearch control.
@@ -87,156 +87,120 @@ namespace DealerManagementSystem.ViewChangeHistory
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// tabCustomerLogDetails control.
+        /// tabLeadLogDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tabCustomerLogDetails;
+        protected global::AjaxControlToolkit.TabContainer tabLeadLogDetails;
 
         /// <summary>
-        /// tabCustomerLogs control.
+        /// tabLeadLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadLogs;
 
         /// <summary>
-        /// gvCustomerLogs control.
+        /// gvLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerLogs;
+        protected global::System.Web.UI.WebControls.GridView gvLead;
 
         /// <summary>
-        /// tabCustomerAttributeLogs control.
+        /// tabLeadSalesEngineerLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerAttributeLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadSalesEngineerLogs;
 
         /// <summary>
-        /// gvCustomerAttributeLogs control.
+        /// gvLeadSalesEngineer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerAttributeLogs;
+        protected global::System.Web.UI.WebControls.GridView gvLeadSalesEngineer;
 
         /// <summary>
-        /// tabCustomerProductLogs control.
+        /// tabLeadVisitLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerProductLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadVisitLogs;
 
         /// <summary>
-        /// gvCustomerProductLogs control.
+        /// gvLeadVisit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerProductLogs;
+        protected global::System.Web.UI.WebControls.GridView gvLeadVisit;
 
         /// <summary>
-        /// tabCustomerTeamLogs control.
+        /// tabLeadProductLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerTeamLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadProductLogs;
 
         /// <summary>
-        /// gvCustomerTeamLogs control.
+        /// gvLeadProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerTeamLogs;
+        protected global::System.Web.UI.WebControls.GridView gvLeadProduct;
 
         /// <summary>
-        /// tabCustomerResponsibleEmployeeLogs control.
+        /// tabLeadSupDocLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerResponsibleEmployeeLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadSupDocLogs;
 
         /// <summary>
-        /// gvCustomerResponsibleEmployeeLogs control.
+        /// gvLeadSupDoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerResponsibleEmployeeLogs;
+        protected global::System.Web.UI.WebControls.GridView gvLeadSupDoc;
 
         /// <summary>
-        /// tabCustomerGroupOfCompaniesLogs control.
+        /// tabLeadQuestionariesLogs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCustomerGroupOfCompaniesLogs;
+        protected global::AjaxControlToolkit.TabPanel tabLeadQuestionariesLogs;
 
         /// <summary>
-        /// gvCustomerGroupOfCompaniesLogs control.
+        /// gvLeadQuestionaries control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCustomerGroupOfCompaniesLogs;
-
-        /// <summary>
-        /// tabCusSupDocLogs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCusSupDocLogs;
-
-        /// <summary>
-        /// gvCusSupDoc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCusSupDoc;
-
-        /// <summary>
-        /// tabCusShiptoParLogs control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabCusShiptoParLogs;
-
-        /// <summary>
-        /// gvCusShiptoPar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCusShiptoPar;
+        protected global::System.Web.UI.WebControls.GridView gvLeadQuestionaries;
     }
 }

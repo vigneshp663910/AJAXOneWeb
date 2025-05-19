@@ -33,12 +33,12 @@ namespace DealerManagementSystem.ViewChangeHistory
         } 
         protected void btnSearch_Click(object sender, EventArgs e)
         {  
-            if (string.IsNullOrEmpty(txtDealerCode.Text.Trim()))
-            {
-                lblMessage.Text = "Please enter dealer code";
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
+            //if (string.IsNullOrEmpty(txtDealerCode.Text.Trim()))
+            //{
+            //    lblMessage.Text = "Please enter dealer code";
+            //    lblMessage.ForeColor = Color.Red;
+            //    return;
+            //}
             DataSet GetDealerChangeLogs = new BChangeLogs().GetDealerChangeLogs(txtDealerCode.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
 
             gvDealerLogs.DataSource = GetDealerChangeLogs.Tables[0];

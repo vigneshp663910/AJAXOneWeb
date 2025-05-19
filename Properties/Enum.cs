@@ -522,12 +522,13 @@ namespace Properties
         ViewPreSale_SalesTouchPointEnquiry = 276,
         ViewPreSale_SalesTouchPointEnquiryReport = 277,
         ViewDashboard_WarrantyCostPerMachine = 278,
-        ViewDashboard_IncidentPer100 = 279, 
+        ViewDashboard_IncidentPer100 = 279,
         ViewPreSale_Reports_DealerSalesTarget = 282,
         ViewChangeHistory_DealerChangeLogs = 283,
         ViewChangeHistory_CustomerChangeLogs = 286,
         ViewService_OnlineTicketManage = 287,
-        ViewChangeHistory_LeadChangeLogs = 288
+        ViewChangeHistory_LeadChangeLogs = 288,
+        ViewChangeHistory_EnquiryChangeLogs = 289
     }
     public enum SubModuleChildMaster
     {
@@ -639,7 +640,7 @@ namespace Properties
         EditRetailerSalesEngineer = 105,
         EnquiryRejectOrConvert = 106,
         HelpCreateandEdit = 107,
-        OnlineTicketAdmin=108,
+        OnlineTicketAdmin = 108,
         DealerBinLocationCreateUpdateDeleteUpload = 109,
     }
     public enum DMS_WarrantyClaimStatus
@@ -659,11 +660,11 @@ namespace Properties
     public enum DMS_InvoiceType
     {
         NEPI_Commission = 1,
-        Warranty_Service=2,
-        Above50k=3,
-        DebitNote=4,
-        Warranty_ServicePartial=5,
-        Above50kPartial=6
+        Warranty_Service = 2,
+        Above50k = 3,
+        DebitNote = 4,
+        Warranty_ServicePartial = 5,
+        Above50kPartial = 6
     }
     public enum DMS_ServiceType
     {
@@ -699,8 +700,8 @@ namespace Properties
         SendMail = 2,
         InsertDealerStockAgeing = 3,
         InsertIncidentMachine = 4,
-        SAPDocumentForWarrantyInvoiceFromSAP = 5, 
-        RebuildIndex = 8,    
+        SAPDocumentForWarrantyInvoiceFromSAP = 5,
+        RebuildIndex = 8,
         // SaleOrderNumberForSrviceQuatationFromSAP = 6,
         //  TechnicianIntegrationFromSAP = 7, 
         //  ModelForClaim = 9,
@@ -711,12 +712,12 @@ namespace Properties
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
-        SendMailMttrEscalationMatrix = 17,  
-        GetPurchaseOrderIntegration = 20, 
+        SendMailMttrEscalationMatrix = 17,
+        GetPurchaseOrderIntegration = 20,
         //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
         //   EnquiryFromCRM = 25,
-        LeadQualificationByExpectedDateOfSale = 26, 
+        LeadQualificationByExpectedDateOfSale = 26,
         EnquiryIndiamart = 28,
         TaskTicketResolvedAutoClose = 29
     }
@@ -863,7 +864,7 @@ namespace Properties
         BoomPump = 5,
         SlipFormPaver = 6,
         Dumper = 7,
-        Udaan=10,
+        Udaan = 10,
         DumperOld = 11,
         SpareParts = 12,
         PlacingEquipment = 13,
@@ -943,10 +944,10 @@ namespace Properties
         PaymentMode_Credit = 53,
         PaymentMode_Online = 54,
         PaymentMode_Others = 55,
-        SaleOrderDelivery_Cancelled=56,
-        LeadDeviation_Requested =57,
-        LeadDeviation_Approved=58,
-        LeadDeviation_Rejected =59
+        SaleOrderDelivery_Cancelled = 56,
+        LeadDeviation_Requested = 57,
+        LeadDeviation_Approved = 58,
+        LeadDeviation_Rejected = 59
     }
     public enum ProcurementStatusHeader
     {
@@ -1011,10 +1012,10 @@ namespace Properties
         IntraDealerOrder = 2,
         WarrantyOrder = 3,
         MachineOrder = 4,
-        RTLR_PartsStk_Order=5,
-        RTLR_PartsEmg_Order =6,
-        RTLR_PartsWarr_Order=7,
-        RTLR_BreakDown_Order =8
+        RTLR_PartsStk_Order = 5,
+        RTLR_PartsEmg_Order = 6,
+        RTLR_PartsWarr_Order = 7,
+        RTLR_BreakDown_Order = 8
     }
     public enum ICTicketDeviationType
     {

@@ -29,17 +29,17 @@ namespace DealerManagementSystem.ViewChangeHistory
             {
                 txtDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                new BDMS_Dealer().LoadDealerDDL(ddlDealer);
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerCode.Text.Trim()))
+            int? DealerID = null;
+            if (ddlDealer.SelectedValue != "0")
             {
-                lblMessage.Text = "Please enter customer code";
-                lblMessage.ForeColor = Color.Red;
-                return;
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
             }
-            DataSet GetCustomerChangeLogs = new BChangeLogs().GetCustomerChangeLogs(txtCustomerCode.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+            DataSet GetCustomerChangeLogs = new BChangeLogs().GetCustomerChangeLogs(txtCustomerCode.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID);
 
             gvCustomerLogs.DataSource = GetCustomerChangeLogs.Tables[0];
             gvCustomerLogs.DataBind();

@@ -21,9 +21,19 @@ namespace Business
             string endPoint = "ChangeLogs/GetDealerChangeLogs?DealerCode=" + DealerCode + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public DataSet GetCustomerChangeLogs(string CustomerCode, string DateFrom, string DateTo)
+        public DataSet GetCustomerChangeLogs(string CustomerCode, string DateFrom, string DateTo, int? DealerID)
         {
-            string endPoint = "ChangeLogs/GetCustomerChangeLogs?CustomerCode=" + CustomerCode + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
+            string endPoint = "ChangeLogs/GetCustomerChangeLogs?CustomerCode=" + CustomerCode + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataSet GetLeadChangeLogs(string LeadNumber, string DateFrom, string DateTo, int? DealerID)
+        {
+            string endPoint = "ChangeLogs/GetLeadChangeLogs?LeadNumber=" + LeadNumber + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataSet GetEnquiryChangeLogs(string EnquiryNumber, string DateFrom, string DateTo, int? DealerID)
+        {
+            string endPoint = "ChangeLogs/GetEnquiryChangeLogs?EnquiryNumber=" + EnquiryNumber + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

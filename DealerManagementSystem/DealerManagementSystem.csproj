@@ -470,6 +470,8 @@
     <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
     <Content Include="ViewChangeHistory\CustomerChangeLogs.aspx" />
     <Content Include="ViewChangeHistory\DealerChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\EnquiryChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\LeadChangeLogs.aspx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
@@ -870,6 +872,8 @@
     <Content Include="Templates\InitialStock.xlsx" />
     <Content Include="Templates\Material.xlsx" />
     <Content Include="ViewSalesTouchPoint\SalesTouchPointMaster.Master" />
+    <Content Include="Templates\BinLocation.xlsx" />
+    <Content Include="Templates\BinLocationMaterialConfig.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1392,6 +1396,20 @@
     </Compile>
     <Compile Include="ViewChangeHistory\DealerChangeLogs.aspx.designer.cs">
       <DependentUpon>DealerChangeLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\EnquiryChangeLogs.aspx.cs">
+      <DependentUpon>EnquiryChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\EnquiryChangeLogs.aspx.designer.cs">
+      <DependentUpon>EnquiryChangeLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\LeadChangeLogs.aspx.cs">
+      <DependentUpon>LeadChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\LeadChangeLogs.aspx.designer.cs">
+      <DependentUpon>LeadChangeLogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>

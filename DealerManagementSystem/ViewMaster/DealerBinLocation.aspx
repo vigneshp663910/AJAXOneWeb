@@ -61,8 +61,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:GridView ID="gvDealerBinLocation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10"
-                                        OnPageIndexChanging="gvDealerBinLocation_PageIndexChanging">
+                                    <asp:GridView ID="gvDealerBinLocation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10">
                                         <Columns>
                                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                 <ItemTemplate>
@@ -183,8 +182,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:GridView ID="gvDealerBinLocationConfig" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10"
-                                        OnPageIndexChanging="gvDealerBinLocationConfig_PageIndexChanging">
+                                    <asp:GridView ID="gvDealerBinLocationConfig" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10">
                                         <Columns>
                                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                 <ItemTemplate>

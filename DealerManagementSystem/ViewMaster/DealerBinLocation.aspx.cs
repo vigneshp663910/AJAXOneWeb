@@ -24,22 +24,7 @@ namespace DealerManagementSystem.ViewMaster
         int? CDealerID = null;
         int? COfficeCodeID = null;
         int? CDealerBinLocationID = null;
-        string MaterialCode = null; 
-        public List<PDealerBinLocation> PDealerBinLocationConfigHeader
-        {
-            get
-            {
-                if (ViewState["PDealerBinLocationConfigHeader"] == null)
-                {
-                    ViewState["PDealerBinLocationConfigHeader"] = new List<PDealerBinLocation>();
-                }
-                return (List<PDealerBinLocation>)ViewState["PDealerBinLocationConfigHeader"];
-            }
-            set
-            {
-                ViewState["PDealerBinLocationConfigHeader"] = value;
-            }
-        }
+        string MaterialCode = null;
         public List<PDealerBinLocation_Insert> InsertBinLocationUpload
         {
             get
@@ -100,6 +85,36 @@ namespace DealerManagementSystem.ViewMaster
                 ViewState["PageIndex"] = value;
             }
         }
+        private int PageCountConfig
+        {
+            get
+            {
+                if (ViewState["PageCountConfig"] == null)
+                {
+                    ViewState["PageCountConfig"] = 0;
+                }
+                return (int)ViewState["PageCountConfig"];
+            }
+            set
+            {
+                ViewState["PageCountConfig"] = value;
+            }
+        }
+        private int PageIndexConfig
+        {
+            get
+            {
+                if (ViewState["PageIndexConfig"] == null)
+                {
+                    ViewState["PageIndexConfig"] = 1;
+                }
+                return (int)ViewState["PageIndexConfig"];
+            }
+            set
+            {
+                ViewState["PageIndexConfig"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DealerBinLocation.aspx";
@@ -123,6 +138,8 @@ namespace DealerManagementSystem.ViewMaster
             {
                 PageCount = 0;
                 PageIndex = 1;
+                PageCountConfig = 0;
+                PageIndexConfig = 1;
                 try
                 {
                     LoadDropdown();
@@ -246,11 +263,6 @@ namespace DealerManagementSystem.ViewMaster
                 new FileLogger().LogMessage("DealerBinLocation", "fillDealerBinLocation", e1);
                 throw e1;
             }
-        }
-        protected void gvDealerBinLocation_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvDealerBinLocation.PageIndex = e.NewPageIndex;
-            fillDealerBinLocation();
         }
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
@@ -396,6 +408,10 @@ namespace DealerManagementSystem.ViewMaster
                 pDealerBin.OfficeID = Convert.ToInt32(lblOfficeCodeID.Text);
                 pDealerBin.IsActive = false;
 
+
+                PApiResult Result = new BDMS_Dealer().GetDealerBinLocationMaterialMappingHeader(pDealerBin.DealerID, pDealerBin.OfficeID, pDealerBin.DealerBinLocationID, null, null, null);
+                List<PDealerBinLocation> PDealerBinLocationConfigHeader = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(Result.Data));
+
                 if (PDealerBinLocationConfigHeader.Any(item => item.DealerBinLocationID == pDealerBin.DealerBinLocationID))
                 {
                     lblMessage.ForeColor = Color.Red;
@@ -446,8 +462,8 @@ namespace DealerManagementSystem.ViewMaster
                 CSearch();
                 int RowCount = 0;
 
-                PApiResult Result = new BDMS_Dealer().GetDealerBinLocationMaterialMappingHeader(CDealerID, COfficeCodeID, CDealerBinLocationID, MaterialCode, PageIndex, gvDealerBinLocation.PageSize);
-                PDealerBinLocationConfigHeader = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(Result.Data));
+                PApiResult Result = new BDMS_Dealer().GetDealerBinLocationMaterialMappingHeader(CDealerID, COfficeCodeID, CDealerBinLocationID, MaterialCode, PageIndexConfig, gvDealerBinLocationConfig.PageSize);
+                List<PDealerBinLocation> PDealerBinLocationConfigHeader = JsonConvert.DeserializeObject<List<PDealerBinLocation>>(JsonConvert.SerializeObject(Result.Data));
                 RowCount = Result.RowCount;
 
                 gvDealerBinLocationConfig.PageIndex = 0;
@@ -466,11 +482,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     gvDealerBinLocationConfig.DataSource = PDealerBinLocationConfigHeader;
                     gvDealerBinLocationConfig.DataBind();
-                    PageCount = (RowCount + gvDealerBinLocationConfig.PageSize - 1) / gvDealerBinLocationConfig.PageSize;
+                    PageCountConfig = (RowCount + gvDealerBinLocationConfig.PageSize - 1) / gvDealerBinLocationConfig.PageSize;
                     lblCRowCount.Visible = true;
                     ibtnCArrowLeft.Visible = true;
                     ibtnCArrowRight.Visible = true;
-                    lblCRowCount.Text = (((PageIndex - 1) * gvDealerBinLocationConfig.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerBinLocationConfig.PageSize) + gvDealerBinLocationConfig.Rows.Count) + " of " + RowCount;
+                    lblCRowCount.Text = (((PageIndexConfig - 1) * gvDealerBinLocationConfig.PageSize) + 1) + " - " + (((PageIndexConfig - 1) * gvDealerBinLocationConfig.PageSize) + gvDealerBinLocationConfig.Rows.Count) + " of " + RowCount;
                     List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                     if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBinLocationCreateUpdateDeleteUpload).Count() == 0)
                     {
@@ -511,17 +527,17 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void ibtnCArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (PageIndex > 1)
+            if (PageIndexConfig > 1)
             {
-                PageIndex = PageIndex - 1;
+                PageIndexConfig = PageIndexConfig - 1;
                 fillDealerBinLocationConfig();
             }
         }
         protected void ibtnCArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (PageCount > PageIndex)
+            if (PageCountConfig > PageIndexConfig)
             {
-                PageIndex = PageIndex + 1;
+                PageIndexConfig = PageIndexConfig + 1;
                 fillDealerBinLocationConfig();
             }
         }
@@ -677,7 +693,6 @@ namespace DealerManagementSystem.ViewMaster
                 List<PDealerBinLocation_Insert> BinLst = new List<PDealerBinLocation_Insert>();
                 BinLst.Add(pDealerBin);
                 PApiResult Results = InsertOrUpdateDealerBinLocationMaterialMapping(BinLst);
-                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/InsertOrUpdateDealerBinLocationMaterialMapping", pDealerBin));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.ForeColor = Color.Red;
@@ -1031,7 +1046,7 @@ namespace DealerManagementSystem.ViewMaster
                             Success = false;
                             return Success;
                         }
-                        bool containsItem = BinLocationUploadIsExist.Any(item => item.Material.MaterialID == bin.Material.MaterialID && item.DealerBinLocationID == bin.DealerBinLocationID && item.Dealer.DealerID == bin.Dealer.DealerID && item.DealerOffice.OfficeID == bin.DealerOffice.OfficeID);
+                        bool containsItem = BinLocationUploadIsExist.Any(item => item.Material.MaterialID == bin.Material.MaterialID && item.Dealer.DealerID == bin.Dealer.DealerID && item.DealerOffice.OfficeID == bin.DealerOffice.OfficeID);
                         if (containsItem)
                         {
                             lblMsg_DealerBinLocationConfigUpload.Text = "Material already available : " + bin.Material.MaterialCode + ".";
