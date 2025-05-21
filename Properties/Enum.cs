@@ -991,7 +991,13 @@ namespace Properties
         MachineOrder = 5,
         IntraDealerOrder = 6,
         BreakDownOrder = 7,
-        MERCHANDISING = 8
+        Merchandising = 8,
+        RTLR_StockOrder = 9,
+        RTLR_EmergencyOrder = 10,
+        RTLR_WarrantyOrder = 11,
+        RTLR_Merchandising = 12,
+        RTLR_BreakDownOrder = 13,
+        RTLR_MachineOrder = 14
     }
     public enum StockMovementType
     {

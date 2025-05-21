@@ -121,7 +121,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PApiResult Result = new BDMS_PurchaseOrder().GetDealerStockOrderControl(DealerID, null, null);
                 List<PDealerStockOrderControl> DealerStockOrderControlList = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(Result.Data));
 
-                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == 1)
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.StockOrder 
+                    || PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.RTLR_StockOrder)
                 {
                     if (Convert.ToDecimal(lblTaxableAmount.Text) < Convert.ToDecimal(DealerStockOrderControlList[0].MinimumValue))
                     {
@@ -138,7 +139,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder ||
+                    PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.RTLR_MachineOrder)
                 {
                     lblMessage.Text = "Waiting For Release Approval";
                 }
@@ -398,7 +400,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
                 List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text, null, null, null);
-                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder ||
+                    PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.RTLR_MachineOrder)
                 {
                     if (Convert.ToDecimal(txtQuantity.Text) != 1 && Materials[0].MaterialType == "FERT")
                     {
@@ -756,7 +759,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 //} 
                 // List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null);
                 List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null);
-                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder ||
+                    PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.RTLR_MachineOrder)
                 {
                     if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialType == Materials[0].MaterialType && Materials[0].MaterialType == "FERT"))
                     {

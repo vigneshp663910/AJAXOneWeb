@@ -1029,14 +1029,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 return "Please Check the Quantity of matrial : " + m.MaterialCode;
             }
 
-            if (Convert.ToInt32(ddlPurchaseOrderType.SelectedValue) == (short)PurchaseOrderType.MachineOrder)
+            if (Convert.ToInt32(ddlPurchaseOrderType.SelectedValue) == (short)PurchaseOrderType.MachineOrder ||
+                Convert.ToInt32(ddlPurchaseOrderType.SelectedValue) == (short)PurchaseOrderType.RTLR_MachineOrder)
             {
                 Boolean chMaterialType = PurchaseOrderItem_Insert.Any(item => item.MaterialType == m.MaterialType && m.MaterialType == "FERT");
                 if (chMaterialType)
                 {
                     return "Already FERT Material Available : " + m.MaterialCode;
                 }
-                if ( Qty1 != 1 && m.MaterialType == "FERT")
+                if (Qty1 != 1 && m.MaterialType == "FERT")
                 {
                     return "In machine Order you allowed to add one quantity for FERT material : " + m.MaterialCode;
                 }
