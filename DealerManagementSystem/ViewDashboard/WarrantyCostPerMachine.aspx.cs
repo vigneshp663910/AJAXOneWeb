@@ -17,7 +17,7 @@ namespace DealerManagementSystem.ViewDashboard
         public override SubModule SubModuleName { get { return SubModule.ViewDashboard_WarrantyCostPerMachine; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Warranty Cost Per Machine');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Warranty Cast Per Machine');</script>");
 
             if (PSession.User == null)
             {
@@ -158,8 +158,7 @@ namespace DealerManagementSystem.ViewDashboard
                 i = i + 1;
                 ob[i] = "HMR All";
             }
-            chartData.Add(ob);
-            //chartData.Add(new object[] { "Quarter", "Cost0-15", "Cost0-250", "Cost0-500", "Cost0-750", "Cost0-1000", "Cost0-1500", "Cost0-2000", "Cost_All" });
+            chartData.Add(ob); 
 
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
             string Region = (string)HttpContext.Current.Session["Region"];
@@ -214,12 +213,7 @@ namespace DealerManagementSystem.ViewDashboard
                     i = i + 1;
                     obtData[i] = Convert.ToInt32(dr["HMR All"]);
                 }
-                chartData.Add(obtData);
-                //chartData.Add(new object[] { Convert.ToString(dr["Quarter"]) +"-"+ Convert.ToString(dr["FinYear"])
-                //    , Convert.ToInt32(dr["Cost0-15"]), Convert.ToInt32(dr["Cost0-250"]), Convert.ToInt32(dr["Cost0-500"])
-                //    , Convert.ToInt32(dr["Cost0-750"]), Convert.ToInt32(dr["Cost0-1000"]), Convert.ToInt32(dr["Cost0-1500"])
-                //    , Convert.ToInt32(dr["Cost0-2000"]), Convert.ToInt32(dr["Cost_All"])
-                //});
+                chartData.Add(obtData); 
             }
             return chartData;
         }
@@ -250,7 +244,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void BtnLineChartData_Click(object sender, EventArgs e)
         {
             DataTable dt = GetData();
-            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine Chart Data");
+            new BXcel().ExporttoExcel(dt, "Warranty Cast Per Machine Chart Data");
         }
 
         protected void BtnDetailData_Click(object sender, EventArgs e)
@@ -262,7 +256,7 @@ namespace DealerManagementSystem.ViewDashboard
             string Model = (string)HttpContext.Current.Session["Model"];
             string Gragh = (string)HttpContext.Current.Session["Gragh"];
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh, 1)).Tables[0];
-            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine");
+            new BXcel().ExporttoExcel(dt, "Warranty Cast Per Machine");
         }
 
 

@@ -86,7 +86,7 @@
     <div class="col-md-12">
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Cost / Machine</legend>          
+                <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Cast / Machine</legend>          
                 <div class="col-md-12 Report">
                 <div id="divRegionEast"></div>
                     </div>
@@ -237,7 +237,7 @@
                             title: GraphType.selectedOptions[0].text
                         },
                         vAxis: {
-                            title: 'Cost / Machine'
+                            title: 'Cast / Machine'
                         },
                         //width: '80%',
                         height: 400,

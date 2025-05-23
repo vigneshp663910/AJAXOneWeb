@@ -119,11 +119,11 @@ namespace Business
             long WarrantyClaimInvoiceID = 0;
 
             decimal? TCSTax = null;
-            if (PDMS_EInvoice.EInvoiveDate <= DateTime.Now) 
-            {
-                TCSTax = PDMS_EInvoice.TcsTax;
+            //if (PDMS_EInvoice.EInvoiveDate <= DateTime.Now) 
+            //{
+            //    TCSTax = PDMS_EInvoice.TcsTax;
 
-            }
+            //}
 
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", inv.Dealer.DealerCode, DbType.String);
             DbParameter MonthRangeP = provider.CreateParameter("MonthRange", MonthRange, DbType.Int32);
@@ -240,10 +240,10 @@ namespace Business
             long WarrantyClaimInvoiceID = 0;
 
             decimal? TCSTax = null;
-            if (PDMS_EInvoice.EInvoiveDate <= DateTime.Now) 
-            {
-                TCSTax = PDMS_EInvoice.TcsTax;
-            }
+            //if (PDMS_EInvoice.EInvoiveDate <= DateTime.Now) 
+            //{
+            //    TCSTax = PDMS_EInvoice.TcsTax;
+            //}
 
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
             DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", ClaimNumber, DbType.String);

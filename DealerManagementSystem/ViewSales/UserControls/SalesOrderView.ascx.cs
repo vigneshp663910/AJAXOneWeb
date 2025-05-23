@@ -528,7 +528,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, SOrder.Dealer.DealerCode, null);
 
-            ReportParameter[] P = new ReportParameter[36];
+            ReportParameter[] P = new ReportParameter[38];
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
@@ -649,7 +649,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     TotalSGSTVal += GSTValue;
                 }
             }
-            GrandTotal = Math.Round(SubTotal);
+            GrandTotal = Math.Round(SubTotal + SOrder.TcsValue);
 
             //P[21] = new ReportParameter("CGST_Header", "%", false);
             //P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
@@ -666,6 +666,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[33] = new ReportParameter("TotalTaxable", String.Format("{0:n}", TotalTaxable), false);
             P[34] = new ReportParameter("TotalCGSTVal", String.Format("{0:n}", TotalCGSTVal), false);
             P[35] = new ReportParameter("TotalSGSTVal", String.Format("{0:n}", TotalSGSTVal), false);
+
+            P[36] = new ReportParameter("TCSPer", String.Format("{0:n}", SOrder.TcsValue), false);
+            P[37] = new ReportParameter("SubTotalWithTcs", String.Format("{0:n}", SubTotal+ SOrder.TcsValue), false);
+
 
             report.ReportPath = Server.MapPath("~/Print/SalesPartsQuotation.rdlc");
             report.SetParameters(P);
@@ -764,7 +768,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(SOrder.Dealer.DealerID, null, null);
 
-            ReportParameter[] P = new ReportParameter[34];
+            ReportParameter[] P = new ReportParameter[36];
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
@@ -837,7 +841,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     P[22] = new ReportParameter("SGSTVal_Header", "IGST", false);
                 }
             }
-            GrandTotal = Math.Round(SubTotal);
+            GrandTotal = Math.Round(SubTotal + SOrder.TcsValue);
             P[23] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
             P[24] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
             P[25] = new ReportParameter("GrandTotalInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)).ToUpper(), false);
@@ -849,6 +853,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[31] = new ReportParameter("TotalTaxable", String.Format("{0:n}", TotalTaxable), false);
             P[32] = new ReportParameter("TotalCGSTVal", String.Format("{0:n}", TotalCGSTVal), false);
             P[33] = new ReportParameter("TotalSGSTVal", String.Format("{0:n}", TotalSGSTVal), false);
+
+            P[34] = new ReportParameter("TCSPer", String.Format("{0:n}", SOrder.TcsValue), false);
+            P[35] = new ReportParameter("SubTotalWithTcs", String.Format("{0:n}", SubTotal + SOrder.TcsValue), false);
 
             report.ReportPath = Server.MapPath("~/Print/SalesProformaInvoice.rdlc");
             report.SetParameters(P);

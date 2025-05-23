@@ -236,7 +236,7 @@
                             title: GraphType.selectedOptions[0].text
                         },
                         vAxis: {
-                            title: 'Cost / Machine'
+                            title: 'Incident Per 100 / Machine'
                         },
                         //width: '80%',
                         height: 400,

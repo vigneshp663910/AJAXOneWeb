@@ -7,24 +7,24 @@ using System.Text;
 
 namespace Properties
 {
-    [Serializable]
-    public class PDMS_EInvoice
-    {
-        public static DateTime EInvoiveDate
-        {
-            get
-            {
-                return Convert.ToDateTime(ConfigurationManager.AppSettings["EInvoiveDate"]);
-            }
-        }       
-        public static decimal TcsTax
-        {
-            get
-            {
-                return Convert.ToDecimal(ConfigurationManager.AppSettings["TcsTax"]);
-            }
-        }    
-    }
+    //[Serializable]
+    //public class PDMS_EInvoice
+    //{
+    //    public static DateTime EInvoiveDate
+    //    {
+    //        get
+    //        {
+    //            return Convert.ToDateTime(ConfigurationManager.AppSettings["EInvoiveDate"]);
+    //        }
+    //    }       
+    //    public static decimal TcsTax
+    //    {
+    //        get
+    //        {
+    //            return Convert.ToDecimal(ConfigurationManager.AppSettings["TcsTax"]);
+    //        }
+    //    }    
+    //}
     
     [Serializable]
     public class PDMS_EInvoiceSigned
