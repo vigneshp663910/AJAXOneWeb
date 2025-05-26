@@ -131,7 +131,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 int RowCount = 0;
                 Search();
-                PApiResult Result = new BDMS_SalesOrder().GetQuotationTracker(DateFrom.ToString(), DateTo.ToString(), QuotationNumber, DealerID, DealerTypeID, PageIndex, gvQuotationTracker.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetPartsQuotationTracker(DateFrom.ToString(), DateTo.ToString(), QuotationNumber, DealerID, DealerTypeID, PageIndex, gvQuotationTracker.PageSize);
                 DataTable QuotationTrackerReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
                 RowCount = Result.RowCount;
 
@@ -188,13 +188,8 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
-                int? DealerID = null;
-                if (ddlDealer.SelectedValue != "0")
-                {
-                    DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-                }
                 Search();
-                PApiResult Result = new BDMS_SalesOrder().GetQuotationTracker(DateFrom.ToString(), DateTo.ToString(), QuotationNumber, DealerID, null, null);
+                PApiResult Result = new BDMS_SalesOrder().GetPartsQuotationTracker(DateFrom.ToString(), DateTo.ToString(), QuotationNumber, DealerID, DealerTypeID, null, null);
                 DataTable QuotationTrackerReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
                 new BXcel().ExporttoExcel(QuotationTrackerReport, "Quotation Tracker Report");
