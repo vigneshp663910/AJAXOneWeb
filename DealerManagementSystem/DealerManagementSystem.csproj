@@ -541,6 +541,8 @@
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\DealerRetailerConfig.aspx" />
+    <Content Include="ViewMaster\ICTicketEscalationConfig.aspx" />
     <Content Include="ViewMaster\UserControls\DealerCreate.ascx" />
     <Content Include="ViewPreSale\LeadDeviation.aspx" />
     <Content Include="ViewPreSale\LeadDeviationApprove.aspx" />
@@ -694,6 +696,7 @@
     <Content Include="ViewSalesTouchPoint\SignIn.aspx" />
     <Content Include="ViewSalesTouchPoint\UserControls\AddEnquiry.ascx" />
     <Content Include="ViewSalesTouchPoint\UserControls\ViewEnquiry.ascx" />
+    <Content Include="ViewSales\QuotationTracker.aspx" />
     <Content Include="ViewSales\Report\OofCustomerReport.aspx" />
     <Content Include="ViewSales\Report\SalesReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
@@ -1894,6 +1897,20 @@
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\DealerRetailerConfig.aspx.cs">
+      <DependentUpon>DealerRetailerConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\DealerRetailerConfig.aspx.designer.cs">
+      <DependentUpon>DealerRetailerConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\ICTicketEscalationConfig.aspx.cs">
+      <DependentUpon>ICTicketEscalationConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\ICTicketEscalationConfig.aspx.designer.cs">
+      <DependentUpon>ICTicketEscalationConfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\UserControls\DealerCreate.ascx.cs">
       <DependentUpon>DealerCreate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2806,6 +2823,13 @@
     </Compile>
     <Compile Include="ViewSalesTouchPoint\UserControls\ViewEnquiry.ascx.designer.cs">
       <DependentUpon>ViewEnquiry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\QuotationTracker.aspx.cs">
+      <DependentUpon>QuotationTracker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\QuotationTracker.aspx.designer.cs">
+      <DependentUpon>QuotationTracker.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\Report\OofCustomerReport.aspx.cs">
       <DependentUpon>OofCustomerReport.aspx</DependentUpon>

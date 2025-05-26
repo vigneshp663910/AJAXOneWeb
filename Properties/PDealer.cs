@@ -554,4 +554,22 @@ namespace Properties
         public int DivisionID { get; set; }
         public int Target { get; set; }
     }
+    [Serializable]
+    public class PDealerReatailer
+    {
+        public PDealer Retailer { get; set; }
+        public PDealer Dealer { get; set; }
+        public bool IsActive { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+    }
+    [Serializable]
+    public class PDealerReatailer_Insert
+    {
+        public int RetailerID { get; set; }
+        public int DealerID { get; set; }
+        public bool IsActive { get; set; }
+    }
 }

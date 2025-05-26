@@ -1929,5 +1929,11 @@ namespace Business
                 + "&DocumentNumber=" + DocumentNumber + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DivisionID=" + DivisionID  + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetQuotationTracker(string DateFrom, string DateTo, string QuotationNumber, int? DealerID, int? DealerTypeID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetQuotationTracker?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&QuotationNumber=" + QuotationNumber 
+                + "&DealerID=" + DealerID + "&DealerTypeID=" + DealerTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

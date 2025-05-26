@@ -190,5 +190,10 @@ namespace Business
             string endPoint = "Master/GetProductSpecification?ProductID=" + ProductID;
             return JsonConvert.DeserializeObject<List<PProductSpecification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public PApiResult GetICTicketMttrEscalationMatrix(string EscalationHours, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "MAster/GetICTicketMttrEscalationMatrix?EscalationHours=" + EscalationHours + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 } 

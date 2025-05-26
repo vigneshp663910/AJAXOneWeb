@@ -143,4 +143,32 @@ namespace Properties
         public int StatusItemID { get; set; }
         public string StatusItem { get; set; }
     }
+    [Serializable]
+    public class PICTicketMttrEscalationMatrix
+    {
+        public int EscalationMatrixID { get; set; }
+        public string Region { get; set; }
+        public string Subject { get; set; }
+        public string Description { get; set; }
+        public string ToMailID { get; set; }
+        public string CcMailID { get; set; }
+        public string EscalationHours { get; set; }
+        public bool IsActive { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+    }
+    [Serializable]
+    public class PICTicketMttrEscalationMatrix_Insert
+    {
+        public int EscalationMatrixID { get; set; }
+        public string Region { get; set; }
+        public string Subject { get; set; }
+        public string Description { get; set; }
+        public string ToMailID { get; set; }
+        public string CcMailID { get; set; }
+        public string EscalationHours { get; set; }
+        public bool IsActive { get; set; }
+    }
 }
