@@ -84,6 +84,7 @@ namespace Business
                             W.ICTicket.Equipment = new PDMS_EquipmentHeader();
                             W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
                             W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            W.ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
                         }
                     }
                 }
@@ -127,6 +128,7 @@ namespace Business
                             W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
                             W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
                             W.ICTicket.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
                         }
                     }
                 }
@@ -170,6 +172,7 @@ namespace Business
                             W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
                             W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
                             W.ICTicket.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
                         }
                     }
                 }
@@ -213,6 +216,7 @@ namespace Business
                             W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
                             W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
                             W.ICTicket.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
                         }
                     }
                 }

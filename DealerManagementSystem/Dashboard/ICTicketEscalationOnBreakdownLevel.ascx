@@ -34,6 +34,12 @@
                 <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ReachedDate")%>' runat="server"></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
+        <asp:TemplateField HeaderText="Service Type" HeaderStyle-Width="147px">
+            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+            <ItemTemplate>
+                <asp:Label ID="lblServiceType" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ServiceType.ServiceType")%>' runat="server"></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
 
         <asp:TemplateField HeaderText="Status" HeaderStyle-Width="147px">
             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -114,6 +120,7 @@
                 <asp:Label ID="lblr_application" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.MainApplication.MainApplication")%>' runat="server"></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
+
     </Columns>
     <AlternatingRowStyle BackColor="#ffffff" />
     <FooterStyle ForeColor="White" />
