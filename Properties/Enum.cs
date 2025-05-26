@@ -528,7 +528,10 @@ namespace Properties
         ViewChangeHistory_CustomerChangeLogs = 286,
         ViewService_OnlineTicketManage = 287,
         ViewChangeHistory_LeadChangeLogs = 288,
-        ViewChangeHistory_EnquiryChangeLogs = 289
+        ViewChangeHistory_EnquiryChangeLogs = 289,
+        ViewMaster_DealerRetailerConfig = 290,
+        ViewMaster_ICTicketEscalationConfig = 291,
+        ViewSales_QuotationTracker = 292,
     }
     public enum SubModuleChildMaster
     {
@@ -642,6 +645,8 @@ namespace Properties
         HelpCreateandEdit = 107,
         OnlineTicketAdmin = 108,
         DealerBinLocationCreateUpdateDeleteUpload = 109,
+        DealerRetailerCreateUpdateDelete = 110,
+        ICTicketEscalationCreateUpdateDelete = 111,
     }
     public enum DMS_WarrantyClaimStatus
     {

@@ -1500,5 +1500,10 @@ namespace Business
                 + "&Year=" + Year + "&Month=" + Month + "&OrderBy=" + OrderBy + "&Excel=" + Excel;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public PApiResult GetDealerRetailerSalesConfig(int? RetailerID, int? DealerID, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "Dealer/GetDealerRetailerSalesConfig?RetailerID=" + RetailerID + "&DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }
