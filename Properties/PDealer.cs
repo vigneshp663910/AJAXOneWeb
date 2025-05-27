@@ -477,8 +477,7 @@ namespace Properties
         public string Email { get; set; }
         public string Mobile { get; set; }
         public Boolean IsActive { get; set; }
-        public Boolean IsHeadOffice { get; set; }
-        public int UserID { get; set; }
+        public Boolean IsHeadOffice { get; set; } 
     }
 
     [Serializable]
