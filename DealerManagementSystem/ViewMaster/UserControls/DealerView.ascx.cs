@@ -439,56 +439,27 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvDealerEmployee.PageIndex = e.NewPageIndex;
             fillDealerEmployee();
         }
-        
-        protected void lnkbtnDealerOfficeDelete_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblOfficeCode = (Label)gvRow.FindControl("lblOfficeCode");
-            PDMS_DealerOffice DealerOffice = new PDMS_DealerOffice();
-            DealerOffice.OfficeCode = lblOfficeCode.Text;
-            Label lblOfficeID = (Label)gvRow.FindControl("lblOfficeID");
-            DealerOffice.OfficeID = Convert.ToInt32(lblOfficeID.Text);
-
-            //Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
-            //Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0 };
-            //Attribute.Remark = txtRemark.Text.Trim();
-            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-
-            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
-            //lblMessage.Visible = true;
-            //if (Result.Status == PApplication.Failure)
-            //{
-            //    lblMessage.Text = Result.Message;
-            //    lblMessage.ForeColor = Color.Red;
-            //    return;
-            //}
-            //lblMessage.Text = Result.Message;
-            //lblMessage.ForeColor = Color.Green;
-
-            fillDealerOffice();
-        }
-        
+         
         protected void lnkBtnNotificationDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblDealerNotificationIDG = (Label)gvRow.FindControl("lblDealerNotificationIDG");
+            Label lblDealerNotificationID = (Label)gvRow.FindControl("lblDealerNotificationID");
             Label lblDealerNotificationModuleID = (Label)gvRow.FindControl("lblDealerNotificationModuleID");
             Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+            Label lblDealerID = (Label)gvRow.FindControl("lblDealerID");
             CheckBox chkbxIsSMS = (CheckBox)gvRow.FindControl("chkbxIsSMS");
             CheckBox chkbxIsMail = (CheckBox)gvRow.FindControl("chkbxIsMail");
-            PDealerNotification DealerNotification = new PDealerNotification();
-            DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationIDG.Text);
 
-            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
-            DealerNotification.User = new PUser() { UserID = Convert.ToInt32(lblUserID.Text) };
-            DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(lblDealerNotificationModuleID.Text) };
+            PDealerNotification_Insert DealerNotification = new PDealerNotification_Insert();
+            DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationID.Text);
+            DealerNotification.DealerID = Convert.ToInt32(lblDealerID.Text);
+            DealerNotification.UserID  = Convert.ToInt32(lblUserID.Text) ;
+            DealerNotification.DealerNotificationModuleID = Convert.ToInt32(lblDealerNotificationModuleID.Text);
             DealerNotification.IsSMS = Convert.ToBoolean(chkbxIsSMS.Checked);
             DealerNotification.IsMail = Convert.ToBoolean(chkbxIsMail.Checked);
             DealerNotification.IsActive = false;
 
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+            PApiResult Result = InsertOrUpdateDealerNotification(DealerNotification);
             lblMessage.Visible = true;
             if (Result.Status == PApplication.Failure)
             {
@@ -498,9 +469,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
-
             fillDealerNotification();
-
         }
         
         void ActionControlMange()
@@ -532,43 +501,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
 
-        //protected void btnAddNotification_Click(object sender, EventArgs e)
-        //{
-        //    MPE_AddNotification.Show();
-        //    lblMessageAddNotification.Visible = true;
-        //    lblMessageAddNotification.ForeColor = Color.Red;
-           
-            
-        //    string Message = ValidationAddNotification();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageAddNotification.Text = Message;
-        //        return;
-        //    }
-        //    PDealerNotification DealerNotification = new PDealerNotification();
-        //    DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
-        //    DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
-        //    DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
-        //    DealerNotification.IsSMS = cbSendSMS.Checked;
-        //    DealerNotification.IsMail = cbSendEmail.Checked;
-        //    DealerNotification.IsActive = true;
-
-        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
-        //    if (Results.Status == PApplication.Failure)
-        //    {
-        //        lblMessageAddNotification.Text = Results.Message;
-        //        return;
-        //    }
-        //    lblMessage.Text = Results.Message;
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-
-        //    ddlEmployee.Items.Clear();
-        //    tbpDealer.ActiveTabIndex = 3;
-        //    MPE_AddNotification.Hide();
-        //    fillDealerNotification();
-        //}
-
+        
         public string ValidationAddNotification()
         {
             string Message = "";
@@ -1288,15 +1221,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                         lblMessageAddNotification.Text = Message;
                         return;
                     }
-                    PDealerNotification DealerNotification = new PDealerNotification();
-                    DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
-                    DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
-                    DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
+                    PDealerNotification_Insert DealerNotification = new PDealerNotification_Insert();
+                    DealerNotification.DealerID = Convert.ToInt32(ddlDealer.SelectedValue) ;
+                    DealerNotification.UserID = Convert.ToInt32(ddlEmployee.SelectedValue) ;
+                    DealerNotification.DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue);
                     DealerNotification.IsSMS = cbSendSMS.Checked;
                     DealerNotification.IsMail = cbSendEmail.Checked;
                     DealerNotification.IsActive = true;
 
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+                    PApiResult Results = InsertOrUpdateDealerNotification(DealerNotification);
                     if (Results.Status == PApplication.Failure)
                     {
                         lblMessageAddNotification.Text = Results.Message;
@@ -1486,6 +1419,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cbIsEInvoice.Checked = Dealer.IsEInvoice;
             lblEInvoiceDate.Text = Dealer.EInvoiceDate.ToString();
             cbServicePaidEInvoiceP.Checked = Dealer.ServicePaidEInvoice;
+        }
+
+        PApiResult InsertOrUpdateDealerNotification(PDealerNotification_Insert DealerNotification)
+        {
+             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
         }
     }
 }

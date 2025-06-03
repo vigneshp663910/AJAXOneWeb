@@ -571,4 +571,15 @@ namespace Properties
         public int DealerID { get; set; }
         public bool IsActive { get; set; }
     }
+    [Serializable]
+    public class PDealerNotification_Insert
+    {
+        public int DealerNotificationID { get; set; }
+        public int DealerNotificationModuleID { get; set; }
+        public int DealerID { get; set; }
+        public int UserID { get; set; }
+        public Boolean IsSMS { get; set; }
+        public Boolean IsMail { get; set; }
+        public Boolean IsActive { get; set; }
+    }
 }
