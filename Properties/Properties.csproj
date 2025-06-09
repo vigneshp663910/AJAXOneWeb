@@ -48,6 +48,7 @@
     <Compile Include="PDealerBusiness.cs" />
     <Compile Include="PDealerOfficeUserMapping.cs" />
     <Compile Include="PDeviationProcess.cs" />
+    <Compile Include="PECatalogue.cs" />
     <Compile Include="PInventory.cs" />
     <Compile Include="PActivity.cs" />
     <Compile Include="PApplicationSetting.cs" />

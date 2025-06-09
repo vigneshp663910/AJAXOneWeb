@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
+
+   <script type="text/javascript">
+       window.history.forward();
+   </script>
+
     <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
     <title>AJAX-Dealer Management</title>
     <meta charset="UTF-8">

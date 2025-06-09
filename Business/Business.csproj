@@ -169,6 +169,7 @@
     <Compile Include="BDMS_WarrantyFailureMaterial.cs" />
     <Compile Include="BDocumentation.cs" />
     <Compile Include="BDropDownListBind.cs" />
+    <Compile Include="BECatalogue.cs" />
     <Compile Include="BEmployees.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

@@ -179,7 +179,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 
-                                    <asp:TemplateField HeaderText="PDF">
+                                    <asp:TemplateField HeaderText="Verify">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Button ID="btnVerify" runat="server" CssClass="btn Search" Text="Release" OnClick="btnVerify_Click" Width="100px" Height="30px"></asp:Button>
