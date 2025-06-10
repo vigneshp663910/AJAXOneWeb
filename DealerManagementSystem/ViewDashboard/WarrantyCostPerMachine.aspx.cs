@@ -17,7 +17,7 @@ namespace DealerManagementSystem.ViewDashboard
         public override SubModule SubModuleName { get { return SubModule.ViewDashboard_WarrantyCostPerMachine; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Warranty Cast Per Machine');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Warranty Cost Per Machine');</script>");
 
             if (PSession.User == null)
             {
@@ -244,7 +244,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void BtnLineChartData_Click(object sender, EventArgs e)
         {
             DataTable dt = GetData();
-            new BXcel().ExporttoExcel(dt, "Warranty Cast Per Machine Chart Data");
+            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine Chart Data");
         }
 
         protected void BtnDetailData_Click(object sender, EventArgs e)
@@ -256,7 +256,7 @@ namespace DealerManagementSystem.ViewDashboard
             string Model = (string)HttpContext.Current.Session["Model"];
             string Gragh = (string)HttpContext.Current.Session["Gragh"];
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh, 1)).Tables[0];
-            new BXcel().ExporttoExcel(dt, "Warranty Cast Per Machine");
+            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine");
         }
 
 

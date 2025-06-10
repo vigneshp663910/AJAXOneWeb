@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewECatalogue
 {
     public partial class SpcAssembly : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrder; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewECatalogue_SpcAssembly; } }
 
         int? ModelID = null;
         int? DivisionID = null;
@@ -79,7 +79,7 @@ namespace DealerManagementSystem.ViewECatalogue
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » SPAssemblyImager');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('E Catalogue » Assembly');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
@@ -88,9 +88,12 @@ namespace DealerManagementSystem.ViewECatalogue
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
                 new DDLBind(ddlModel, new BDMS_Model().GetModel(null, null, null), "Model", "ModelID", true, "Select Model");
                 fillAssembly();
-                lblRowCount.Visible = false;
-                ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateAssemblyAndCreatePartsCoordinates).Count() == 0)
+                {
+                    btnCreateAssembly.Visible = false;
+                }
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -117,7 +120,7 @@ namespace DealerManagementSystem.ViewECatalogue
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BECatalogue().GetSpcAssembly(DivisionID, ModelID, null,txtAssemblyCode.Text.Trim());
+                PApiResult Result = new BECatalogue().GetSpcAssembly(DivisionID, ModelID, null,txtAssemblyCode.Text.Trim(), PageIndex, gvAssembly.PageSize);
                 Assembly = JsonConvert.DeserializeObject<List<PSpcAssembly>>(JsonConvert.SerializeObject(Result.Data));
                 gvAssembly.PageIndex = 0;
                 gvAssembly.DataSource = Assembly;
@@ -195,7 +198,7 @@ namespace DealerManagementSystem.ViewECatalogue
                 Label lblSpcAssemblyImageID = (Label)gvRow.FindControl("lblSpcAssemblyImageID");
                 divList.Visible = false;
                 divDetailsView.Visible = true;
-                UC_SpcAssemblyView.fillViewPO(Convert.ToInt32(lblSpcAssemblyImageID.Text));
+                UC_SpcAssemblyView.fillParts(Convert.ToInt32(lblSpcAssemblyImageID.Text));
             }
             catch (Exception e1)
             {
@@ -241,10 +244,17 @@ namespace DealerManagementSystem.ViewECatalogue
         protected void btnCreateAssembly_Click(object sender, EventArgs e)
         {
             MPE_AssemblyCreate.Show();
-            new DDLBind(ddlModelAssemblyC, new BDMS_Model().GetModel(null, null, null), "Model", "ModelID", true, "Select Model"); 
+            new DDLBind(ddlDivisionC, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
+           // 
             txtAssemblyCodeC.Text = "";
             txtAssemblyDescription.Text = "";
             txtRemarks.Text = "";
+        }
+
+        protected void ddlDivisionC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_AssemblyCreate.Show();
+            new DDLBind(ddlModelAssemblyC, new BDMS_Model().GetModel(null, null,Convert.ToInt32(ddlDivisionC.SelectedValue)), "Model", "ModelID", true, "Select Model");
         }
     }
 }

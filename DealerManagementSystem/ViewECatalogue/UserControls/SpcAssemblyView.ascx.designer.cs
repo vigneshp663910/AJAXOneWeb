@@ -114,6 +114,24 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbChangeAssemblyDrawing;
 
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
+        /// imgAssemblyImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgAssemblyImage;
+
+        /// <summary>
         /// lblDivision control.
         /// </summary>
         /// <remarks>
@@ -168,31 +186,22 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         protected global::System.Web.UI.WebControls.Label lblAssemblyType;
 
         /// <summary>
-        /// Panel1 control.
+        /// lblRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
 
         /// <summary>
-        /// imgAssemblyImage control.
+        /// lblXY control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgAssemblyImage;
-
-        /// <summary>
-        /// lblCoordinates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCoordinates;
+        protected global::System.Web.UI.WebControls.Label lblXY;
 
         /// <summary>
         /// gvParts control.
@@ -202,15 +211,6 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvParts;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// pnlSaveCoOrdinate control.

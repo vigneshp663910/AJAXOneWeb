@@ -12,9 +12,10 @@ namespace Business
 {
     public class BECatalogue
     {
-        public PApiResult GetSpcAssembly(int? DivisionID,int? ModelID, int? SpcAssemblyID,string AssemblyCode)
+        public PApiResult GetSpcAssembly(int? DivisionID,int? ModelID, int? SpcAssemblyID,string AssemblyCode, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "ECatalogue/GetSpcAssembly?DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&SpcAssemblyID=" + SpcAssemblyID + "&AssemblyCode=" + AssemblyCode;
+            string endPoint = "ECatalogue/GetSpcAssembly?DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&SpcAssemblyID=" + SpcAssemblyID 
+                + "&AssemblyCode=" + AssemblyCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetAssemblyPartsCoOrdinate(int? ModelID, int? SpcAssemblyID)

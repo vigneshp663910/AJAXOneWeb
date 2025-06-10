@@ -532,6 +532,7 @@ namespace Properties
         ViewMaster_DealerRetailerConfig = 290,
         ViewMaster_ICTicketEscalationConfig = 291,
         ViewSales_QuotationTracker = 292,
+        ViewECatalogue_SpcAssembly = 293,
     }
     public enum SubModuleChildMaster
     {
@@ -647,6 +648,7 @@ namespace Properties
         DealerBinLocationCreateUpdateDeleteUpload = 109,
         DealerRetailerCreateUpdateDelete = 110,
         ICTicketEscalationCreateUpdateDelete = 111,
+        CreateAssemblyAndCreatePartsCoordinates = 112,
     }
     public enum DMS_WarrantyClaimStatus
     {

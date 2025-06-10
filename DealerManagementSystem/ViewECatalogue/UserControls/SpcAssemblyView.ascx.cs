@@ -66,7 +66,6 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             }
         }
 
-
         public List<PSpcAssemblyPartsCoOrdinate> PartsListUpload
         {
             get
@@ -115,17 +114,18 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             }
 
         }
-        public void fillViewPO(int SpcAssemblyID)
+        public void fillParts(int SpcAssemblyID)
         {
             PApiResult Result = new BECatalogue().GetSpcAssembly(null, null, SpcAssemblyID,"");
             List<PSpcAssembly> Assemblys = JsonConvert.DeserializeObject<List<PSpcAssembly>>(JsonConvert.SerializeObject(Result.Data));
             Assembly = Assemblys[0];
-            //lblDivision.Text = Assembly.Model.Division.DivisionCode;
+            lblDivision.Text = Assembly.Model.Division.DivisionCode;
             lblModel.Text = Assembly.Model.Model;
             lblModelCode.Text = Assembly.Model.ModelCode;
             lblAssembly.Text = Assembly.AssemblyCode;
-            lblAssemblyDes.Text = Assembly.AssemblyCode;
+            lblAssemblyDes.Text = Assembly.AssemblyDescription;
             lblAssemblyType.Text = Assembly.AssemblyType;
+            lblRemarks.Text = Assembly.Remarks;
             Session["filePath"] = Assembly.FileName;
 
             new BECatalogue().DowloadSpcFile(Assembly.FileName);
@@ -135,6 +135,16 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             PartsCoOrdinate = JsonConvert.DeserializeObject<List<PSpcAssemblyPartsCoOrdinate>>(JsonConvert.SerializeObject(ResultParts.Data));
             gvParts.DataSource = PartsCoOrdinate;
             gvParts.DataBind();
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateAssemblyAndCreatePartsCoordinates).Count() == 0)
+            {
+                for (int i = 0; i < gvParts.Rows.Count; i++)
+                {
+                    LinkButton lnkBtnDelete = (LinkButton)gvParts.Rows[i].FindControl("lnkBtnDelete");
+                    lnkBtnDelete.Visible = false; 
+                }
+            }
 
             ActionControlMange();
         }
@@ -221,16 +231,16 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             {
                 MPE_PatrsListUpload.Show();
             }
-            else if (lbActions.ID == "lbDownloadTemplate")
+            else if (lbActions.ID == "lbDownloadTemplate")  
             {
-                string Path = Server.MapPath("~/Templates\\BinLocationMaterialConfig.xlsx");
+                string Path = Server.MapPath("~/Templates/AssemblyPatrsList.xlsx");
                 WebClient req = new WebClient();
                 HttpResponse response = HttpContext.Current.Response;
                 response.Clear();
                 response.ClearContent();
                 response.ClearHeaders();
                 response.Buffer = true;
-                response.AddHeader("Content-Disposition", "attachment;filename=\"BinLocationMaterialConfig.xlsx\"");
+                response.AddHeader("Content-Disposition", "attachment;filename=\"AssemblyPatrsList.xlsx\"");
                 byte[] data = req.DownloadData(Path);
                 response.BinaryWrite(data);
                 // Append cookie
@@ -259,8 +269,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         }
         void ShowMessage(PApiResult Results)
         {
-            lblMessage.Text = Results.Message;
-            lblMessage.Visible = true;
+            lblMessage.Text = Results.Message; 
             lblMessage.ForeColor = Color.Green;
         }
         void ActionControlMange()
@@ -290,18 +299,17 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCreate).Count() == 0)
-            //{
-            //    lbAddMaterial.Visible = false; 
-            //}
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderRelease).Count() == 0)
-            //{
-            //    lbRelease.Visible = false;
-            //}
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCancel).Count() == 0)
-            //{
-            //    lbCancel.Visible = false;
-            //}             
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateAssemblyAndCreatePartsCoordinates).Count() == 0)
+            {
+                lbEditXYCoOrdinate.Visible = false;
+                lbCancelXYCoOrdinate.Visible = false;
+                lbSaveXYCoOrdinate.Visible = false; 
+                lbUploadParts.Visible = false;
+                lbDownloadTemplate.Visible = false;
+                lbEditAssembly.Visible = false;
+                lbChangeAssemblyDrawing.Visible = false;
+            }
+                
         }
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
@@ -310,8 +318,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             if (lbActions.ID == "lnkBtnDelete")
-            {
-                lblMessage.Visible = true;
+            { 
                 Label lblSpcAssemblyPartsCoOrdinateID = (Label)gvRow.FindControl("lblSpcAssemblyPartsCoOrdinateID"); 
                 PApiResult Results = new BECatalogue().UpdateSpcAssemblyPartsDelete(Convert.ToInt64(lblSpcAssemblyPartsCoOrdinateID.Text));
                 if (Results.Status == PApplication.Failure)
@@ -321,7 +328,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                     return;
                 }
                 ShowMessage(Results);
-                fillViewPO(Assembly.SpcAssemblyID);
+                fillParts(Assembly.SpcAssemblyID);
             }
         }
 
@@ -349,11 +356,10 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 lblCoOrdinateMessage.Text = Results.Message;
                 return;
             }
-            lblMessage.Text = "Updated Successfully";
-            lblMessage.Visible = true;
+            lblMessage.Text = "Updated Successfully"; 
             lblMessage.ForeColor = Color.Green;
             MPE_SaveCoOrdinate.Hide();
-
+            fillParts(Assembly.SpcAssemblyID); 
             xyUpdate = 0;
             hdnUpdatedIDs.Value = "";
             hdnX.Value = "";
@@ -418,7 +424,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 }
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = Results.Message;
-                fillViewPO(Assembly.SpcAssemblyID);
+                fillParts(Assembly.SpcAssemblyID);
                 BtnSavePatrsList.Visible = false;
             }
             catch (Exception ex)
@@ -484,7 +490,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 }
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = Results.Message;
-                fillViewPO(Assembly.SpcAssemblyID);
+                fillParts(Assembly.SpcAssemblyID);
             }
             catch (Exception ex)
             {
@@ -509,7 +515,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 }
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = Results.Message;
-                fillViewPO(Assembly.SpcAssemblyID);
+                fillParts(Assembly.SpcAssemblyID);
             }
             catch (Exception ex)
             {

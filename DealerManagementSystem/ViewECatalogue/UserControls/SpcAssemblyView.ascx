@@ -38,65 +38,54 @@
         </div>
     </div>
 </div>
-<div class="col-md-12 field-margin-top">
-    <div class="col-md-12">
-        <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Stock Transfer Order</legend>
-            <div class="col-md-12 View">
-                <div class="col-md-12">
-                    <div class="col-md-2">
-                        <label>Division : </label>
-                        <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Model : </label>
-                        <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Model Code : </label>
-                        <asp:Label ID="lblModelCode" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Assembly : </label>
-                        <asp:Label ID="lblAssembly" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Assembly Des : </label>
-                        <asp:Label ID="lblAssemblyDes" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Assembly Type : </label>
-                        <asp:Label ID="lblAssemblyType" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</div>
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <div class="col-md-12 field-margin-top">
     <div class="col-md-9">
         <div class="col-md-12 View">
-            <div class="col-md-12">
-                <asp:Panel ID="Panel1" runat="server" GroupingText="" Height="50px" Width="100%" BackColor="#c0c0c0" Visible="true" Font-Names="Calibri">
-                    <table border="2" cellpadding="0" cellspacing="0" width="100%" style="border-style: hidden hidden solid hidden; height: 50px; border-bottom-color: #CC0000;">
-                        <tr>
-                            <td align="left" style="border-right-style: hidden">
-                                <p id="demo" style="font-family: Calibri; font-size: medium; color: #0000FF"></p>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
-                <%-- <asp:ImageButton ID="imgClickMe" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" OnClick="imgClickMe_Click"  onmousemove="showCoords(event)" onmouseout="clearCoor()" Height="510" Width="900" GFG="250"/>--%>
-                <asp:Image ID="imgAssemblyImage" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" onmousemove="showCoords(event)" onmouseout="clearCoor()" onclick="javascript:ClickOnImage();" Height="510" Width="900" GFG="250" />
-
-                <br />
-                <asp:Label ID="lblCoordinates" runat="server" Font-Bold="true" />
-
-            </div>
+            <%-- <asp:ImageButton ID="imgClickMe" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" OnClick="imgClickMe_Click"  onmousemove="showCoords(event)" onmouseout="clearCoor()" Height="510" Width="900" GFG="250"/>--%>
+            <asp:Image ID="imgAssemblyImage" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" onmousemove="showCoords(event)" onmouseout="clearCoor()" onclick="javascript:ClickOnImage();" Height="510" Width="900" GFG="250" />
         </div>
     </div>
     <div class="col-md-3">
+        <div class="col-md-12"> 
+                <div class="col-md-12">
+                    <label>Division : </label>
+                    <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Model : </label>
+                    <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Model Code : </label>
+                    <asp:Label ID="lblModelCode" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Assembly : </label>
+                    <asp:Label ID="lblAssembly" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Assembly Des : </label>
+                    <asp:Label ID="lblAssemblyDes" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Assembly Type : </label>
+                    <asp:Label ID="lblAssemblyType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+             
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12">
+            <label>XY Coordinate : </label>
+            <asp:Label ID="lblXY" runat="server" CssClass="LabelValue"></asp:Label>
+        </div>
         <div class="col-md-12 Report">
+
             <asp:GridView ID="gvParts" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                 <Columns>
                     <asp:TemplateField HeaderText="Check">
@@ -161,7 +150,7 @@
                             <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField>
+                    <asp:TemplateField  HeaderText="Action">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnItemAction_Click" OnClientClick="return ConfirmItemDelete();"> <i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                         </ItemTemplate>
@@ -176,7 +165,7 @@
         </div>
     </div>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+
 <asp:Panel ID="pnlSaveCoOrdinate" runat="server" CssClass="Popup" Style="display: none" Height="500px">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Material</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -359,9 +348,9 @@
                     <asp:FileUpload ID="fuAssemblyDrawing" runat="server" />
                 </div>
                 <div class="col-md-12 col-sm-12 text-center">
-                    <asp:Button ID="btnAssemblyDrawingSave" runat="server" Text="View" CssClass="btn Save" OnClick="btnAssemblyDrawingSave_Click" Width="100px" /> 
+                    <asp:Button ID="btnAssemblyDrawingSave" runat="server" Text="View" CssClass="btn Save" OnClick="btnAssemblyDrawingSave_Click" Width="100px" />
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </asp:Panel>
@@ -382,10 +371,10 @@
 
 
         var coords = "X : " + x + ", Y : " + y;
-        document.getElementById("demo").innerHTML = coords;
+        document.getElementById("MainContent_UC_SpcAssemblyView_lblXY").innerHTML = coords;
     }
     function clearCoor() {
-        document.getElementById("demo").innerHTML = "";
+        document.getElementById("MainContent_UC_SpcAssemblyView_lblXY").innerHTML = "";
     }
 
     function selectOnlyOne(radio) {

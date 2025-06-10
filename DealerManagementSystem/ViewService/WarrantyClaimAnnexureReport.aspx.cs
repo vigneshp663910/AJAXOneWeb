@@ -186,7 +186,7 @@ namespace DealerManagementSystem.ViewService
                 }
             }
 
-            new BXcel().ExporttoExcel(CommissionDT, "Annexure " + ddlDealerCode.SelectedValue + " " + DateTime.Now.ToString());
+            new BXcel().ExporttoExcel(CommissionDT, "Annexure " + ddlDealerCode.SelectedValue);
         }
 
         protected void gvClaimByClaimID_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -45,11 +45,11 @@
                         <asp:DropDownList ID="ddlModel" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                    <label>Assembly Code</label>
-                    <asp:TextBox ID="txtAssemblyCode" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                </div>
+                        <label>Assembly Code</label>
+                        <asp:TextBox ID="txtAssemblyCode" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
                     <div class="col-md-8">
-                        <label class="modal-label">Action</label>
+                        
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
                         <asp:Button ID="btnCreateAssembly" runat="server" CssClass="btn Save" Text="Create Assembly" Width="120px" OnClick="btnCreateAssembly_Click"></asp:Button>
                     </div>
@@ -65,7 +65,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>PO(s):</td>
+                                                <td>Assemblies:</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -92,12 +92,12 @@
                             <asp:GridView ID="gvAssembly" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15"
                                 EmptyDataText="No Data Found">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
+                                    <%--<asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -108,9 +108,7 @@
                                         <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSpcAssemblyImageID" Text='<%# DataBinder.Eval(Container.DataItem, "SpcAssemblyID")%>' runat="server" Visible="false" />
-
-                                            <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25" />
-                                            <%--                                            <asp:Label ID="lblf_division" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>--%>
+                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
@@ -192,7 +190,11 @@
 
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblAssemblyEditMessage" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblAssemblyEditMessage" runat="server" Text="" CssClass="message" />
+                 <div class="col-md-6 col-sm-12">
+                    <label>Division</label>
+                    <asp:DropDownList ID="ddlDivisionC" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDivisionC_SelectedIndexChanged" />
+                </div>
                 <div class="col-md-6 col-sm-12">
                     <label>Model</label>
                     <asp:DropDownList ID="ddlModelAssemblyC" runat="server" CssClass="form-control" />
