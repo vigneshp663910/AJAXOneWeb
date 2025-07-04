@@ -42,6 +42,15 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         protected global::System.Web.UI.WebControls.HiddenField hdnY;
 
         /// <summary>
+        /// lbUpdateMultyXYCoOrdinate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbUpdateMultyXYCoOrdinate;
+
+        /// <summary>
         /// lbEditXYCoOrdinate control.
         /// </summary>
         /// <remarks>
@@ -69,15 +78,6 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbCancelXYCoOrdinate;
 
         /// <summary>
-        /// lbSaveToCart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbSaveToCart;
-
-        /// <summary>
         /// lbUploadParts control.
         /// </summary>
         /// <remarks>
@@ -85,15 +85,6 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbUploadParts;
-
-        /// <summary>
-        /// lbDownloadTemplate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbDownloadTemplate;
 
         /// <summary>
         /// lbEditAssembly control.
@@ -112,6 +103,24 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbChangeAssemblyDrawing;
+
+        /// <summary>
+        /// lbDownloadTemplate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDownloadTemplate;
+
+        /// <summary>
+        /// lbSaveToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbSaveToCart;
 
         /// <summary>
         /// lblMessage control.
@@ -193,15 +202,6 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemarks;
-
-        /// <summary>
-        /// lblXY control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblXY;
 
         /// <summary>
         /// gvParts control.
@@ -481,6 +481,60 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_AssemblyDrawing;
+
+        /// <summary>
+        /// pnlSaveToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSaveToCart;
+
+        /// <summary>
+        /// Button5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button5;
+
+        /// <summary>
+        /// lblSaveToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSaveToCart;
+
+        /// <summary>
+        /// gvToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvToCart;
+
+        /// <summary>
+        /// btnSaveToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveToCart;
+
+        /// <summary>
+        /// MPE_SaveToCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_SaveToCart;
 
         /// <summary>
         /// lnkMPE control.

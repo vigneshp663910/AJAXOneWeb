@@ -635,16 +635,16 @@ namespace Business
             string endPoint = "Warranty/ZYA_GetModel?Division=" + Division;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public DataSet ZYA_GetWarrantyCostPerMachine(string ManufacturingDateF, string ManufacturingDateT, string AsOnDate, string Dealer, string Region, string ServiceType, string Division, string Model, string Gragh, int Excel = 0)
+        public DataSet ZYA_GetWarrantyCostPerMachine(string ManufacturingDateF, string ManufacturingDateT, string AsOnDate, string Dealer, string Region, string ServiceType, string Division, string Model, string Material, string Gragh, int Excel = 0)
         {
             string endPoint = "Warranty/ZYA_GetWarrantyCostPerMachine?ManufacturingDateF=" + ManufacturingDateF + "&ManufacturingDateT=" + ManufacturingDateT + "&AsOnDate=" + AsOnDate
-                + "&Dealer=" + Dealer + "&Region=" + Region + "&ServiceType=" + ServiceType + "&Division=" + Division + "&Model=" + Model + "&Gragh=" + Gragh + "&Excel=" + Excel;
+                + "&Dealer=" + Dealer + "&Region=" + Region + "&ServiceType=" + ServiceType + "&Division=" + Division + "&Model=" + Model + "&Material=" + Material + "&Gragh=" + Gragh + "&Excel=" + Excel;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public DataSet ZYA_GetIncidentPer100Machine(string ManufacturingDateF, string ManufacturingDateT, string AsOnDate, string Dealer, string Region, string ServiceType, string Division, string Model, string Gragh, int Excel = 0)
+        public DataSet ZYA_GetIncidentPer100Machine(string ManufacturingDateF, string ManufacturingDateT, string AsOnDate, string Dealer, string Region, string ServiceType, string Division, string Model, string Material, string Gragh, int Excel = 0)
         {
             string endPoint = "Warranty/ZYA_GetIncidentPer100Machine?ManufacturingDateF=" + ManufacturingDateF + "&ManufacturingDateT=" + ManufacturingDateT + "&AsOnDate=" + AsOnDate
-                + "&Dealer=" + Dealer + "&Region=" + Region + "&ServiceType=" + ServiceType + "&Division=" + Division + "&Model=" + Model + "&Gragh=" + Gragh + "&Excel=" + Excel;
+                + "&Dealer=" + Dealer + "&Region=" + Region + "&ServiceType=" + ServiceType + "&Division=" + Division + "&Model=" + Model + "&Material=" + Material + "&Gragh=" + Gragh + "&Excel=" + Excel;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

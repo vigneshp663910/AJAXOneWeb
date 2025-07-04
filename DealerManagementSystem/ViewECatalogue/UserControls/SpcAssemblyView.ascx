@@ -26,64 +26,201 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbUpdateMultyXYCoOrdinate" runat="server" OnClick="lbActions_Click">Update XY CoOrdinate</asp:LinkButton>
                 <asp:LinkButton ID="lbEditXYCoOrdinate" runat="server" OnClick="lbActions_Click">Edit XY CoOrdinate</asp:LinkButton>
                 <asp:LinkButton ID="lbSaveXYCoOrdinate" runat="server" OnClick="lbActions_Click">Save XY CoOrdinate</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelXYCoOrdinate" runat="server" OnClientClick="return Confirmation('Are you sure you want to cancel?');" OnClick="lbActions_Click">Cancel XY CoOrdinate</asp:LinkButton>
-                <asp:LinkButton ID="lbSaveToCart" runat="server" OnClick="lbActions_Click">Save To Cart</asp:LinkButton>
+
                 <asp:LinkButton ID="lbUploadParts" runat="server" OnClick="lbActions_Click">Upload Parts</asp:LinkButton>
-                <asp:LinkButton ID="lbDownloadTemplate" runat="server" OnClick="lbActions_Click">Download Template</asp:LinkButton>
                 <asp:LinkButton ID="lbEditAssembly" runat="server" OnClick="lbActions_Click">Edit Assembly</asp:LinkButton>
                 <asp:LinkButton ID="lbChangeAssemblyDrawing" runat="server" OnClick="lbActions_Click">Change Assembly Drawing</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadTemplate" runat="server" OnClick="lbActions_Click">Download Template</asp:LinkButton>
+                <asp:LinkButton ID="lbSaveToCart" runat="server" OnClick="lbActions_Click">Save To Cart</asp:LinkButton>
             </div>
         </div>
     </div>
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+<style>
+    .tooltip-box {
+        position: absolute;
+        background-color: white;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+        font-size: 13px;
+        z-index: 9999;
+    }
+
+        .tooltip-box .testMatDesc {
+            font-weight: bold;
+            font-size: medium;
+            color: blue;
+            font-family: "boschsans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .tooltip-box .Test {
+            font-size: medium;
+            color: black;
+            font-family: "boschsans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .tooltip-box .Value {
+            font-size: medium;
+            color: blue;
+            font-family: "boschsans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .tooltip-box .PriceTest {
+            font-size: medium;
+            color: black;
+            font-family: "boschsans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+</style>
+
+<div id="tooltip" class="tooltip-box">Dynamic Tooltip</div>
+
 <div class="col-md-12 field-margin-top">
     <div class="col-md-9">
         <div class="col-md-12 View">
             <%-- <asp:ImageButton ID="imgClickMe" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" OnClick="imgClickMe_Click"  onmousemove="showCoords(event)" onmouseout="clearCoor()" Height="510" Width="900" GFG="250"/>--%>
             <asp:Image ID="imgAssemblyImage" runat="server" ImageUrl="ImageHandlerECatalogue.ashx?file=example.jpg" onmousemove="showCoords(event)" onmouseout="clearCoor()" onclick="javascript:ClickOnImage();" Height="510" Width="900" GFG="250" />
+            <script type="text/javascript"> 
+                var tooltip = document.getElementById('tooltip');
+                var target = document.getElementById('<%= imgAssemblyImage.ClientID %>');
+
+                target.addEventListener('mousemove', function (e) {
+
+                    mousemove(e);
+                });
+
+                function mousemove(e) {
+                    var rect = target.getBoundingClientRect();
+
+                    var x = Math.round(event.clientX - rect.left);
+                    var y = Math.round(event.clientY - rect.top);
+
+                    tooltip.style.left = (e.pageX - 220) + 'px';
+                    tooltip.style.top = (e.pageY - 100) + 'px';
+                    tooltip.style.opacity = 1;
+
+                    var grid = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts');
+                    var rows = grid.getElementsByTagName('tr');
+                    var rowCount = rows.length - 1;
+                    var TootText = '';
+
+                    var xyBulkUpdate = <%=this.xyBulkUpdate%>;
+
+                    if (xyBulkUpdate == 0) {
+                        for (var i = 0; i < rowCount; i++) {
+                            var lblX_CoOrdinate = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblX_CoOrdinate_' + i);
+                            var lblY_CoOrdinate = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblY_CoOrdinate_' + i);
+                            var X_CoOrdinate = parseInt(lblX_CoOrdinate.innerText);
+                            var Y_CoOrdinate = parseInt(lblY_CoOrdinate.innerText);
+                            if (X_CoOrdinate >= x - 10 && X_CoOrdinate <= x + 10 && Y_CoOrdinate >= y - 10 && Y_CoOrdinate <= y + 10) {
+
+                                var lblNumber = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblNumber_' + i);
+                                var lblFlag = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblFlag_' + i);
+                                var lblMaterial = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblMaterial_' + i);
+                                var lblMaterialDescription = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblMaterialDescription_' + i);
+                                var lblQty = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblQty_' + i);
+                                TootText = "<br /><span class='testMatDesc'>" + "ECO MATRIX CLUSTER" + "</span> <br />"
+                                    + "<br /> <span class='Test'> SP Number : </span><span class='Value'>" + lblMaterial.innerText + "</span>"
+                                    + "<br /> <span class='Test' >Position :</span><span class='Value'>" + lblNumber.innerText + "</span>"
+                                    + "<br /> <span class='Test'> Alt :</span> <span class='Value'>" + lblFlag.innerText + "</span>"
+
+                                    //  + "<br />Mat Des : " + lblMaterialDescription.innerText
+
+                                    + "<br /> <span class='PriceTest'> Qty :</span><span class='Value'>" + lblQty.innerText
+                                    ;
+
+                                break;
+                            }
+                        }
+
+                        tooltip.innerHTML = TootText
+                            + "<br /><span class='Test'>X: </span><span class='Value'>" + x + "</span>"
+                            + "<br /><span class='Test'>Y: </span><span class='Value'>" + y + "</span>";
+                    }
+                    else {
+                        for (var i = 0; i < rowCount; i++) {
+                            var rbParts = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_rbParts_' + i);
+                            if (rbParts.checked == false) {
+                                var lblNumber = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblNumber_' + i);
+                                var lblFlag = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblFlag_' + i);
+                                var lblMaterial = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblMaterial_' + i);
+                                var lblMaterialDescription = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblMaterialDescription_' + i);
+                                var lblQty = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblQty_' + i);
+                                TootText = "<br /><span class='testMatDesc'>" + "ECO MATRIX CLUSTER" + "</span> <br />"
+                                    + "<br /> <span class='Test'> SP Number : </span><span class='Value'>" + lblMaterial.innerText + "</span>"
+                                    + "<br /> <span class='Test' >Position :</span><span class='Value'>" + lblNumber.innerText + "</span>"
+                                    + "<br /> <span class='Test'> Alt :</span> <span class='Value'>" + lblFlag.innerText + "</span>"
+
+                                    //  + "<br />Mat Des : " + lblMaterialDescription.innerText
+
+                                    + "<br /> <span class='PriceTest'> Qty :</span><span class='Value'>" + lblQty.innerText
+                                    ;
+
+                                tooltip.innerHTML = TootText
+                                    + "<br /><span class='Test'>X: </span><span class='Value'>" + x + "</span>"
+                                    + "<br /><span class='Test'>Y: </span><span class='Value'>" + y + "</span>";
+                                break;
+                            }
+                        }
+                    }
+
+                };
+
+                target.addEventListener('mouseleave', function () {
+                    tooltip.style.opacity = 0;
+                });
+
+            </script>
+
         </div>
     </div>
     <div class="col-md-3">
-        <div class="col-md-12"> 
-                <div class="col-md-12">
-                    <label>Division : </label>
-                    <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Model : </label>
-                    <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Model Code : </label>
-                    <asp:Label ID="lblModelCode" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Assembly : </label>
-                    <asp:Label ID="lblAssembly" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Assembly Des : </label>
-                    <asp:Label ID="lblAssemblyDes" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Assembly Type : </label>
-                    <asp:Label ID="lblAssemblyType" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Remarks : </label>
-                    <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-             
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <label>Division : </label>
+                <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Model : </label>
+                <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Model Code : </label>
+                <asp:Label ID="lblModelCode" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Assembly : </label>
+                <asp:Label ID="lblAssembly" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Assembly Des : </label>
+                <asp:Label ID="lblAssemblyDes" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Assembly Type : </label>
+                <asp:Label ID="lblAssemblyType" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Remarks : </label>
+                <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
+
         </div>
     </div>
     <div class="col-md-8">
-        <div class="col-md-12">
+        <%--<div class="col-md-12">
             <label>XY Coordinate : </label>
             <asp:Label ID="lblXY" runat="server" CssClass="LabelValue"></asp:Label>
-        </div>
+        </div>--%>
         <div class="col-md-12 Report">
 
             <asp:GridView ID="gvParts" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
@@ -123,7 +260,7 @@
                     <asp:TemplateField HeaderText="Qty">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
+                            <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <%-- <asp:TemplateField HeaderText="Where">
@@ -150,7 +287,7 @@
                             <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField  HeaderText="Action">
+                    <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnItemAction_Click" OnClientClick="return ConfirmItemDelete();"> <i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                         </ItemTemplate>
@@ -348,13 +485,70 @@
                     <asp:FileUpload ID="fuAssemblyDrawing" runat="server" />
                 </div>
                 <div class="col-md-12 col-sm-12 text-center">
-                    <asp:Button ID="btnAssemblyDrawingSave" runat="server" Text="View" CssClass="btn Save" OnClick="btnAssemblyDrawingSave_Click" Width="100px" />
+                    <asp:Button ID="btnAssemblyDrawingSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAssemblyDrawingSave_Click" Width="100px" />
                 </div>
             </div>
         </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AssemblyDrawing" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAssemblyDrawing" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlSaveToCart" runat="server" CssClass="Popup" Style="display: none" Height="500px">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Save To Cart</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblSaveToCart" runat="server" Text="" CssClass="message" />
+        <div class="col-md-12">
+            <asp:GridView ID="gvToCart" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
+                <Columns>
+                    <asp:TemplateField HeaderText="POS">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Number")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Alt">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblFlag" Text='<%# DataBinder.Eval(Container.DataItem, "Flag")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Material">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Material Desc">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Qty">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <AlternatingRowStyle BackColor="#ffffff" />
+                <FooterStyle ForeColor="White" />
+                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+            </asp:GridView>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveToCart" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveToCart_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_SaveToCart" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSaveToCart" BackgroundCssClass="modalBackground" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
@@ -398,11 +592,11 @@
         var y = Math.round(event.clientY - rect.top);
 
         var xyUpdate = <%=this.xyUpdate%>;
+        var xyBulkUpdate = <%=this.xyBulkUpdate%>;
 
         var grid = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts');
         var rows = grid.getElementsByTagName('tr');
         var rowCount = rows.length - 1;
-        debugger;
         if (xyUpdate == 1) {
             for (var i = 0; i < rowCount; i++) {
                 var rbParts = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_rbParts_' + i);
@@ -423,6 +617,41 @@
 
                     lblX_CoOrdinate.innerText = x;
                     lblY_CoOrdinate.innerText = y;
+                }
+            }
+        }
+        else if (xyBulkUpdate == 1) {
+
+            var hdnUpdatedIDs = document.getElementById('<%= hdnUpdatedIDs.ClientID %>');
+            var hdnX = document.getElementById('<%= hdnX.ClientID %>');
+            var hdnY = document.getElementById('<%= hdnY.ClientID %>');
+            if (hdnX.value !== "") {
+                debugger;
+                let lastX = hdnX.value.split(",").pop();
+                let lastY = hdnY.value.split(",").pop();
+                if (lastX >= x - 5 && lastX <= x + 5 && lastY >= y - 5 && lastY <= y + 5) {
+                    alert("Kindly verify whether the last XY coordinate aligns with the current point.");
+                    return;
+                }
+            }
+            for (var i = 0; i < rowCount; i++) {
+                var rbParts = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_rbParts_' + i);
+                if (rbParts.checked == false) {
+                    rbParts.checked = true;
+                    var lblX_CoOrdinate = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblX_CoOrdinate_' + i);
+                    var lblY_CoOrdinate = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblY_CoOrdinate_' + i);
+                    var lblID = document.getElementById('MainContent_UC_SpcAssemblyView_gvParts_lblSpcAssemblyPartsCoOrdinateID_' + i);
+
+
+
+                    hdnUpdatedIDs.value = hdnUpdatedIDs.value + ',' + lblID.innerText;
+                    hdnX.value = hdnX.value + ',' + x;
+                    hdnY.value = hdnY.value + ',' + y;
+
+                    lblX_CoOrdinate.innerText = x;
+                    lblY_CoOrdinate.innerText = y;
+                    mousemove(event);
+                    break;
                 }
             }
         }

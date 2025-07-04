@@ -1496,7 +1496,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
-                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
+                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName.Replace(',', ' ') + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
 
                 lblMessage.Visible = true;
@@ -1979,7 +1979,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
-                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
+                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName.Replace(',', ' ') + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
                 string mimeType = string.Empty;
                 Byte[] mybytes = TaxQuotationRdlc(out mimeType, Consolidated);

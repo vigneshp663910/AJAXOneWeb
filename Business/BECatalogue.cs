@@ -12,6 +12,11 @@ namespace Business
 {
     public class BECatalogue
     {
+        public List<PDMS_Model> GetSpcModel(int? DivisionID, int? ModelID, string ModelCode)
+        {
+            string endPoint = "ECatalogue/GetSpcModel?DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&ModelCode=" + ModelCode;
+            return JsonConvert.DeserializeObject<List<PDMS_Model>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public PApiResult GetSpcAssembly(int? DivisionID,int? ModelID, int? SpcAssemblyID,string AssemblyCode, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "ECatalogue/GetSpcAssembly?DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&SpcAssemblyID=" + SpcAssemblyID 

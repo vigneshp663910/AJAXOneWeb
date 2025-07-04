@@ -86,7 +86,7 @@ namespace DealerManagementSystem.ViewECatalogue
                 PageCount = 0;
                 PageIndex = 1;
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
-                new DDLBind(ddlModel, new BDMS_Model().GetModel(null, null, null), "Model", "ModelID", true, "Select Model");
+                new DDLBind(ddlModel, new BECatalogue().GetSpcModel(null, null, null), "Model", "ModelID", true, "Select Model");
                 fillAssembly();
 
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -198,6 +198,7 @@ namespace DealerManagementSystem.ViewECatalogue
                 Label lblSpcAssemblyImageID = (Label)gvRow.FindControl("lblSpcAssemblyImageID");
                 divList.Visible = false;
                 divDetailsView.Visible = true;
+                UC_SpcAssemblyView.Clear();
                 UC_SpcAssemblyView.fillParts(Convert.ToInt32(lblSpcAssemblyImageID.Text));
             }
             catch (Exception e1)
@@ -207,8 +208,8 @@ namespace DealerManagementSystem.ViewECatalogue
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
-            new DDLBind(ddlModel, new BDMS_Model().GetModel(null, null, DivisionID), "Model", "ModelID", true, "Select Model");
+            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue); 
+            new DDLBind(ddlModel, new BECatalogue().GetSpcModel(DivisionID, null, null), "Model", "ModelID", true, "Select Model"); 
         }
 
         protected void btnAssemblySave_Click(object sender, EventArgs e)
@@ -254,7 +255,8 @@ namespace DealerManagementSystem.ViewECatalogue
         protected void ddlDivisionC_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_AssemblyCreate.Show();
-            new DDLBind(ddlModelAssemblyC, new BDMS_Model().GetModel(null, null,Convert.ToInt32(ddlDivisionC.SelectedValue)), "Model", "ModelID", true, "Select Model");
+            int DivisionCID = Convert.ToInt32(ddlDivisionC.SelectedValue);
+            new DDLBind(ddlModelAssemblyC, new BECatalogue().GetSpcModel(DivisionCID, null, null), "Model", "ModelID", true, "Select Model");
         }
     }
 }

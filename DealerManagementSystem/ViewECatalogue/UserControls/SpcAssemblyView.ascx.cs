@@ -65,6 +65,21 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 ViewState["SPAssemblyImageView_xyUpdate"] = value;
             }
         }
+        public int xyBulkUpdate
+        {
+            get
+            {
+                if (ViewState["SPAssemblyImageView_xyBulkUpdate"] == null)
+                {
+                    ViewState["SPAssemblyImageView_xyBulkUpdate"] = 0;
+                }
+                return (int)ViewState["SPAssemblyImageView_xyBulkUpdate"];
+            }
+            set
+            {
+                ViewState["SPAssemblyImageView_xyBulkUpdate"] = value;
+            }
+        }
 
         public List<PSpcAssemblyPartsCoOrdinate> PartsListUpload
         {
@@ -97,7 +112,21 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             }
         }
 
-
+        public List<PSpcAssemblyPartsCart_insert> PartsCart
+        {
+            get
+            {
+                if (ViewState["PSpcAssemblyPartsCart_insert_SpcAssemblyView"] == null)
+                {
+                    ViewState["PSpcAssemblyPartsCart_insert_SpcAssemblyView"] = new List<PSpcAssemblyPartsCart_insert>();
+                }
+                return (List<PSpcAssemblyPartsCart_insert>)ViewState["PSpcAssemblyPartsCart_insert_SpcAssemblyView"];
+            }
+            set
+            {
+                ViewState["PSpcAssemblyPartsCart_insert_SpcAssemblyView"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -113,6 +142,15 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 }
             }
 
+        }
+        public void Clear()
+        {
+            xyUpdate = 0;
+            xyBulkUpdate = 0;
+            hdnUpdatedIDs.Value = "";
+            hdnX.Value = "";
+            hdnY.Value = "";
+            ActionControlMange();
         }
         public void fillParts(int SpcAssemblyID)
         {
@@ -160,6 +198,21 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                     RadioButton rbParts = (RadioButton)gvParts.Rows[i].FindControl("rbParts");
                     cbParts.Visible = false;
                     rbParts.Visible = true;
+
+                    cbParts.Checked = false;
+                    rbParts.Checked = false;
+                }
+            }
+            else if (lbActions.ID == "lbUpdateMultyXYCoOrdinate")
+            {
+                xyBulkUpdate = 1;
+                for (int i = 0; i < gvParts.Rows.Count; i++)
+                {
+                    CheckBox cbParts = (CheckBox)gvParts.Rows[i].FindControl("cbParts");
+                    RadioButton rbParts = (RadioButton)gvParts.Rows[i].FindControl("rbParts");
+                    cbParts.Visible = false;
+                    rbParts.Visible = true;
+                    rbParts.Enabled = false;
 
                     cbParts.Checked = false;
                     rbParts.Checked = false;
@@ -226,12 +279,36 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             }
             else if (lbActions.ID == "lbSaveToCart")
             {
+                MPE_SaveToCart.Show();
+                for (int i = 0; i < gvParts.Rows.Count; i++)
+                {
+                    CheckBox cbParts = (CheckBox)gvParts.Rows[i].FindControl("cbParts");
+                    if (cbParts.Checked)
+                    {
+                        Label lblNumber = (Label)gvParts.Rows[i].FindControl("lblNumber");
+                        Label lblFlag = (Label)gvParts.Rows[i].FindControl("lblFlag");
+                        Label lblMaterial = (Label)gvParts.Rows[i].FindControl("lblMaterial");
+                        Label lblMaterialDescription = (Label)gvParts.Rows[i].FindControl("lblMaterialDescription");
+                        Label lblQty = (Label)gvParts.Rows[i].FindControl("lblQty");
+
+                        PartsCart.Add(new PSpcAssemblyPartsCart_insert()
+                        {
+                            Flag = lblFlag.Text,
+                            Material = lblMaterial.Text,
+                            MaterialDescription = lblMaterialDescription.Text,
+                            Number = Convert.ToInt32(lblNumber.Text),
+                            Qty = Convert.ToInt32(lblQty.Text)
+                        });
+                    }
+                }
+                gvToCart.DataSource = PartsCart;
+                gvToCart.DataBind();
             }
             else if (lbActions.ID == "lbUploadParts")
             {
                 MPE_PatrsListUpload.Show();
             }
-            else if (lbActions.ID == "lbDownloadTemplate")  
+            else if (lbActions.ID == "lbDownloadTemplate")
             {
                 string Path = Server.MapPath("~/Templates/AssemblyPatrsList.xlsx");
                 WebClient req = new WebClient();
@@ -274,6 +351,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
         }
         void ActionControlMange()
         {
+            lbUpdateMultyXYCoOrdinate.Visible = true;
             lbEditXYCoOrdinate.Visible = true;
             lbCancelXYCoOrdinate.Visible = true;
             lbSaveXYCoOrdinate.Visible = true;
@@ -286,6 +364,17 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             if (xyUpdate == 1)
             {
                 lbEditXYCoOrdinate.Visible = false;
+                lbUpdateMultyXYCoOrdinate.Visible = false;
+                lbSaveToCart.Visible = false;
+                lbUploadParts.Visible = false;
+                lbDownloadTemplate.Visible = false;
+                lbEditAssembly.Visible = false;
+                lbChangeAssemblyDrawing.Visible = false;
+            }
+            else if (xyBulkUpdate == 1)
+            {
+                lbEditXYCoOrdinate.Visible = false;
+                lbUpdateMultyXYCoOrdinate.Visible = false;
                 lbSaveToCart.Visible = false;
                 lbUploadParts.Visible = false;
                 lbDownloadTemplate.Visible = false;
@@ -298,9 +387,13 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                 lbSaveXYCoOrdinate.Visible = false;
             }
 
+            
+             
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateAssemblyAndCreatePartsCoordinates).Count() == 0)
             {
+                lbUpdateMultyXYCoOrdinate.Visible = false;
                 lbEditXYCoOrdinate.Visible = false;
                 lbCancelXYCoOrdinate.Visible = false;
                 lbSaveXYCoOrdinate.Visible = false; 
@@ -535,6 +628,11 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             AttachedFile.AttachedFile = fileData;
             AttachedFile.AttachedFileID = Assembly.SpcAssemblyID;
             return AttachedFile;
+        }
+
+        protected void btnSaveToCart_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -59,15 +59,19 @@
                         <label>Model</label>
                         <UC:UC_M_Dealer ID="ddlmModel" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
-
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Material</label>
+                        <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>HMR</label>
                         <UC:UC_M_Dealer ID="ddlmHMR" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
+
                     <div class="col-md-1 text-left">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                     </div>
-                   <%-- <div class="col-md-1 text-left">
+                    <%-- <div class="col-md-1 text-left">
                         <asp:Button ID="BtnLineChartData" runat="server" CssClass="btn Search" Text="Line Chart Data" OnClick="BtnLineChartData_Click" Width="117px"></asp:Button>
                     </div>--%>
                     <div class="col-md-1   text-left">
@@ -86,10 +90,10 @@
     <div class="col-md-12">
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Cost / Machine</legend>          
+                <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Cost / Machine</legend>
                 <div class="col-md-12 Report">
-                <div id="divRegionEast"></div>
-                    </div>
+                    <div id="divRegionEast"></div>
+                </div>
             </fieldset>
         </div>
     </div>
@@ -98,12 +102,13 @@
     <div class="col-md-12">
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Data  <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="BtnLineChartData_Click" ToolTip="Excel Download..." /></legend>
-                
+                <legend style="background: none; color: #007bff; font-size: 17px;">Data 
+                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="BtnLineChartData_Click" ToolTip="Excel Download..." /></legend>
+
                 <div class="col-md-12 Report">
 
                     <!-- GridView -->
-                    <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"  ShowFooter="false" EmptyDataText="No Data Found" 
+                    <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="false" EmptyDataText="No Data Found"
                         OnPageIndexChanging="gvData_PageIndexChanging"
                         OnRowDataBound="gvData_RowDataBound">
                         <Columns>
@@ -124,6 +129,13 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-15")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-100">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth0_100" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-100")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 

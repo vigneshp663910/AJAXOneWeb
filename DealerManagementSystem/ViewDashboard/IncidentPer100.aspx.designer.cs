@@ -150,6 +150,15 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::DealerManagementSystem.UserControls.MultiSelectDropDown ddlmModel;
 
         /// <summary>
+        /// txtMaterial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMaterial;
+
+        /// <summary>
         /// ddlmHMR control.
         /// </summary>
         /// <remarks>

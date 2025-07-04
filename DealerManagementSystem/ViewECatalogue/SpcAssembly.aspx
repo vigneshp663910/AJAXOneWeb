@@ -193,7 +193,7 @@
                 <asp:Label ID="lblAssemblyEditMessage" runat="server" Text="" CssClass="message" />
                  <div class="col-md-6 col-sm-12">
                     <label>Division</label>
-                    <asp:DropDownList ID="ddlDivisionC" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDivisionC_SelectedIndexChanged" />
+                    <asp:DropDownList ID="ddlDivisionC" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDivisionC_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label>Model</label>

@@ -59,6 +59,10 @@
                         <label>Model</label>
                         <UC:UC_M_Dealer ID="ddlmModel" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Material</label>
+                        <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
 
                     <div class="col-md-2 text-left">
                         <label>HMR</label>
@@ -125,6 +129,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
+                            <asp:TemplateField HeaderText="HMR 0-100">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth0_100" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-100")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="HMR 0-250">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
@@ -171,6 +182,12 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR All")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                              <asp:TemplateField HeaderText="Total Equipment">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTotalEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Total Equipment")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 

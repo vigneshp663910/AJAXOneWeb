@@ -67,4 +67,17 @@ namespace Properties
         public string Flag { get; set; }
         public string Remarks { get; set; }
     }
+
+    [Serializable]
+    public class PSpcAssemblyPartsCart_insert
+    {
+        public long SpcAssemblyPartsCartID { get; set; }
+        public long SpcMaterialID { get; set; }
+        public string Material { get; set; }
+        public string MaterialDescription { get; set; }
+        public int Qty { get; set; } 
+        public int Number { get; set; }
+        public string Flag { get; set; }
+        public string Remarks { get; set; }
+    }
 }
