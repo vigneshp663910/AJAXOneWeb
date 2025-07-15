@@ -20,7 +20,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlDealerSalesEngineer, DealerUser, "ContactName", "UserID");
 
             int AjaxDealerID = Convert.ToInt32(ConfigurationManager.AppSettings["AjaxDealerID"]);
-            List<PUser> AjaxUser = new BUser().GetUsers(null, null, null, null, AjaxDealerID, true, null, 1, null);
+            List<PUser> AjaxUser = new BUser().GetUsers(null, null, null, null, AjaxDealerID, true, null, null, null);
 
             new DDLBind(ddlAjaxSalesEngineer, AjaxUser, "ContactName", "UserID");
         }

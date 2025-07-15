@@ -28,6 +28,7 @@ namespace DealerManagementSystem
         {
              new BTest().getSalesByYearAndMonth(); 
             new FileLogger().WriteLog("Web Test" + DateTime.Now.ToString());
+            new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=ZYA_ZSync_WarrantyMachine");
         } 
 
         protected void btnAPITest_Click(object sender, EventArgs e)

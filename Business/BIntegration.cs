@@ -115,7 +115,7 @@ namespace Business
                     //    new BDMS_SalesOrder().IntegrationSalesOrderInvoice();
                     //    new FileLogger().LogMessageService("Ended", "IntegrationSalesOrderInvoice", null);
                     //    break;
-                    
+
                     case Jobs.SendMailMttrEscalationMatrix:
                         new BDMS_MTTR().SendMailMttrEscalationMatrix();
                         break;
@@ -123,34 +123,37 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart");
                         break;
                     case Jobs.TaskTicketResolvedAutoClose:
-                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/TaskTicketResolvedAutoClose"));
-                        if (Results.Status == PApplication.Failure)
-                        {
-                            throw new Exception(Results.Message);
-                        }
-                        // new BAPI().ApiGetWithOutToken("SqlJob/TaskTicketResolvedAutoClose");
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=UpdateTicketResolvedAutoClose"));
+                       // Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/TaskTicketResolvedAutoClose"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
                         break;
-                    case Jobs.RebuildIndex: 
-                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/RebuildIndex"));
-                        if (Results.Status == PApplication.Failure)
-                        {
-                            throw new Exception(Results.Message);
-                        }
+                    case Jobs.RebuildMasterIndex:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=RebuildMasterIndex"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
+                        break;
+                    case Jobs.RebuildPreSaleIndex:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=RebuildPreSaleIndex"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
+                        break;
+                    case Jobs.RebuildProcurementSalesIndex:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=RebuildProcurementSalesIndex"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
+                        break;
+                    case Jobs.RebuildServiceIndex:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=RebuildServiceIndex"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
                         break;
                     case Jobs.InsertDealerStockAgeing:
                         Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/InsertDealerStockAgeing"));
-                        if (Results.Status == PApplication.Failure)
-                        {
-                            throw new Exception(Results.Message);
-                        }
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
                         break;
                     case Jobs.InsertIncidentMachine:
-                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/InsertIncidentMachine"));
-                        if (Results.Status == PApplication.Failure)
-                        {
-                            throw new Exception(Results.Message);
-                        }
-                        new BAPI().ApiGetWithOutToken("SqlJob/");
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=ZYA_ZSync_IncidentMachine"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
+                        break;
+                    case Jobs.InsertWarrantyCostPerMachine:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/ExecPro?Pro=ZYA_ZSync_WarrantyMachine"));
+                        if (Results.Status == PApplication.Failure) { throw new Exception(Results.Message); }
                         break;
                 }
                 i = true;
