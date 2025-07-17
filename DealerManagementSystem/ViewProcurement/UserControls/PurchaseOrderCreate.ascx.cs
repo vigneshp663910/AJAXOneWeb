@@ -435,6 +435,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
                 ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
                 ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
+                ddlDivision.Items.Insert(8, new ListItem("UDAAN", "5"));
             } 
             else
             {
