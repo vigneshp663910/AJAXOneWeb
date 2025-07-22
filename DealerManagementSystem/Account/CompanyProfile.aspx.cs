@@ -12,14 +12,9 @@ namespace DealerManagementSystem.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Company Profile');</script>");
-            PUser userDetails = PSession.User;
-            //PUser userDetails = (PUser)Session["userDetails"];
+            PUser userDetails = PSession.User; 
             FillDealerEmployee(Convert.ToInt32(userDetails.DealerEmployeeID));
-            FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID));
-            //FillDealerEmployee(1450);
-            //FillDealerEmployeeRole(1450);
-            //FillDealerEmployee(1166);
-            //FillDealerEmployeeRole(1166);
+            FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID)); 
         }
         void FillDealerEmployee(int DealerEmployeeID)
         {
@@ -60,7 +55,7 @@ namespace DealerManagementSystem.Account
         }
         private void FillDealerEmployeeRole(int DealerEmployeeID)
         {
-            List<PDMS_DealerEmployeeRole> Role = new BDMS_Dealer().GetDealerEmployeeRole(null, DealerEmployeeID, null, null);
+            List<PDMS_DealerEmployeeRole> Role = new BDMS_Dealer().GetDealerEmployeeRole(null, DealerEmployeeID,null,true);
             PDMS_Customer Dealer = new PDMS_Customer();
             if (Role[0].Dealer.DealerCode == "2000")
             {
