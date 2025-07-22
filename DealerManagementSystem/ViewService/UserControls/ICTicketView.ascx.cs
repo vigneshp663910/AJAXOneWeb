@@ -196,8 +196,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblMessageRequestDateChange.Visible = false;
             lblMessageMarginWarrantyRequest.Visible = false;
             lblMessageMarginWarrantyReject.Visible = false;
-            lblMessageFsrSignature.Visible = false;
-            lblMessage.Visible = false;
+            lblMessageFsrSignature.Visible = false;            
+            lblMessage.Text = "";
+            lblHmrDevUpdateMessage.Text = "";
 
             if (!IsPostBack)
             {
@@ -626,8 +627,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Decline Approve")
-            {
-                lblMessage.Visible = true;
+            { 
                 if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(SDMS_ICTicket.ICTicketID, true))
                 {
                     lblMessage.Text = "This IC ticket declined";
@@ -641,8 +641,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
             else if (lbActions.Text == "Decline Reject")
-            {
-                lblMessage.Visible = true;
+            { 
                 if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(SDMS_ICTicket.ICTicketID, false))
                 {
                     lblMessage.Text = "This IC ticket reopened again";
@@ -665,19 +664,17 @@ namespace DealerManagementSystem.ViewService.UserControls
                 //foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
                 //{
                 //    if (!SC.Material.IsMainServiceMaterial)
-                //    {
-                //        lblMessage.Visible = true;
+                //    { 
                 //        lblMessage.Text = "Remove Service Charge then save the call information.";
                 //        return;
                 //    }
                 //} 
                 //foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
-                //{
-                //    lblMessage.Visible = true;
+                //{ 
                 //    lblMessage.Text = "Remove Material Charge then save the call information.";
                 //    return;
                 //}
-                 
+
                 UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket, SS_ServiceMaterial);
                 MPE_CallInformation.Show();
             }
@@ -699,8 +696,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             else if (lbActions.Text == "Add Service Charges")
             {
                 PDMS_ServiceCharge ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false)[0];
-
-                lblMessage.Visible = true;
+                 
                 lblMessage.ForeColor = Color.Red;
                 if (SDMS_ICTicket.ServiceCharges.Count != 0)
                 {
@@ -720,8 +716,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 var productCodes = (from p1 in SDMS_ICTicket.ServiceCharges select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
                 if (productCodes.Count() == 0)
                 {
-                    lblMessage.Text = "Please enter the service code";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Please enter the service code"; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -760,8 +755,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -774,8 +768,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -789,8 +782,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -798,8 +790,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Service Invoice")
-            {
-                lblMessage.Visible = true;
+            { 
                 lblMessage.ForeColor = Color.Red;
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SDMS_ICTicket.Dealer.DealerID, null, null, null)[0];
                 PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SDMS_ICTicket.Customer.CustomerID);
@@ -807,12 +798,12 @@ namespace DealerManagementSystem.ViewService.UserControls
                 {
                     if (string.IsNullOrEmpty(Customer.Address1))
                     {
-                        lblMessage.Text = "Please update Customer Address."; 
+                        lblMessage.Text = "Please update Customer Address.";
                         return;
                     }
                     if (string.IsNullOrEmpty(Customer.City))
                     {
-                        lblMessage.Text = "Please update Customer City."; 
+                        lblMessage.Text = "Please update Customer City.";
                         return;
                     }
                     if (string.IsNullOrEmpty(Customer.Pincode))
@@ -825,7 +816,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message; 
+                    lblMessage.Text = Results.Message;
                     return;
                 }
                 List<PDMS_PaidServiceInvoice> Invoice = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);
@@ -843,8 +834,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -857,8 +847,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -885,8 +874,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -899,8 +887,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -950,17 +937,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             else if (lbActions.Text == "FSR Signature")
             {
                 UC_FsrSignature.FillMaster();
-                MPE_FsrSignature.Show(); 
+                MPE_FsrSignature.Show();
             }
-           
+
             else if (lbActions.Text == "Remove Restore Date")
             {
                 string endPoint = "ICTicket/UpdateICTicketRemoveRestoreDate?ICTicketID=" + SDMS_ICTicket.ICTicketID;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -972,15 +958,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                 if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
                 {
                     lblMessage.Text = "Please Enable GeoLocation...!";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red; 
                     return;
                 }
                 PApiResult Results = new BDMS_ICTicket().InsertICTicketDepartureDate(SDMS_ICTicket.ICTicketID, Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -988,31 +972,36 @@ namespace DealerManagementSystem.ViewService.UserControls
                 FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Reached in Site")
-            { 
+            {
                 txtLocation.Text = "";
                 new BDMS_SiteContactPersonDesignation().GetSiteContactPersonDesignationDDL(ddlDesignation, null, null);
-                MPE_ReachedSite.Show(); 
+                MPE_ReachedSite.Show();
             }
             else if (lbActions.Text == "Arrival Back")
             {
                 if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
                 {
                     lblMessage.Text = "Please Enable GeoLocation...!";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red; 
                     return;
                 }
                 PApiResult Results = new BDMS_ICTicket().InsertICTicketArrivalBackDate(SDMS_ICTicket.ICTicketID, Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
+                    lblMessage.Text = Results.Message; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
                 ShowMessage(Results);
                 FillICTicket(SDMS_ICTicket.ICTicketID);
             }
+            else if (lbActions.ID == "lbtnHmrDevUpdate")
+            {
+                txtOldHMRValue.Text = Convert.ToString(SDMS_ICTicket.LastHMRValue);
+                txtCurrentHMRValue.Text = Convert.ToString(SDMS_ICTicket.CurrentHMRValue);
+                MPE_HmrDevUpdate.Show();
+            }
+                
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -1047,8 +1036,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
-            {
-                lblMessage.Visible = true;
+            { 
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
@@ -1083,8 +1071,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillICTicket(SDMS_ICTicket.ICTicketID);
         }
         protected void lbFSRAttachedFileRemove_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
+        { 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long AttachedFileID = Convert.ToInt64(gvAttachedFile.DataKeys[gvRow.RowIndex].Value);
 
@@ -1192,8 +1179,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             //    lblFSRAttachmentMessage.ForeColor = Color.Green;
             //    return;
             //}
-
-            lblMessage.Visible = true;
+             
             lblMessage.Text = "File is  Added";
             lblMessage.ForeColor = Color.Green;
 
@@ -1209,8 +1195,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
-            {
-                lblMessage.Visible = true;
+            { 
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
@@ -1281,8 +1266,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 if (!((TSIR.Status.StatusID == (short)TSIRStatus.Requested) || (TSIR.Status.StatusID == (short)TSIRStatus.SendBack) || (TSIR.Status.StatusID == (short)TSIRStatus.Rerequested)))
                 {
                     cbCheck.Checked = false;
-                    lblMessage.Text = "You cannot edit this TSIR. It may be Checked or Approved or Rejected";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "You cannot edit this TSIR. It may be Checked or Approved or Rejected"; 
                     lblMessage.ForeColor = Color.Red;
                     // ClearTSIR();
                     return;
@@ -1309,8 +1293,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         //protected void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    lblMessage.Visible = true;
+        //{ 
         //    if (!Validation())
         //    {
         //        return;
@@ -1496,8 +1479,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             GridViewRow row = (GridViewRow)lblAttachedFileAdd.NamingContainer;
             int index = row.RowIndex;
             DropDownList ddlFSRAttachedName = (DropDownList)gvTSIR.Rows[index].FindControl("ddlFSRAttachedName");
-            GridView gvAF = (GridView)gvTSIR.Rows[index].FindControl("gvAttachedFile");
-            lblMessage.Visible = true;
+            GridView gvAF = (GridView)gvTSIR.Rows[index].FindControl("gvAttachedFile"); 
             PDMS_TSIRAttachedFile__M AttachedFile = new PDMS_TSIRAttachedFile__M();
             FileUpload fu = (FileUpload)gvTSIR.Rows[index].FindControl("fu");
             if (fu.PostedFile.FileName.Length == 0)
@@ -1569,8 +1551,7 @@ namespace DealerManagementSystem.ViewService.UserControls
              
         }
         protected void lblAttachedFileRemoveR_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
+        { 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             GridView Parentgrid = (GridView)(gvRow.Parent.Parent);
             long AttachedFileID = Convert.ToInt64(Parentgrid.DataKeys[gvRow.RowIndex].Value);
@@ -1666,8 +1647,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         protected void lblCancelTSIR_Click(object sender, EventArgs e)
-        { 
-            lblMessage.Visible = true;
+        {  
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long TsirID = Convert.ToInt64(gvTSIR.DataKeys[gvRow.RowIndex].Value);
 
@@ -1784,8 +1764,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
-        { 
-            lblMessage.Visible = true;
+        {  
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
 
             long ServiceMaterialID = Convert.ToInt64(gvMaterial.DataKeys[gvRow.RowIndex].Value);
@@ -2086,8 +2065,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             long ServiceTechnicianWorkDateID = Convert.ToInt64(((Label)gvRow.FindControl("lblServiceTechnicianWorkDateID")).Text);
             Label lblWorkedHours = (Label)gvRow.FindControl("lblWorkedHours");
             new BDMS_ICTicket().InsertOrUpdateTechnicianWorkedDateAddOrRemoveICTicket(ServiceTechnicianWorkDateID, SDMS_ICTicket.ICTicketID, null, null, Convert.ToDecimal(lblWorkedHours.Text), true, PSession.User.UserID);
-            lblMessage.Text = "Technician Worked Date Removed";
-            lblMessage.Visible = true;
+            lblMessage.Text = "Technician Worked Date Removed"; 
             lblMessage.ForeColor = Color.Green;
             FillTechniciansByTicketID();
             DropDownList gvddlTechnician = (DropDownList)gvTechnicianWorkDays.FooterRow.FindControl("gvddlTechnician");
@@ -2144,8 +2122,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         //}
         void ShowMessage(PApiResult Results)
         {
-            lblMessage.Text = Results.Message;
-            lblMessage.Visible = true;
+            lblMessage.Text = Results.Message; 
             lblMessage.ForeColor = Color.Green;
         }
 
@@ -2781,8 +2758,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMessageCustomerFeedback.Text = "";
                 return;
             }
-            lblMessage.Text = "";
-            lblMessage.Visible = true;
+            lblMessage.Text = ""; 
             lblMessage.ForeColor = Color.Green;
 
             FillICTicket(SDMS_ICTicket.ICTicketID);
@@ -2962,8 +2938,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PICTicketFSRSignature FSRSignature = new BDMS_ICTicketFSR().GetICTicketFSRSignatureByFsrIDDownload(SDMS_ICTicketFSR.FsrID);
             if(FSRSignature.FSRSignatureID == 0)
             {
-                lblMessage.Text = "FSR Signature is not available";
-                lblMessage.Visible = true;
+                lblMessage.Text = "FSR Signature is not available"; 
                 lblMessage.ForeColor = Color.Red;
 
                 return;
@@ -3052,8 +3027,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 long ServiceChargeID = Convert.ToInt64(gvServiceCharges.DataKeys[gvRow.RowIndex].Value);
                 PDMS_ServiceCharge ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, ServiceChargeID, "", false)[0];
-               
-                lblMessage.Visible = true;
+                
                 lblMessage.ForeColor = Color.Red;
                 if (ServiceCharge.Material.IsMainServiceMaterial)
                 { 
@@ -3075,8 +3049,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red; 
             }
         }
 
@@ -3250,6 +3223,34 @@ namespace DealerManagementSystem.ViewService.UserControls
                     ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
                 }
             } 
+        }
+
+        protected void btnHmrDevUpdate_Click(object sender, EventArgs e)
+        {
+            MPE_HmrDevUpdate.Show();
+            if (string.IsNullOrEmpty(txtOldHMRValue.Text))
+            {
+                lblHmrDevUpdateMessage.Text = "Old HMR Value Not Appear.";
+                lblHmrDevUpdateMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtCurrentHMRValue.Text))
+            {
+                lblHmrDevUpdateMessage.Text = "Please enter Current HMR Value.";
+                lblHmrDevUpdateMessage.ForeColor = Color.Red;
+                return;
+            }
+            PApiResult Results = new BDMS_ICTicket().InsertICTicketHmrDeviation(SDMS_ICTicket.ICTicketID, (int)SDMS_ICTicket.LastHMRValue, Convert.ToInt32(txtCurrentHMRValue.Text));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblHmrDevUpdateMessage.Text = Results.Message;
+                lblHmrDevUpdateMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = Results.Message;
+            lblMessage.ForeColor = Color.Green;
+            FillICTicket(SDMS_ICTicket.ICTicketID);
+            MPE_HmrDevUpdate.Hide();
         }
     }
 }

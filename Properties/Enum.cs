@@ -647,6 +647,7 @@ namespace Properties
         DealerBinLocationCreateUpdateDeleteUpload = 109,
         DealerRetailerCreateUpdateDelete = 110,
         ICTicketEscalationCreateUpdateDelete = 111,
+        ICTicketHMRDeviationUpdate = 113,
     }
     public enum DMS_WarrantyClaimStatus
     {
