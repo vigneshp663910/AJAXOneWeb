@@ -649,6 +649,7 @@ namespace Properties
         DealerRetailerCreateUpdateDelete = 110,
         ICTicketEscalationCreateUpdateDelete = 111,
         CreateAssemblyAndCreatePartsCoordinates = 112,
+        ICTicketHMRDeviationUpdate = 113,
     }
     public enum DMS_WarrantyClaimStatus
     {

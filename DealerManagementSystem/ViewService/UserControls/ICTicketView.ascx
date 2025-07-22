@@ -162,6 +162,7 @@
                 <asp:LinkButton ID="lbtnDepartureToSite" runat="server" OnClick="lbActions_Click">Departure To Site</asp:LinkButton>
                 <asp:LinkButton ID="lbtnReachedInSite" runat="server" OnClick="lbActions_Click">Reached in Site</asp:LinkButton>
                 <asp:LinkButton ID="lbtnArrivalBack" runat="server" OnClick="lbActions_Click">Arrival Back</asp:LinkButton>
+                <asp:LinkButton ID="lbtnHmrDevUpdate" runat="server" OnClick="lbActions_Click">HMR Deviation Update</asp:LinkButton>
             </div>
 
 
@@ -252,7 +253,7 @@
         </div>
     </fieldset>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpCust" runat="server" Font-Bold="True" Font-Size="Medium">
     <asp1:TabPanel ID="tpnlTechnician" runat="server" HeaderText="Technician" Font-Bold="True" ToolTip="">
         <ContentTemplate>
@@ -1590,13 +1591,47 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_ReachedSite" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlReachedSite" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlHmrDevUpdate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueHmrDevUpdate">HMR Deviation Update</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button17" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblHmrDevUpdateMessage" runat="server" Text="" CssClass="message"/>
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">HMR Deviation Update</legend>
+            <div class="col-md-12">
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Old HMR Value</label>
+                    <asp:TextBox ID="txtOldHMRValue" runat="server" CssClass="form-control" AutoComplete="SP" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Current HMR Value</label>
+                    <asp:TextBox ID="txtCurrentHMRValue" runat="server" CssClass="form-control" AutoComplete="SP" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnHmrDevUpdate" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnHmrDevUpdate_Click" OnClientClick="return ConfirmUpdateHMRDeviation();"/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_HmrDevUpdate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlHmrDevUpdate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 <script type="text/javascript">
-
+    function ConfirmUpdateHMRDeviation() {
+        var x = confirm("Are you sure you want to Update HMR Deviation?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
     function collapseExpand(obj) {
         var gvObject = document.getElementById(obj);
         var imageID = document.getElementById('image' + obj);

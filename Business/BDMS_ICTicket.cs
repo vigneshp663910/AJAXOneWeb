@@ -1294,7 +1294,11 @@ namespace Business
             { }
             return null;
         }
-
+        public PApiResult InsertICTicketHmrDeviation(long ICTicketID, int OldHMR, int NewHMR)
+        {
+            string endPoint = "ICTicket/InsertICTicketHmrDeviation?ICTicketID=" + ICTicketID + "&OldHMR=" + OldHMR + "&NewHMR=" + NewHMR;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
 
     }
 }

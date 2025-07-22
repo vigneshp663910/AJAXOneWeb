@@ -246,7 +246,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
             ddlAssignDealer.Enabled = false;
-            ddlAssignDepartment.Enabled = false;
+            //ddlAssignDepartment.Enabled = false;
             ddlAssignDepartment_SelectedIndexChanged(null, null);
         }
         void FillApproval()
