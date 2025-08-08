@@ -133,7 +133,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             lblAssemblyEditMessage.Text = "";
             lblPatrsListUploadMessage.Text = "";
             lblAssemblyDrawingMessage.Text = "";
-
+            lblSaveToCart.Text = "";
             if (Assembly != null)
             {
                 if (Assembly.Model != null)
@@ -280,6 +280,8 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
             else if (lbActions.ID == "lbSaveToCart")
             {
                 MPE_SaveToCart.Show();
+                PartsCart = new List<PSpcAssemblyPartsCart_insert>();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 for (int i = 0; i < gvParts.Rows.Count; i++)
                 {
                     CheckBox cbParts = (CheckBox)gvParts.Rows[i].FindControl("cbParts");
@@ -290,6 +292,7 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                         Label lblMaterial = (Label)gvParts.Rows[i].FindControl("lblMaterial");
                         Label lblMaterialDescription = (Label)gvParts.Rows[i].FindControl("lblMaterialDescription");
                         Label lblQty = (Label)gvParts.Rows[i].FindControl("lblQty");
+                        Label lblSpcMaterialID = (Label)gvParts.Rows[i].FindControl("lblSpcMaterialID");
 
                         PartsCart.Add(new PSpcAssemblyPartsCart_insert()
                         {
@@ -297,7 +300,8 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
                             Material = lblMaterial.Text,
                             MaterialDescription = lblMaterialDescription.Text,
                             Number = Convert.ToInt32(lblNumber.Text),
-                            Qty = Convert.ToInt32(lblQty.Text)
+                            Qty = Convert.ToInt32(lblQty.Text),
+                            SpcMaterialID = Convert.ToInt32(lblSpcMaterialID.Text)
                         });
                     }
                 }
@@ -632,7 +636,44 @@ namespace DealerManagementSystem.ViewECatalogue.UserControls
 
         protected void btnSaveToCart_Click(object sender, EventArgs e)
         {
+            MPE_SaveToCart.Show();
+            List<PspcCartItem_Insert> CoOrdinate = new List<PspcCartItem_Insert>();
+            foreach (PSpcAssemblyPartsCart_insert co in PartsCart)
+            {
+                CoOrdinate.Add(new PspcCartItem_Insert()
+                {
+                    SpcMaterialID = co.SpcMaterialID,
+                    PartQty = co.Qty
+                });
+            }
+            PspcCart_Insert Cart = new PspcCart_Insert();
+            Cart.SpcAssemblyID = Assembly.SpcAssemblyID;
+            Cart.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            Cart.OfficeID = Convert.ToInt32(ddlOffice.SelectedValue);
+            Cart.Remarks = txtCartRemarks.Text.Trim();
+            Cart.ItemCount = CoOrdinate.Count;
+            Cart.CartItem = CoOrdinate;
+            PApiResult Results = new BECatalogue().InsertorUpdateSpcCart(Cart);
+            if (Results.Status == PApplication.Failure)
+            {
+                lblSaveToCart.Text = Results.Message;
+                return;
+            }
+            MPE_SaveToCart.Hide();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Updated Successfully!');", true);
+            //lblMessage.Text = "";
+            //lblMessage.ForeColor = Color.Green;
+            
+        }
 
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_SaveToCart.Show();
+            ddlOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlOffice.DataValueField = "OfficeID";
+            ddlOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
+            ddlOffice.DataBind();
+            ddlOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

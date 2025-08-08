@@ -40,28 +40,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
-            ddlProductType.Items.Clear();
-            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
-            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
-            { 
-                foreach (PProductType PType in PTypes)
-                {
-                    if (PType.ProductTypeID == (short)ProductType.Udaan)
-                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
-                } 
-            }
-            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
-            {
-                foreach (PProductType PType in PTypes)
-                {
-                    if (PType.ProductTypeID != (short)ProductType.Udaan)
-                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
-                }
-            }
-            else
-            {
-                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID"); 
-            }
+            FillProductType();
 
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID",false);
@@ -115,30 +94,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
-            // new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            // new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID"); 
+            FillProductType();
 
-            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
-            ddlProductType.Items.Clear();
-            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
-            {
-                foreach (PProductType PType in PTypes)
-                {
-                    if (PType.ProductTypeID == (short)ProductType.Udaan)
-                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
-                }
-            }
-            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
-            {
-                foreach (PProductType PType in PTypes)
-                {
-                    if (PType.ProductTypeID != (short)ProductType.Udaan)
-                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
-                }
-            }
-            else
-            {
-                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
-            }
+
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID", false);
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
@@ -221,6 +180,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         { 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+        }
+
+        public void FillProductType()
+        {
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            ddlProductType.Items.Clear();
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            //else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            //{
+            //    foreach (PProductType PType in PTypes)
+            //    {
+            //        if (PType.ProductTypeID != (short)ProductType.Udaan)
+            //            ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+            //    }
+            //}
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
+            }
         }
     }
 }

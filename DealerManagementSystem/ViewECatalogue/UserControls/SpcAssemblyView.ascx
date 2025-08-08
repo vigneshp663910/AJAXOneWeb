@@ -248,6 +248,7 @@
                     <asp:TemplateField HeaderText="Material">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
+                            <asp:Label ID="lblSpcMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.SpcMaterialID")%>' runat="server" Visible="false"></asp:Label>
                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.Material")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -499,8 +500,21 @@
         <span id="PopupDialogue">Save To Cart</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12">
+    <div class="model-scroll">
         <asp:Label ID="lblSaveToCart" runat="server" Text="" CssClass="message" />
+        <div class="col-md-6 col-sm-12">
+            <label>Dealer</label>
+            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label>Office</label>
+            <asp:DropDownList ID="ddlOffice" runat="server" CssClass="form-control" />
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label>Remarks</label>
+            <asp:TextBox ID="txtCartRemarks" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+        </div>
+
         <div class="col-md-12">
             <asp:GridView ID="gvToCart" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                 <Columns>
@@ -519,6 +533,7 @@
                     <asp:TemplateField HeaderText="Material">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
+                             
                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>

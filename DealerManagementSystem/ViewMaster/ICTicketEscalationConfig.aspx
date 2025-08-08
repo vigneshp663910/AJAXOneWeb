@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:GridView ID="gvICTicketEscalationConfig" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10">
+                <asp:GridView ID="gvICTicketEscalationConfig" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="1000">
                     <Columns>
                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                             <ItemTemplate>
@@ -145,11 +145,11 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <label class="modal-label">To MailID<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtToMailID" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <label class="modal-label">Cc MailID<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtCcMailID" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>

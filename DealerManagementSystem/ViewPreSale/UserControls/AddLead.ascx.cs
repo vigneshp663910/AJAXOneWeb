@@ -46,14 +46,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
                 }
             }
-            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
-            {
-                foreach (PProductType PType in PTypes)
-                {
-                    if (PType.ProductTypeID != (short)ProductType.Udaan)
-                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
-                }
-            }
+            //else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            //{
+            //    foreach (PProductType PType in PTypes)
+            //    {
+            //        if (PType.ProductTypeID != (short)ProductType.Udaan)
+            //            ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+            //    }
+            //}
             else
             {
                 new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");

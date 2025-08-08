@@ -200,15 +200,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
-            if(Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.RegularCustomer)
-            {
-               if( Enquiry.ProductType.ProductTypeID == (short)ProductType.Udaan)
-                {
-                    lblMessageCustomer.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
-                    return;
-                }
-            }
-            else if (Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.UdaanCustomer)
+            //if(Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.RegularCustomer)
+            //{
+            //   if( Enquiry.ProductType.ProductTypeID == (short)ProductType.Udaan)
+            //    {
+            //        lblMessageCustomer.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
+            //        return;
+            //    }
+            //}
+            //else 
+            if (Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.UdaanCustomer)
             {
                 if (Enquiry.ProductType.ProductTypeID != (short)ProductType.Udaan)
                 {

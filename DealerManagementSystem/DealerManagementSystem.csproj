@@ -502,7 +502,9 @@
     <Content Include="ViewDealerEmployee\UserControls\OnboardEmployeeView.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewECatalogue\SpcAssembly.aspx" />
+    <Content Include="ViewECatalogue\SpcCart.aspx" />
     <Content Include="ViewECatalogue\UserControls\SpcAssemblyView.ascx" />
+    <Content Include="ViewECatalogue\UserControls\SpcCartView.ascx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentClient.aspx" />
@@ -1628,6 +1630,13 @@
     <Compile Include="ViewECatalogue\SpcAssembly.aspx.designer.cs">
       <DependentUpon>SpcAssembly.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewECatalogue\SpcCart.aspx.cs">
+      <DependentUpon>SpcCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcCart.aspx.designer.cs">
+      <DependentUpon>SpcCart.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewECatalogue\UserControls\ImageHandlerECatalogue.ashx.cs">
       <DependentUpon>ImageHandlerECatalogue.ashx</DependentUpon>
     </Compile>
@@ -1637,6 +1646,13 @@
     </Compile>
     <Compile Include="ViewECatalogue\UserControls\SpcAssemblyView.ascx.designer.cs">
       <DependentUpon>SpcAssemblyView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\UserControls\SpcCartView.ascx.cs">
+      <DependentUpon>SpcCartView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\UserControls\SpcCartView.ascx.designer.cs">
+      <DependentUpon>SpcCartView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\Equipment.aspx.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>

@@ -52,6 +52,11 @@ namespace Business
                 + "&AssemblyDescription=" + AssemblyDescription + "&AssemblyType=" + AssemblyType + "&Remarks=" + Remarks;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+
+        public PApiResult InsertorUpdateSpcCart(PspcCart_Insert spcCart)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ECatalogue/InsertorUpdateSpcCart", spcCart));
+        }
         public void DowloadSpcFile(string FileName)
         {
             PAttachedFile Files = null;
@@ -85,5 +90,12 @@ namespace Business
                 throw;
             }
         }
+
+        public PApiResult GetSpcCart(long? spcCartID, int? DealerID, int? OfficeID, string CartOrderNo, string DateFrom, string DateTo,int? DivisionID,int? ModelID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "ECatalogue/GetSpcCart?spcCartID=" + spcCartID + "&DealerID=" + DealerID + "&OfficeID=" + OfficeID
+                + "&CartOrderNo=" + CartOrderNo + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+      }
     }
 }
