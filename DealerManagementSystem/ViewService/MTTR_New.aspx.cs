@@ -69,7 +69,8 @@ namespace DealerManagementSystem.ViewService
                 PageIndex = 1;
 
                 fillStatus();
-                new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                //new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                new BDMS_Master().GetDivisionForSearchGrouped(ddlDivision);
                 new BDMS_Dealer().LoadDealerDDL(ddlDealerCode);
 
                 txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;

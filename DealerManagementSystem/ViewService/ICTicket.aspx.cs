@@ -63,7 +63,8 @@ namespace DealerManagementSystem.ViewService
                 PageCount = 0;
                 PageIndex = 1;
                 fillStatus();
-                new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                // new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                new BDMS_Master().GetDivisionForSearchGrouped(ddlDivision);
                 FillGetServiceType();
 
                 if (!string.IsNullOrEmpty(Request.QueryString["TicketID"]))

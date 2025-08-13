@@ -134,7 +134,10 @@ namespace DealerManagementSystem.ViewService
                 //    btnSearch.Visible = false;
                 //    btnExportExcel.Visible = false;
                 //}
-                new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+
+
+                // new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                new BDMS_Master().GetDivisionForSearchGrouped(ddlDivision);
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)

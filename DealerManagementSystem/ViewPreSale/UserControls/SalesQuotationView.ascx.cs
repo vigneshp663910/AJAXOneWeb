@@ -1575,7 +1575,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
             PDMS_Customer CustomerShipTo = new PDMS_Customer();
-            if (Q.ShipTo != null) { CustomerShipTo = CustomerShipTo = new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID); } else { CustomerShipTo = Q.Lead.Customer; }
+            if (Q.ShipTo != null) 
+            { 
+                //CustomerShipTo =  new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID);
+                CustomerShipTo.ContactPerson = Quotation.ShipTo.ContactPerson;
+                CustomerShipTo.Mobile = Quotation.ShipTo.Mobile;
+                CustomerShipTo.Email = Quotation.ShipTo.Email;
+                CustomerShipTo.Address1 = Quotation.ShipTo.Address1;
+                CustomerShipTo.Address2 = Quotation.ShipTo.Address2;
+                CustomerShipTo.Address3 = Quotation.ShipTo.Address3;
+                CustomerShipTo.Country = new PDMS_Country() { Country = Quotation.ShipTo.Country.Country };
+                CustomerShipTo.State = new PDMS_State() { State = Quotation.ShipTo.State.State };
+                CustomerShipTo.District = new PDMS_District() { District = Quotation.ShipTo.District.District };
+                CustomerShipTo.Tehsil = new PDMS_Tehsil() { Tehsil = Quotation.ShipTo.Tehsil.Tehsil };
+                CustomerShipTo.Pincode = Quotation.ShipTo.Pincode;
+                CustomerShipTo.City = Quotation.ShipTo.City;
+            } 
+            else 
+            { 
+                CustomerShipTo = Q.Lead.Customer; 
+            }
                 ;
             string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : ", " + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : ", " + CustomerShipTo.Address3)).Trim(',', ' ');
             string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : ", " + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : ", " + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');

@@ -160,6 +160,15 @@ namespace Business
             string endPoint = "Master/Division?DivisionID=" + DivisionID + "&DivisionCode=" + DivisionCode;
             return JsonConvert.DeserializeObject<List<PDMS_Division>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public void GetDivisionForSearchGrouped(DropDownList ddl)
+        {
+            string endPoint = "Master/GetDivisionForSearchGrouped";
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            ddl.DataTextField = "DivisionCode";
+            ddl.DataValueField = "DivisionID";
+            ddl.DataSource = dt;
+            ddl.DataBind(); 
+        }
         public List<PICTicketCallCategory> GetICTicketCallCategory(int? CallCategoryID, string CallCategory)
         {
             string endPoint = "Master/ICTicketCallCategory?CallCategoryID=" + CallCategoryID + "&CallCategory=" + CallCategory;
