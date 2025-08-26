@@ -2168,6 +2168,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnReachedInSite.Visible = true;
             lbtnRestore.Visible = true;
             lbtnArrivalBack.Visible = true;
+            lbtnHmrDevUpdate.Visible = true;
 
             // lbtnDeviatedICTicketRequest60Days.Visible = true;
             // lbtnDeviatedICTicketRequestCommissioning.Visible = true;
@@ -2594,6 +2595,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnMarginWarrantyApprove.Visible = false;
                 lbtnMarginWarrantyReject.Visible = false;
+            }
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketHMRDeviationUpdate).Count() == 0)
+            {
+                lbtnHmrDevUpdate.Visible = false;
             }
 
             Boolean MaterialQuotation = true;

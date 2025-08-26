@@ -29,6 +29,7 @@ namespace DealerManagementSystem.ViewDashboard
             ddlmDivision.ButtonClicked += new EventHandler(UserControl_ModelFill);
             if (!IsPostBack)
             {
+                HttpContext.Current.Session["CostPerMachine"] = null;
                 ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer);
                 ddlmDivision.Fill("DivisionDescription", "DivisionID", new BDMS_Master().GetDivision(null, null));
                 UserControl_ModelFill(null, null);
@@ -87,37 +88,21 @@ namespace DealerManagementSystem.ViewDashboard
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            string Dealer = ddlmDealer.SelectedValue;
+            string Region = ddlmRegion.SelectedValue;
+            string ServiceType = ddlmServiceType.SelectedValue;
+            string Division = ddlmDivision.SelectedValue;
+            string Model = ddlmModel.SelectedValue;
+            string Material = txtMaterial.Text.Trim(); 
+            string Gragh = ddlGrapgType.SelectedValue; ;
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text, txtMfgDateTo.Text, txtAsOnDate.Text, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+            HttpContext.Current.Session["CostPerMachine"] = dt;
+            gvData.DataSource = dt;
+            gvData.DataBind();
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
 
         }
-
-        public DataTable GetData()
-        {
-
-            DataTable dt = new DataTable();
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
-            dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
-            return dt;
-        }
-
-        public void PopulateGridView()
-        {
-            DataTable dt = GetData();
-            
-            if (dt.Rows.Count > 0)
-            {
-                gvData.DataSource = dt;
-                gvData.DataBind();
-            }
-        }
-
-     
+      
         [WebMethod]
         public static List<object> RegionEastChart(string DateFrom, string DateTo, string AsOnDate)
         {
@@ -180,14 +165,21 @@ namespace DealerManagementSystem.ViewDashboard
             }
             chartData.Add(ob); 
 
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+            //string Dealer = (string)HttpContext.Current.Session["Dealer"];
+            //string Region = (string)HttpContext.Current.Session["Region"];
+            //string Division = (string)HttpContext.Current.Session["Division"];
+            //string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
+            //string Model = (string)HttpContext.Current.Session["Model"];
+            //string Material = (string)HttpContext.Current.Session["Material"];
+            //string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            //DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+
+            DataTable dt = (DataTable)HttpContext.Current.Session["CostPerMachine"];
+            if (dt == null)
+            {
+                return chartData;
+            }
+
             foreach (DataRow dr in dt.Rows)
             {
 
@@ -299,32 +291,32 @@ namespace DealerManagementSystem.ViewDashboard
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
-            string Dealer = ddlmDealer.SelectedValue;
-            string Region = ddlmRegion.SelectedValue;
-            string ServiceType = ddlmServiceType.SelectedValue;
-            string Division = ddlmDivision.SelectedValue;
-            string Model = ddlmModel.SelectedValue;
-            string Material = txtMaterial.Text.Trim();
+            //    string Dealer = ddlmDealer.SelectedValue;
+            //    string Region = ddlmRegion.SelectedValue;
+            //    string ServiceType = ddlmServiceType.SelectedValue;
+            //    string Division = ddlmDivision.SelectedValue;
+            //    string Model = ddlmModel.SelectedValue;
+            //    string Material = txtMaterial.Text.Trim();
             string HMR = ddlmHMR.SelectedValue;
 
-            HttpContext.Current.Session["Dealer"] = Dealer;
-            HttpContext.Current.Session["Region"] = Region;
-            HttpContext.Current.Session["ServiceType"] = ServiceType;
-            HttpContext.Current.Session["Division"] = Division;
-            HttpContext.Current.Session["Model"] = Model;
-            HttpContext.Current.Session["Material"] = Material;
-            HttpContext.Current.Session["HMR"] = HMR;
-            HttpContext.Current.Session["Gragh"] = ddlGrapgType.SelectedValue;
+            //    HttpContext.Current.Session["Dealer"] = Dealer;
+            //    HttpContext.Current.Session["Region"] = Region;
+            //    HttpContext.Current.Session["ServiceType"] = ServiceType;
+            //    HttpContext.Current.Session["Division"] = Division;
+            //    HttpContext.Current.Session["Model"] = Model;
+            //    HttpContext.Current.Session["Material"] = Material;
+                HttpContext.Current.Session["HMR"] = HMR;
+            //    HttpContext.Current.Session["Gragh"] = ddlGrapgType.SelectedValue;
 
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
 
-            PopulateGridView();
-
+            //PopulateGridView();
         }
 
         protected void BtnLineChartData_Click(object sender, EventArgs e)
         {
-            DataTable dt = GetData();
+            //DataTable dt = GetData();
+            DataTable dt = (DataTable)HttpContext.Current.Session["CostPerMachine"];
             new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine Chart Data");
         }
 
@@ -339,14 +331,7 @@ namespace DealerManagementSystem.ViewDashboard
             string Gragh = (string)HttpContext.Current.Session["Gragh"];
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Material, Gragh, 1)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine");
-        }
-
-
-        protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvData.PageIndex = e.NewPageIndex;
-            //PopulateGridView();
-        }
+        } 
 
         protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
         {

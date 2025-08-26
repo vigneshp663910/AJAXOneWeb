@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="IncidentPer100.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.IncidentPer100" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="IncidentPer100.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.IncidentPer100" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/UserControls/MultiSelectDropDown.ascx" TagPrefix="UC" TagName="UC_M_Dealer" %>
@@ -106,7 +106,7 @@
 
                     <!-- GridView -->
                     <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"  ShowFooter="false" EmptyDataText="No Data Found" 
-                        OnPageIndexChanging="gvData_PageIndexChanging"
+                         
                         OnRowDataBound="gvData_RowDataBound">
                         <Columns>
                             <asp:TemplateField HeaderText="FinYear">

@@ -28,6 +28,7 @@ namespace DealerManagementSystem.ViewDashboard
             ddlmDivision.ButtonClicked += new EventHandler(UserControl_ModelFill);
             if (!IsPostBack)
             {
+                HttpContext.Current.Session["IncidentPer100"] = null;
                 ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer);
                 ddlmDivision.Fill("DivisionDescription", "DivisionID", new BDMS_Master().GetDivision(null, null));
                 UserControl_ModelFill(null, null);
@@ -71,6 +72,7 @@ namespace DealerManagementSystem.ViewDashboard
                 dtHMR.Rows.Add("8", "HMR 0-2000");
                 dtHMR.Rows.Add("9", "HMR All");
                 ddlmHMR.Fill("Type", "Type", dtHMR);
+              //  BtnSearch_Click(null, null);
 
             }
         }
@@ -80,35 +82,23 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
-        {
+        {  
+            string Dealer = ddlmDealer.SelectedValue;
+            string Region = ddlmRegion.SelectedValue;
+            string ServiceType = ddlmServiceType.SelectedValue;
+            string Division = ddlmDivision.SelectedValue;
+            string Model = ddlmModel.SelectedValue;
+            string Material = txtMaterial.Text.Trim();
+            string Gragh = ddlGrapgType.SelectedValue;
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text, txtMfgDateTo.Text, txtAsOnDate.Text, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+            HttpContext.Current.Session["IncidentPer100"] = dt;
+
+            gvData.DataSource = dt;
+            gvData.DataBind();
+
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
         }
-
-        public DataTable GetData()
-        {
-            DataTable dt = new DataTable();
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
-            dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
-            return dt;
-        }
-
-
-        public void PopulateGridView()
-        {
-            DataTable dt = GetData();
-
-            if (dt.Rows.Count > 0)
-            {
-                gvData.DataSource = dt;
-                gvData.DataBind();
-            }
-        }
+ 
 
         [WebMethod]
         public static List<object> IncidentPer(string DateFrom, string DateTo, string AsOnDate)
@@ -171,16 +161,13 @@ namespace DealerManagementSystem.ViewDashboard
                 ob[i] = "HMR All";
             }
             chartData.Add(ob);
-            //chartData.Add(new object[] { "Quarter", "Cost0-15", "Cost0-250", "Cost0-500", "Cost0-750", "Cost0-1000", "Cost0-1500", "Cost0-2000", "Cost_All" });
 
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+
+            DataTable dt = (DataTable)HttpContext.Current.Session["IncidentPer100"];
+            if (dt == null)
+            {
+                return chartData;
+            }
             foreach (DataRow dr in dt.Rows)
             {
 
@@ -239,7 +226,7 @@ namespace DealerManagementSystem.ViewDashboard
                 //    , Convert.ToInt32(dr["Cost0-2000"]), Convert.ToInt32(dr["Cost_All"])
                 //});
             }
-           if(chartData.Count==1)
+            if (chartData.Count == 1)
             {
                 object[] obtData = new object[hmrObt.Count + 1];
                 i = 0;
@@ -262,7 +249,7 @@ namespace DealerManagementSystem.ViewDashboard
                 if (hmrObt.Contains("HMR 0-500"))
                 {
                     i = i + 1;
-                    obtData[i] =0;
+                    obtData[i] = 0;
                 }
                 if (hmrObt.Contains("HMR 0-750"))
                 {
@@ -296,44 +283,26 @@ namespace DealerManagementSystem.ViewDashboard
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
+            HttpContext.Current.Session["HMR"] = ddlmHMR.SelectedValue;
+            ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
+        }
+
+        protected void BtnLineChartData_Click(object sender, EventArgs e)
+        {
+            // DataTable dt = GetData();
+            DataTable dt = (DataTable)HttpContext.Current.Session["IncidentPer100"];
+            new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine Chart Data");
+        }
+
+        protected void BtnDetailData_Click(object sender, EventArgs e)
+        { 
             string Dealer = ddlmDealer.SelectedValue;
             string Region = ddlmRegion.SelectedValue;
             string ServiceType = ddlmServiceType.SelectedValue;
             string Division = ddlmDivision.SelectedValue;
             string Model = ddlmModel.SelectedValue;
             string Material = txtMaterial.Text.Trim();
-            string HMR = ddlmHMR.SelectedValue;
-
-            HttpContext.Current.Session["Dealer"] = Dealer;
-            HttpContext.Current.Session["Region"] = Region;
-            HttpContext.Current.Session["ServiceType"] = ServiceType;
-            HttpContext.Current.Session["Division"] = Division;
-            HttpContext.Current.Session["Model"] = Model;
-            HttpContext.Current.Session["Material"] = Material;
-            HttpContext.Current.Session["HMR"] = HMR;
-            HttpContext.Current.Session["Gragh"] = ddlGrapgType.SelectedValue;
-
-            ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
-
-            PopulateGridView();
-
-        }
-
-        protected void BtnLineChartData_Click(object sender, EventArgs e)
-        {
-            DataTable dt = GetData();
-            new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine Chart Data");
-        }
-
-        protected void BtnDetailData_Click(object sender, EventArgs e)
-        {
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            string Gragh = ddlGrapgType.SelectedValue;
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Material, Gragh, 1)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine");
         }
@@ -354,5 +323,194 @@ namespace DealerManagementSystem.ViewDashboard
               
             }
         }
+
+
+
+
+
+        //[WebMethod]
+        //public static List<object> IncidentPer(string DateFrom, string DateTo, string AsOnDate)
+        //{
+        //    string HMR = (string)HttpContext.Current.Session["HMR"];
+
+        //    if (string.IsNullOrEmpty(HMR))
+        //    {
+        //        HMR = "HMR 0-15,HMR 0-100,HMR 0-250,HMR 0-500,HMR 0-750,HMR 0-1000,HMR 0-1500,HMR 0-2000,HMR All";
+        //    }
+
+        //    List<string> hmrObt = HMR.Split(',').ToList();
+        //    List<object> chartData = new List<object>();
+        //    object[] ob = new object[hmrObt.Count + 1];
+        //    int i = 0;
+        //    ob[i] = "Quarter";
+        //    if (hmrObt.Contains("HMR 0-15"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-15";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-100"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-100";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-250"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-250";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-500"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-500";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-750"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-750";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-1000"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-1000";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-1500"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-1500";
+        //    }
+        //    if (hmrObt.Contains("HMR 0-2000"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR 0-2000";
+        //    }
+        //    if (hmrObt.Contains("HMR All"))
+        //    {
+        //        i = i + 1;
+        //        ob[i] = "HMR All";
+        //    }
+        //    chartData.Add(ob);
+        //    //chartData.Add(new object[] { "Quarter", "Cost0-15", "Cost0-250", "Cost0-500", "Cost0-750", "Cost0-1000", "Cost0-1500", "Cost0-2000", "Cost_All" });
+
+        //    string Dealer = (string)HttpContext.Current.Session["Dealer"];
+        //    string Region = (string)HttpContext.Current.Session["Region"];
+        //    string Division = (string)HttpContext.Current.Session["Division"];
+        //    string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
+        //    string Model = (string)HttpContext.Current.Session["Model"];
+        //    string Material = (string)HttpContext.Current.Session["Material"];
+        //    string Gragh = (string)HttpContext.Current.Session["Gragh"];
+
+        //    DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model, Material, Gragh)).Tables[0];
+        //    foreach (DataRow dr in dt.Rows)
+        //    {
+
+        //        object[] obtData = new object[hmrObt.Count + 1];
+        //        i = 0;
+        //        obtData[i] = Convert.ToString(dr["Quarter"]) + "-" + Convert.ToString(dr["FinYear"]);
+        //        if (hmrObt.Contains("HMR 0-15"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-15"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-100"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-100"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-250"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-250"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-500"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-500"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-750"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-750"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-1000"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-1000"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-1500"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-1500"]);
+        //        }
+        //        if (hmrObt.Contains("HMR 0-2000"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR 0-2000"]);
+        //        }
+        //        if (hmrObt.Contains("HMR All"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = Convert.ToDecimal(dr["HMR All"]);
+        //        }
+        //        chartData.Add(obtData);
+        //        //chartData.Add(new object[] { Convert.ToString(dr["Quarter"]) +"-"+ Convert.ToString(dr["FinYear"])
+        //        //    , Convert.ToInt32(dr["Cost0-15"]), Convert.ToInt32(dr["Cost0-250"]), Convert.ToInt32(dr["Cost0-500"])
+        //        //    , Convert.ToInt32(dr["Cost0-750"]), Convert.ToInt32(dr["Cost0-1000"]), Convert.ToInt32(dr["Cost0-1500"])
+        //        //    , Convert.ToInt32(dr["Cost0-2000"]), Convert.ToInt32(dr["Cost_All"])
+        //        //});
+        //    }
+        //    if (chartData.Count == 1)
+        //    {
+        //        object[] obtData = new object[hmrObt.Count + 1];
+        //        i = 0;
+        //        obtData[i] = 0;
+        //        if (hmrObt.Contains("HMR 0-15"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-100"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-250"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-500"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-750"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-1000"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-1500"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR 0-2000"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        if (hmrObt.Contains("HMR All"))
+        //        {
+        //            i = i + 1;
+        //            obtData[i] = 0;
+        //        }
+        //        chartData.Add(obtData);
+        //    }
+        //    return chartData;
+        //}
     }
 }
