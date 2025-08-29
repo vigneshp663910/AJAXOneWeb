@@ -883,6 +883,7 @@
     <Content Include="Templates\BinLocationMaterialConfig.xlsx" />
     <Content Include="ViewECatalogue\UserControls\ImageHandlerECatalogue.ashx" />
     <Content Include="Templates\AssemblyPatrsList.xlsx" />
+    <Content Include="Templates\PoMaterial.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

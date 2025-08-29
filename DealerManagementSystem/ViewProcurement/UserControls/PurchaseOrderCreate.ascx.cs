@@ -660,14 +660,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
          
         void DownloadMaterialTemplate()
         {
-            string Path = Server.MapPath("~/Templates/Material.xlsx");
+            string Path = Server.MapPath("~/Templates/PoMaterial.xlsx");
             WebClient req = new WebClient();
             HttpResponse response = HttpContext.Current.Response;
             response.Clear();
             response.ClearContent();
             response.ClearHeaders();
             response.Buffer = true;
-            response.AddHeader("Content-Disposition", "attachment;filename=\"Material.xlsx\"");
+            response.AddHeader("Content-Disposition", "attachment;filename=\"PoMaterial.xlsx\"");
             byte[] data = req.DownloadData(Path);
             response.BinaryWrite(data);
             // Append cookie
@@ -921,12 +921,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                 List<PDMS_Material> Material = Materials.Where(s => s.MaterialCode == MaterialCode).ToList();
                                 if (Material.Count == 0)
                                 {
-                                    MaterialIssue.Add(MaterialCode, "Material (" + MaterialCode + ") is not available.");
+                                    try
+                                    {
+                                        MaterialIssue.Add(MaterialCode, "Material (" + MaterialCode + ") is not available.");
+                                    }
+                                    catch(Exception e2)
+                                    {
+                                        throw new Exception(e2.Message + " Material : " + ExcelMaterialCode);
+                                    }
                                     continue;
                                 }
                                 if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Material[0].MaterialID))
                                 {
-                                    MaterialIssue.Add(Material[0].MaterialCode, "Duplicate Material (" + Material[0].MaterialCode + ") Found. It is removed in list");
+
+                                    try
+                                    {
+                                        MaterialIssue.Add(Material[0].MaterialCode, "Duplicate Material (" + Material[0].MaterialCode + ") Found. It is removed in list");
+                                    }
+                                    catch (Exception e2)
+                                    {
+                                        throw new Exception(e2.Message + " Material : " + ExcelMaterialCode);
+                                    }
                                     continue;
                                 }
 
@@ -935,7 +950,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                     string Message = AddMaterial(Material[0], Convert.ToString(Cells[2].Value));
                                     if (!string.IsNullOrEmpty(Message))
                                     {
-                                        MaterialIssue.Add(MaterialCode, Message);
+                                        try
+                                        {
+                                            MaterialIssue.Add(MaterialCode, Message);
+                                        }
+                                        catch (Exception e2)
+                                        {
+                                            throw new Exception(e2.Message + " Material : " + ExcelMaterialCode);
+                                        }
                                         continue;
                                     }
                                 }
