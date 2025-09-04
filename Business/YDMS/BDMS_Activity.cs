@@ -988,5 +988,13 @@ namespace Business
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
         }
+
+        public PApiResult GetMarketingClaimReport(int? DealerID, string ActivityType, int? StatusID, string FromDate, string ToDate, int Excel, int? PageIndex = null, int? PageSize = null)
+        { 
+            string endPoint = "Marketing/GetMarketingClaimReport?DealerID=" + DealerID + "&ActivityType=" + ActivityType + "&StatusID=" + StatusID + "&FromDate=" + FromDate + "&ToDate=" + ToDate
+                + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize; ;
+
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

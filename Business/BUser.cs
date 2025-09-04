@@ -1185,5 +1185,16 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
+
+        public PApiResult ForgetPassword(string Username)
+        {
+            string endPoint = "User/ForgetPassword?Username=" + Username;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult ResetPassword(string Username, string OTP, string Password)
+        {
+            string endPoint = "User/ResetPassword?Username=" + Username + "&OTP=" + OTP + "&Password=" + Password;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

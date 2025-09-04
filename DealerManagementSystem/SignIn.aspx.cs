@@ -206,141 +206,212 @@ namespace DealerManagementSystem
                 lblMessage.ForeColor = Color.Red; 
             }
         }
-        protected void lForgetPassword_Click(object sender, EventArgs e)
-        { 
-            lblMessage.ForeColor = Color.Red; 
-            if (string.IsNullOrEmpty(txtUsername.Text))
-            {
-                lblMessage.Text = "Please Enter UserName...!"; 
-                return;
-            }
-            PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
-            if (!string.IsNullOrEmpty(userDetails.UserName))
-            {
-                if(userDetails.IsLocked)
-                {
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin"; 
-                    return;
-                }
-                FldSignin.Visible = false;
-                FldResetPassword.Visible = true;
-                UserID = userDetails.UserID;
 
-                // Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "", true);
-            }
-            else
-            {
-                lblMessage.Text = "Invalid UserName...!";  
-                return;
-            }
-        }
-        private int RandomNumber(int min, int max)
+        protected void LnkForgotPassword_Click(object sender, EventArgs e)
         {
-            Random random = new Random();
-            return random.Next(min, max);
-        }
+            lblMessage.ForeColor = Color.Red;
+            if (string.IsNullOrEmpty(txtUsername.Text.Trim()))
+            {
+                lblMessage.Text = "Please Enter UserName...!";
+                return;
+            }
 
-        protected void BtnReset_Click(object sender, EventArgs e)
-        { 
+            PApiResult result = new BUser().ForgetPassword(txtUsername.Text.Trim());
+            if (result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = result.Message;
+                return;
+            }
+            FldSignin.Visible = false;
+            FldResetPassword.Visible = true;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
+
+        }
+        protected void BtnSendOTP_Click(object sender, EventArgs e)
+        {
             lblMessage.ForeColor = Color.Red;
             try
             { 
+                PApiResult result = new BUser().ForgetPassword(txtUsername.Text.Trim());
+                if (result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = result.Message;
+                    return;
+                }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true); 
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+            }
+        }
+        protected void BtnReset_Click(object sender, EventArgs e)
+        {
+            lblMessage.ForeColor = Color.Red;
+            try
+            {
                 if (string.IsNullOrEmpty(txtOTP.Text))
                 {
-                    lblMessage.Text = "Please Enter OTP...!"; 
+                    lblMessage.Text = "Please Enter OTP...!";
                     return;
                 }
                 if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
                 {
-                    lblMessage.Text = "Please Provide Another Password...!";  
+                    lblMessage.Text = "Please Provide Another Password...!";
                     return;
                 }
-                if (UserID != 0)
+                PApiResult result = new BUser().ResetPassword(txtUsername.Text.Trim(), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim());
+                if (result.Status == PApplication.Failure)
                 {
-                    PUser userDetails = new BUser().GetUserDetails(UserID);
-                    if (userDetails.IsLocked)
-                    {
-                        lblMessage.Text = "Your ID is Locked. Please contact Admin";
-                        return;
-                    }
-                    if (OTP != txtOTP.Text.Trim())
-                    {
-                        OtpMisMatchCount = OtpMisMatchCount + 1;
-                        lblMessage.Text = "Your OTP is not Matching";
-                        if (OtpMisMatchCount > 4)
-                        {
-                            OtpMisMatchCount = 0;
-                            LockUser(txtUsername.Text);
-                            lblMessage.Text = "Your ID is Locked. Please contact Admin";
-                        }                     
-                        return;
-                    }
-                    if (new BUser().ChangePassword(UserID, txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text, "Reset") == 1)
-                    {
-                        PUser user = new BUser().GetUserDetails(UserID);
-                        txtUsername.Text = user.UserName;
-                        txtPassword.Text = txtRRetypePassword.Text;
-                        login();
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Your Password is not changed successfully, please try again...!";  
-                        return;
-                    }
+                    lblMessage.Text = result.Message;
+                    return;
                 }
+                login(); 
+                txtPassword.Text = txtRNewPassword.Text;
+                login();
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.Message.ToString();  
+                lblMessage.Text = e1.Message.ToString();
                 return;
             }
         }
-        protected void BtnSendOTP_Click(object sender, EventArgs e)
-        { 
-            lblMessage.ForeColor = Color.Red;
-            try
-            {
-                PUser userDetails = new BUser().GetUserDetails(UserID);
-                if (userDetails.IsLocked)
-                {
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
-                    return;
-                }
-                OtpCount = OtpCount + 1;
-                if (OtpCount > 4)
-                {
-                    LockUser(txtUsername.Text);
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
-                    OtpCount = 0;
-                    return;
-                }
-               
-                if (!string.IsNullOrEmpty(userDetails.UserName))
-                {
-                    OTP = RandomNumber(000000, 999999).ToString("000000");
-                    new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(OTP));
-                    string messageBody = MailFormate.ForgotPassword;
-                    messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
-                    messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
-                    messageBody = messageBody.Replace("@@Password", OTP);
-                    messageBody = messageBody.Replace("@@URL", "");
-                    new EmailManager().MailSend(userDetails.Mail, "", "Password Reset Request", messageBody);
 
-                    //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
-                    messageBody = "Dear User, Your OTP for login is " + OTP + ". From AJAX ENGG";
-                    new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
-                }
-                else
-                {
-                    lblMessage.Text = "Invalid UserName...!";   
-                }
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
-                //ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:OTP(); ", true);
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();  
-            }
-        }
+        //protected void lForgetPassword_Click(object sender, EventArgs e)
+        //{ 
+        //    lblMessage.ForeColor = Color.Red; 
+        //    if (string.IsNullOrEmpty(txtUsername.Text))
+        //    {
+        //        lblMessage.Text = "Please Enter UserName...!"; 
+        //        return;
+        //    }
+        //    PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
+        //    if (!string.IsNullOrEmpty(userDetails.UserName))
+        //    {
+        //        if(userDetails.IsLocked)
+        //        {
+        //            lblMessage.Text = "Your ID is Locked. Please contact Admin"; 
+        //            return;
+        //        }
+        //        FldSignin.Visible = false;
+        //        FldResetPassword.Visible = true;
+        //        UserID = userDetails.UserID;
+
+        //        // Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "", true);
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "Invalid UserName...!";  
+        //        return;
+        //    }
+        //}
+        //private int RandomNumber(int min, int max)
+        //{
+        //    Random random = new Random();
+        //    return random.Next(min, max);
+        //}
+
+        //protected void BtnReset_Click(object sender, EventArgs e)
+        //{ 
+        //    lblMessage.ForeColor = Color.Red;
+        //    try
+        //    { 
+        //        if (string.IsNullOrEmpty(txtOTP.Text))
+        //        {
+        //            lblMessage.Text = "Please Enter OTP...!"; 
+        //            return;
+        //        }
+        //        if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
+        //        {
+        //            lblMessage.Text = "Please Provide Another Password...!";  
+        //            return;
+        //        }
+        //        if (UserID != 0)
+        //        {
+        //            PUser userDetails = new BUser().GetUserDetails(UserID);
+        //            if (userDetails.IsLocked)
+        //            {
+        //                lblMessage.Text = "Your ID is Locked. Please contact Admin";
+        //                return;
+        //            }
+        //            if (OTP != txtOTP.Text.Trim())
+        //            {
+        //                OtpMisMatchCount = OtpMisMatchCount + 1;
+        //                lblMessage.Text = "Your OTP is not Matching";
+        //                if (OtpMisMatchCount > 4)
+        //                {
+        //                    OtpMisMatchCount = 0;
+        //                    LockUser(txtUsername.Text);
+        //                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
+        //                }                     
+        //                return;
+        //            }
+        //            if (new BUser().ChangePassword(UserID, txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text, "Reset") == 1)
+        //            {
+        //                PUser user = new BUser().GetUserDetails(UserID);
+        //                txtUsername.Text = user.UserName;
+        //                txtPassword.Text = txtRRetypePassword.Text;
+        //                login();
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "Your Password is not changed successfully, please try again...!";  
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e1)
+        //    {
+        //        lblMessage.Text = e1.Message.ToString();  
+        //        return;
+        //    }
+        //}
+        //protected void BtnSendOTP_Click(object sender, EventArgs e)
+        //{ 
+        //    lblMessage.ForeColor = Color.Red;
+        //    try
+        //    {
+        //        PUser userDetails = new BUser().GetUserDetails(UserID);
+        //        if (userDetails.IsLocked)
+        //        {
+        //            lblMessage.Text = "Your ID is Locked. Please contact Admin";
+        //            return;
+        //        }
+        //        OtpCount = OtpCount + 1;
+        //        if (OtpCount > 4)
+        //        {
+        //            LockUser(txtUsername.Text);
+        //            lblMessage.Text = "Your ID is Locked. Please contact Admin";
+        //            OtpCount = 0;
+        //            return;
+        //        }
+
+        //        if (!string.IsNullOrEmpty(userDetails.UserName))
+        //        {
+        //            OTP = RandomNumber(000000, 999999).ToString("000000");
+        //            new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(OTP));
+        //            string messageBody = MailFormate.ForgotPassword;
+        //            messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+        //            messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+        //            messageBody = messageBody.Replace("@@Password", OTP);
+        //            messageBody = messageBody.Replace("@@URL", "");
+        //            new EmailManager().MailSend(userDetails.Mail, "", "Password Reset Request", messageBody);
+
+        //            //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
+        //            messageBody = "Dear User, Your OTP for login is " + OTP + ". From AJAX ENGG";
+        //            new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = "Invalid UserName...!";   
+        //        }
+        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
+        //        //ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:OTP(); ", true);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message.ToString();  
+        //    }
+        //}
     }
 }

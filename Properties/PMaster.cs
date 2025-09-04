@@ -171,4 +171,24 @@ namespace Properties
         public string EscalationHours { get; set; }
         public bool IsActive { get; set; }
     }
+
+    [Serializable]
+    public class PInvoiceAdress
+    {
+        public long ID { get; set; }
+        public string SupplierGSTIN { get; set; }
+        public string Supplier_addr1 { get; set; }
+        public string Supplier_addr2 { get; set; }
+        public string SupplierLocation { get; set; }
+        public string SupplierPincode { get; set; }
+        public string SupplierStateCode { get; set; }
+
+        public string BuyerName { get; set; }
+        public string BuyerGSTIN { get; set; }
+        public string BuyerStateCode { get; set; }
+        public string Buyer_addr1 { get; set; }
+        public string Buyer_addr2 { get; set; }
+        public string Buyer_loc { get; set; }
+        public string BuyerPincode { get; set; }
+    }
 }

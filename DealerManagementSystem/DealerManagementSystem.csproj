@@ -534,6 +534,7 @@
     <Content Include="ViewMarketing\ActivityPlan.aspx" />
     <Content Include="ViewMarketing\ClaimApproval.aspx" />
     <Content Include="ViewMarketing\ClaimEntry.aspx" />
+    <Content Include="ViewMarketing\ClaimReport.aspx" />
     <Content Include="ViewMarketing\LostCustomerData.aspx" />
     <Content Include="ViewMarketing\RollingPlanModelWise.aspx" />
     <Content Include="ViewMarketing\ActivityInfoM.aspx" />
@@ -1857,6 +1858,13 @@
     </Compile>
     <Compile Include="ViewMarketing\ClaimEntry.aspx.designer.cs">
       <DependentUpon>ClaimEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ClaimReport.aspx.cs">
+      <DependentUpon>ClaimReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ClaimReport.aspx.designer.cs">
+      <DependentUpon>ClaimReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\LostCustomerData.aspx.cs">
       <DependentUpon>LostCustomerData.aspx</DependentUpon>

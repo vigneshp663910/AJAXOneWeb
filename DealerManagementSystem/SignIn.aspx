@@ -436,7 +436,7 @@
                             </div>
                             <div class="col-md-12">
                                 <br />
-                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
+                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="LnkForgotPassword_Click">Forgot password?</asp:LinkButton>
                                 <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>

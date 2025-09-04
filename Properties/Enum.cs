@@ -533,6 +533,7 @@ namespace Properties
         ViewMaster_ICTicketEscalationConfig = 291,
         ViewSales_QuotationTracker = 292,
         ViewECatalogue_SpcAssembly = 293,
+        ViewMarketing_MarketingClaimReport=304
     }
     public enum SubModuleChildMaster
     {
