@@ -321,14 +321,15 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         protected void BtnDetailData_Click(object sender, EventArgs e)
-        {
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Material = (string)HttpContext.Current.Session["Material"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+        {        
+            string Dealer = ddlmDealer.SelectedValue;
+            string Region = ddlmRegion.SelectedValue;
+            string ServiceType = ddlmServiceType.SelectedValue;
+            string Division = ddlmDivision.SelectedValue;
+            string Model = ddlmModel.SelectedValue;
+            string Material = txtMaterial.Text.Trim();
+            string Gragh = ddlGrapgType.SelectedValue; ;
+
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Material, Gragh, 1)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine");
         } 

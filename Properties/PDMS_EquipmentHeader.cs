@@ -66,6 +66,7 @@ namespace Properties
         public PDMS_EquipmentIbase Ibase { get; set; }
         public DateTime? WarrantyStartDate { get; set; }
         public int WarrantyHMR { get; set; }
+        public PPreSalesMasterItem ChannelType { get; set; }
     }
     [Serializable]
     public class PDMS_EquipmentItem

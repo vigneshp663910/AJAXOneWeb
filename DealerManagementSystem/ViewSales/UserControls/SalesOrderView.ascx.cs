@@ -351,10 +351,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     divEquipment.Visible = true;
                     List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
                     new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+                    txtShippingAddress.Visible = false;
+                    lblShippingAddress.Visible = true;
                 }
                 else
                 {
                     divEquipment.Visible = false;
+                    txtShippingAddress.Visible = true;
+                    lblShippingAddress.Visible = false;
                 }
 
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
@@ -406,6 +410,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                    + SOrder.Customer.Pincode + " ,"
                    + SOrder.Customer.District.District + ","
                    + SOrder.Customer.State.State;
+                lblShippingAddress.Text = txtShippingAddress.Text;
 
                 // lblDeliveryAddress.Text = lblBillingAddress.Text;
 

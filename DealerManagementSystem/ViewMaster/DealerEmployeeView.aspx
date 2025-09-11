@@ -332,10 +332,20 @@
                         <asp:TextBox ID="txtSAPEmpCode" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <asp:Button ID="btnSave" runat="server" Text="Update" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClick="btnSave_Click" />
+                        <asp:Button ID="btnSave" runat="server" Text="Update" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClick="btnSave_Click"   OnClientClick="return Confirm('Are you sure you want to Save');"/>
                     </div>
                 </div>
             </fieldset>
         </div>
     </div>
+    <script type="text/javascript">
+    function Confirm(Message) {
+        var x = confirm(Message);
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    } 
+    </script>
 </asp:Content>

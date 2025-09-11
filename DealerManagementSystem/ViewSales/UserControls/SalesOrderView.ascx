@@ -1017,10 +1017,9 @@
                         <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>--%>
                     <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">
-                            Address
-                        </label>
+                        <label class="modal-label">Address</label>
                         <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
+                         <asp:Label ID="lblShippingAddress" runat="server" CssClass="form-control" Height="100%"></asp:Label>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
