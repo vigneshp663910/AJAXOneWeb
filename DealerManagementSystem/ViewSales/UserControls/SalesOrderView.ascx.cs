@@ -350,15 +350,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     divEquipment.Visible = true;
                     List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
-                    new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
-                    txtShippingAddress.Visible = false;
-                    lblShippingAddress.Visible = true;
+                    new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select"); 
                 }
                 else
                 {
-                    divEquipment.Visible = false;
-                    txtShippingAddress.Visible = true;
-                    lblShippingAddress.Visible = false;
+                    divEquipment.Visible = false; 
                 }
 
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
@@ -397,20 +393,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     ShipTo.Address1 = ShipTo.Address1 + "," + ShipTo.Address2 + "," + ShipTo.Address3 + "," + ShipTo.District.District + "," + ShipTo.State.State;
                 }
                 new DDLBind(ddlShiftTo, ShipTos, "Address1", "CustomerShipToID", true, "Select");
-
+                new DDLBind(ddlShippingState, new BDMS_Address().GetState(null,1,null,null,null), "State", "StateID", true, "Select");
+                ddlShippingState.SelectedValue = Convert.ToString(SOrder.Customer.State.StateID);
+                new DDLBind(ddlShippingDistrict, new BDMS_Address().GetDistrict(null, null, SOrder.Customer.State.StateID, null, null,null), "District", "DistrictID", true, "Select");
+                ddlShippingDistrict.SelectedValue = Convert.ToString(SOrder.Customer.District.DistrictID);
+                txtShippingPinCode.Text = SOrder.Customer.Pincode;
                 lblBillingAddress.Text = SOrder.Customer.Address1 + ","
                     + SOrder.Customer.Address2 + ","
                     + SOrder.Customer.Address3 + ","
+                   + SOrder.Customer.Pincode + " ,"
                     + SOrder.Customer.District.District + ","
                     + SOrder.Customer.State.State;
 
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
                    + SOrder.Customer.Address2 + ","
-                   + SOrder.Customer.Address3 + " ,"
-                   + SOrder.Customer.Pincode + " ,"
-                   + SOrder.Customer.District.District + ","
-                   + SOrder.Customer.State.State;
-                lblShippingAddress.Text = txtShippingAddress.Text;
+                   + SOrder.Customer.Address3; 
 
                 // lblDeliveryAddress.Text = lblBillingAddress.Text;
 
@@ -1423,13 +1420,34 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     }
                 }
 
-
+                if (ddlShippingState.SelectedValue == "0")
+                {
+                    lblMessageCreateSODelivery.Text = "Please select the Shipping State.";
+                    return;
+                }
+                else if (ddlShippingDistrict.SelectedValue == "0")
+                {
+                    lblMessageCreateSODelivery.Text = "Please select the Shipping District.";
+                    return;
+                }
+                else if (string.IsNullOrEmpty(txtShippingAddress.Text.Trim()))
+                {
+                    lblMessageCreateSODelivery.Text = "Please enter the Shipping Address.";
+                    return;
+                }
+                else if (string.IsNullOrEmpty(txtShippingPinCode.Text.Trim()))
+                {
+                    lblMessageCreateSODelivery.Text = "Please enter the Shipping Pin Code.";
+                    return;
+                }
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
                     T.EquipmentHeaderID = EquipmentID;
-                    T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
+                    T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue); 
+                    T.ShippingDistrictID = Convert.ToInt32(ddlShippingDistrict.SelectedValue);  
+                    T.ShippingPinCode = txtShippingPinCode.Text;
                     T.ShippingAddress = txtShippingAddress.Text;
                     T.Freight = string.IsNullOrEmpty(txtDeliveryFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryFreight.Text.Trim());
                     T.PackingAndForward = string.IsNullOrEmpty(txtDeliveryPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryPackingAndForward.Text.Trim());
@@ -1537,23 +1555,38 @@ namespace DealerManagementSystem.ViewSales.UserControls
             MPE_Delivery.Show();
             if (ddlShiftTo.SelectedValue == "0")
             {
+                ddlShippingState.SelectedValue = Convert.ToString(SOrder.Customer.State.StateID);
+                ddlShippingDistrict.SelectedValue = Convert.ToString(SOrder.Customer.District.DistrictID);
+                txtShippingPinCode.Text = SOrder.Customer.Pincode;
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
                     + SOrder.Customer.Address2 + ","
-                    + SOrder.Customer.Address3 + " ,"
-                    + SOrder.Customer.Pincode + " ,"
-                    + SOrder.Customer.District.District + ","
-                    + SOrder.Customer.State.State;
+                    + SOrder.Customer.Address3 
+                    //+ " ,"
+                    //+ SOrder.Customer.Pincode + " ,"
+                    //+ SOrder.Customer.District.District + ","
+                    //+ SOrder.Customer.State.State
+                    ;
             }
             else
             {
                 PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
+                ddlShippingState.SelectedValue = Convert.ToString(ShiftTo.State.StateID);
+                ddlShippingDistrict.SelectedValue = Convert.ToString(ShiftTo.District.DistrictID);
+                txtShippingPinCode.Text = ShiftTo.Pincode;
                 txtShippingAddress.Text = ShiftTo.Address1 + ","
                     + ShiftTo.Address2 + ","
-                    + ShiftTo.Address3 + " ,"
-                    + ShiftTo.Pincode
-                     + ShiftTo.District.District + ","
-                    + ShiftTo.State.State;
+                    + ShiftTo.Address3 
+                    //+ " ,"
+                    //+ ShiftTo.Pincode
+                    //+ ShiftTo.District.District + ","
+                    //+ ShiftTo.State.State
+                    ;
             }
+        }
+
+        protected void ddlShippingState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

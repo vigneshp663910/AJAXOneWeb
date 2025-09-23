@@ -443,6 +443,13 @@ namespace Business
                                 W.InvoiceDetails.Buyer_loc = Convert.ToString(dr["Buyer_loc"]);
                                 W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
 
+                                W.InvoiceDetails.ShippingAddress = Convert.ToString(dr["ShippingAddress"]);
+                                W.InvoiceDetails.ShippingPinCode = Convert.ToString(dr["ShippingPinCode"]);
+                                W.InvoiceDetails.ShippingDistrict = Convert.ToString(dr["ShippingDistrict"]);
+                                W.InvoiceDetails.ShippingState = Convert.ToString(dr["ShippingState"]);
+                                W.InvoiceDetails.ShippingStateCode = Convert.ToString(dr["ShippingStateCode"]);
+
+
 
                                 //if (W.Freight != 0)
                                 //{
@@ -590,7 +597,10 @@ namespace Business
                                 W.InvoiceDetails.Buyer_loc = Convert.ToString(dr["Buyer_loc"]);
                                 W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
 
-
+                                W.InvoiceDetails.ShippingAddress = Convert.ToString(dr["ShippingAddress"]);
+                                W.InvoiceDetails.ShippingPinCode = Convert.ToString(dr["ShippingPinCode"]);
+                                W.InvoiceDetails.ShippingDistrict = Convert.ToString(dr["ShippingDistrict"]);
+                                W.InvoiceDetails.ShippingState = Convert.ToString(dr["ShippingState"]);
 
                                 // W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
                             }
@@ -2188,15 +2198,26 @@ namespace Business
                     Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
                 };
 
+                //EInvoice.ShipDtls = new PShipDtls()
+                //{
+                //    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                //    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(), 
+                //    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(), 
+                //    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                //    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                //    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                //};
+
                 EInvoice.ShipDtls = new PShipDtls()
                 {
                     Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
-                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(), 
-                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(), 
-                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
-                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
-                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.ShippingAddress + ", " + Pinv.InvoiceDetails.ShippingDistrict + ", " + Pinv.InvoiceDetails.ShippingState,
+                    Loc = Pinv.InvoiceDetails.ShippingDistrict,
+                    Pin = Pinv.InvoiceDetails.ShippingPinCode,
+                    Stcd = Pinv.InvoiceDetails.ShippingStateCode,
                 };
+
 
                 EInvoice.ItemList = new List<PItemList>();
                 decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,

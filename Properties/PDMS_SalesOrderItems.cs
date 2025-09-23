@@ -340,6 +340,12 @@ namespace Properties
         public string disp_sup_loc { get; set; }
         public string disp_sup_pin { get; set; }
         public string disp_sup_stcd { get; set; }
+
+        public string ShippingAddress { get; set; }
+        public string ShippingPinCode { get; set; }
+        public string ShippingDistrict { get; set; }
+        public string ShippingState { get; set; }
+        public string ShippingStateCode { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryItem
@@ -498,8 +504,11 @@ namespace Properties
         public decimal IGSTValue { get; set; } 
         public long? EquipmentHeaderID { get; set; }
         public int? PaymentModeID { get; set; }
-        public decimal StockAvailable { get; set; }
+        public decimal StockAvailable { get; set; } 
+        public int ShippingDistrictID { get; set; } 
         public string ShippingAddress { get; set; }
+        public string ShippingPinCode { get; set; }
+
         public decimal Freight { get; set; }
         public decimal PackingAndForward { get; set; }
         public string Remarks { get; set; }

@@ -986,14 +986,18 @@
 
             <div class="col-md-12">
                 <div class="col-md-3">
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                         <label>Billing Address </label>
                         <br />
                         <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
-
+                     <div class="col-md-12 col-sm-12" id="divEquipment" runat="server" visible="false">
+                        <label>Equipment Serial No</label>
+                        <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
+                    </div>
                 </div>
                 <div class="col-md-4">
+                   
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">
                             Payment Mode
@@ -1001,26 +1005,7 @@
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12 col-sm-12" id="divEquipment" runat="server" visible="false">
-                        <label>Equipment Serial No</label>
-                        <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
-                    </div>
-                    <%-- <div class="col-md-5">
-                        <label>Delivery Address</label>
-                        <br />
-                        <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
-                    </div>--%>
-                    <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Address</label>
-                        <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
-                         <asp:Label ID="lblShippingAddress" runat="server" CssClass="form-control" Height="100%"></asp:Label>
-                    </div>
+                    
                     <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
                         <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
@@ -1033,18 +1018,34 @@
                         <label class="modal-label">Packing & Forward</label>
                         <asp:TextBox ID="txtDeliveryPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                     </div>
-                    <%--   <div class="col-md-12 col-sm-12">
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">
                             State
                         <samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlShippingState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlShippingState_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">
                             District
                         <samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
-                    </div>--%>
+                        <asp:DropDownList ID="ddlShippingDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Pin Code</label>
+                        <asp:TextBox ID="txtShippingPinCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address</label>
+                        <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox> 
+                    </div>
+                    
+
                 </div>
             </div>
             <br />

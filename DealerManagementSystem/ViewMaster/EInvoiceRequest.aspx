@@ -223,34 +223,34 @@
                                         <asp:TextBox ID="txtBuyerPincode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Pin")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disp Sup Trade Name">
+                                <asp:TemplateField HeaderText="Ship Trade Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldisp_sup_trade_Name" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.DispDtls.Nm")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblShip_trade_Name" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.ShipDtls.LglNm")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disp Sup Addr1">
+                                <asp:TemplateField HeaderText="Ship Addr1">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldisp_sup_addr1" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.DispDtls.Addr1")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblShip_addr1" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.ShipDtls.Addr1")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disp Sup Loc">
+                                <asp:TemplateField HeaderText="Ship Loc">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldisp_sup_loc" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.DispDtls.Loc")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblShip_loc" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.ShipDtls.Loc")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disp Sup Pin">
+                                <asp:TemplateField HeaderText="Ship Pin">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldisp_sup_pin" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.DispDtls.Pin")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblShip_pin" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.ShipDtls.Pin")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disp Sup Stcd">
+                                <asp:TemplateField HeaderText="Ship Stcd">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldisp_sup_stcd" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.DispDtls.Stcd")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblShip_stcd" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.ShipDtls.Stcd")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <%--  <asp:TemplateField HeaderText="TOTALLINE ITEMS">
