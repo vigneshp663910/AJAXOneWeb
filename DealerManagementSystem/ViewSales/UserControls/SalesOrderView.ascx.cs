@@ -1440,6 +1440,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessageCreateSODelivery.Text = "Please enter the Shipping Pin Code.";
                     return;
                 }
+
+                int AddressLength = (txtShippingAddress.Text.Trim() + ", " + ddlShippingDistrict.SelectedItem.Text + ", " + ddlShippingState.SelectedItem.Text).Length;
+
+                if (AddressLength > 100)
+                {
+                    lblMessageCreateSODelivery.Text = "The Shipping Address must be less than 100 characters, including state and district. The current length is " + AddressLength + " characters.";
+                    return;
+                }
+
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
@@ -1556,6 +1565,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (ddlShiftTo.SelectedValue == "0")
             {
                 ddlShippingState.SelectedValue = Convert.ToString(SOrder.Customer.State.StateID);
+                ddlShippingState_SelectedIndexChanged(null, null);
                 ddlShippingDistrict.SelectedValue = Convert.ToString(SOrder.Customer.District.DistrictID);
                 txtShippingPinCode.Text = SOrder.Customer.Pincode;
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
@@ -1571,6 +1581,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
                 ddlShippingState.SelectedValue = Convert.ToString(ShiftTo.State.StateID);
+                ddlShippingState_SelectedIndexChanged(null, null);
                 ddlShippingDistrict.SelectedValue = Convert.ToString(ShiftTo.District.DistrictID);
                 txtShippingPinCode.Text = ShiftTo.Pincode;
                 txtShippingAddress.Text = ShiftTo.Address1 + ","
@@ -1586,7 +1597,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
         protected void ddlShippingState_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            MPE_Delivery.Show();
+            new DDLBind(ddlShippingDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlShippingState.SelectedValue), null, null, null), "District", "DistrictID", true, "Select");
         }
     }
 }
