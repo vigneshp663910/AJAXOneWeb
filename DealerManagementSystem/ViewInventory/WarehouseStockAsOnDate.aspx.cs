@@ -1,0 +1,144 @@
+﻿using Business;
+using Newtonsoft.Json;
+using Properties;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace DealerManagementSystem.ViewInventory
+{
+    public partial class WarehouseStockAsOnDate : BasePage
+    {
+        public override SubModule SubModuleName { get { return SubModule.ViewInventory_WarehouseStockAsOnDate; } }
+       
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Inventory » Warehouse Stock As on Date');</script>");
+            if (!IsPostBack)
+            {
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            }
+        }
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            PageCount = 0;
+            PageIndex = 1;
+            FilStock();
+        }
+        void FilStock()
+        {
+            int? DealerID = null;
+            int? OfficeID = null;
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            }
+            string MaterialCode = txtMaterial.Text.Trim();
+            int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
+            PApiResult Result = new BInventory().GetDealerStockAsOnDate(txtAsOnDAte.Text.Trim(),DealerID, OfficeID, DivisionID, null, MaterialCode, 0, PageIndex, gvStock.PageSize);
+            List<PDealerStock> DealerStock = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            gvStock.DataSource = DealerStock;
+            gvStock.DataBind(); 
+
+            if (Result.RowCount == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
+            else
+            {
+                PageCount = (Result.RowCount + gvStock.PageSize - 1) / gvStock.PageSize;
+                lblRowCount.Visible = true;
+                ibtnArrowLeft.Visible = true;
+                ibtnArrowRight.Visible = true;
+                lblRowCount.Text = (((PageIndex - 1) * gvStock.PageSize) + 1) + " - " + (((PageIndex - 1) * gvStock.PageSize) + gvStock.Rows.Count) + " of " + Result.RowCount;
+            }
+        }
+
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                FilStock();
+            }
+        }
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                FilStock();
+            }
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
+        }
+
+        protected void BtnExcel_Click(object sender, EventArgs e)
+        {
+            int? DealerID = null;
+            int? OfficeID = null;
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            }
+            string MaterialCode = txtMaterial.Text.Trim();
+            int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
+            PApiResult Result = new BInventory().GetDealerStockAsOnDate(txtAsOnDAte.Text.Trim(), DealerID, OfficeID, DivisionID, null, MaterialCode, 1);
+
+            //gvStock.DataSource = ;
+            try
+            {
+                new BXcel().ExporttoExcel(JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data)), "Dealer Stock As on Date");
+            }
+            catch
+            {
+            }
+            finally
+            {
+            }
+        }
+          
+    }
+}

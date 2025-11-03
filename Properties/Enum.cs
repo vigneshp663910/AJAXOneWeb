@@ -307,7 +307,7 @@ namespace Properties
         ViewAdmin_UserMobileApproval = 62,
         ViewService_WarrantyClaimDebitNoteAcknowledge = 63,
         ViewService_WarrantyClaimDebitNoteReport = 64,
-        //UnderCons = 65,
+        ViewInventory_WarehouseStockAsOnDate = 65,
         //UnderCons = 66,
         ViewService_ICTicketFSRManage = 67,
         ViewService_ICTicketTSIRManage = 68,

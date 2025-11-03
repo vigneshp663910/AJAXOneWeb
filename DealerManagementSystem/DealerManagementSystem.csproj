@@ -526,6 +526,7 @@
     <Content Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx" />
     <Content Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx" />
     <Content Include="ViewInventory\WarehouseStock.aspx" />
+    <Content Include="ViewInventory\WarehouseStockAsOnDate.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -1803,6 +1804,13 @@
     </Compile>
     <Compile Include="ViewInventory\WarehouseStock.aspx.designer.cs">
       <DependentUpon>WarehouseStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStockAsOnDate.aspx.cs">
+      <DependentUpon>WarehouseStockAsOnDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStockAsOnDate.aspx.designer.cs">
+      <DependentUpon>WarehouseStockAsOnDate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
