@@ -243,7 +243,6 @@
     <Content Include="autocomplete\jquery-ui.js" />
     <Content Include="BackUp\Home1.aspx" />
     <Content Include="BackUp\SignIn.aspx" />
-    <Content Include="ChangePassword.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -265,6 +264,7 @@
     <Content Include="Home.aspx" />
     <Content Include="HomeWithTiles.aspx" />
     <Content Include="Images\AddEDoc.png" />
+    <Content Include="Images\AddToCart.gif" />
     <Content Include="Images\apple.png" />
     <Content Include="Images\Argo-1000.jpg" />
     <Content Include="Images\ARROW01.png" />
@@ -305,6 +305,7 @@
     <Content Include="Images\pin_end.jpg" />
     <Content Include="Images\pin_start.jpg" />
     <Content Include="Images\Playstore.png" />
+    <Content Include="Images\PopsPartDetails.png" />
     <Content Include="Images\Preview.png" />
     <Content Include="Images\SalesEngg.png" />
     <Content Include="Images\Save.png" />
@@ -317,6 +318,7 @@
     <Content Include="Images\Verified.jpg" />
     <Content Include="Images\vplay.png" />
     <Content Include="Images\vsizegrip.png" />
+    <Content Include="Images\Where1.png" />
     <Content Include="JSAutocomplete\ajax\1.8.3jquery.min.js" />
     <Content Include="JSAutocomplete\ajax\jquery-1.8.0.js" />
     <Content Include="JSAutocomplete\ajax\jquery-ui.css" />
@@ -376,6 +378,17 @@
     <Content Include="Help\Files\Getting Started.pps" />
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
+    <Content Include="Print\SpcDS.xsc">
+      <DependentUpon>SpcDS.xsd</DependentUpon>
+    </Content>
+    <None Include="Print\SpcDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SpcDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Print\SpcDS.xss">
+      <DependentUpon>SpcDS.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="RedirectTo\eCatalogueN.aspx" />
     <Content Include="RedirectTo\SPTN.aspx" />
@@ -469,13 +482,16 @@
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceQuarterWise.aspx" />
     <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
-    <Content Include="ViewChangeHistory\CustomerChangeLogs.aspx" />
-    <Content Include="ViewChangeHistory\DealerChangeLogs.aspx" />
-    <Content Include="ViewChangeHistory\EnquiryChangeLogs.aspx" />
-    <Content Include="ViewChangeHistory\LeadChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\Masters\CustomerChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\Masters\DealerChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\PreSales\EnquiryChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\PreSales\LeadChangeLogs.aspx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
+    <Content Include="ViewChangeHistory\ECatalogue\SpcAssemblyChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\ECatalogue\SpcAssemblyPartsCoOrdinateChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\ECatalogue\SpcModelChangeLogs.aspx" />
     <Content Include="ViewDashboard\BIAdmin.aspx" />
     <Content Include="ViewDashboard\BiEnquiry.aspx" />
     <Content Include="ViewDashboard\BIQuality.aspx" />
@@ -502,10 +518,21 @@
     <Content Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx" />
     <Content Include="ViewDealerEmployee\UserControls\OnboardEmployeeView.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
-    <Content Include="ViewECatalogue\SpcAssembly.aspx" />
+    <Content Include="ViewECatalogue\jquery-resizable.js" />
+    <Content Include="ViewECatalogue\SpcAssemblyDrawing.aspx" />
+    <Content Include="ViewECatalogue\SpcAssemblyDrawingView.aspx" />
+    <Content Include="ViewECatalogue\SpcAssemblyMaster.aspx" />
+    <Content Include="ViewECatalogue\SpcAssemblyParts.aspx" />
+    <Content Include="ViewECatalogue\SpcAssemblyPartsReport.aspx" />
     <Content Include="ViewECatalogue\SpcCart.aspx" />
-    <Content Include="ViewECatalogue\UserControls\SpcAssemblyView.ascx" />
-    <Content Include="ViewECatalogue\UserControls\SpcCartView.ascx" />
+    <Content Include="ViewECatalogue\SpcMaterial.aspx" />
+    <Content Include="ViewECatalogue\SpcMaterialGroup.aspx" />
+    <Content Include="ViewECatalogue\SpcModel.aspx" />
+    <Content Include="ViewECatalogue\SpcModelTree.aspx" />
+    <Content Include="ViewECatalogue\SpcProductGroup.aspx" />
+    <Content Include="ViewECatalogue\test.aspx" />
+    <Content Include="ViewECatalogue\UserControls\SpcAssemblyDView.ascx" />
+    <Content Include="ViewECatalogue\UserControls\SpcAssemblyPartsList.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentClient.aspx" />
@@ -526,7 +553,6 @@
     <Content Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx" />
     <Content Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx" />
     <Content Include="ViewInventory\WarehouseStock.aspx" />
-    <Content Include="ViewInventory\WarehouseStockAsOnDate.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -886,7 +912,9 @@
     <Content Include="Templates\BinLocationMaterialConfig.xlsx" />
     <Content Include="ViewECatalogue\UserControls\ImageHandlerECatalogue.ashx" />
     <Content Include="Templates\AssemblyPatrsList.xlsx" />
+    <Content Include="ViewECatalogue\Spc.Master" />
     <Content Include="Templates\PoMaterial.xlsx" />
+    <Content Include="Templates\AssemblyMasterTemplate.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -962,13 +990,6 @@
     </Compile>
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ChangePassword.aspx.cs">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ChangePassword.aspx.designer.cs">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
     <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.cs">
@@ -1080,6 +1101,11 @@
     <Compile Include="PowerBIFiles\EmbedService.cs" />
     <Compile Include="PowerBIFiles\IEmbedService.cs" />
     <Compile Include="PowerBIFiles\TileEmbedConfig.cs" />
+    <Compile Include="Print\SpcDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpcDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1403,32 +1429,32 @@
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.designer.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewChangeHistory\CustomerChangeLogs.aspx.cs">
+    <Compile Include="ViewChangeHistory\Masters\CustomerChangeLogs.aspx.cs">
       <DependentUpon>CustomerChangeLogs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewChangeHistory\CustomerChangeLogs.aspx.designer.cs">
+    <Compile Include="ViewChangeHistory\Masters\CustomerChangeLogs.aspx.designer.cs">
       <DependentUpon>CustomerChangeLogs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewChangeHistory\DealerChangeLogs.aspx.cs">
+    <Compile Include="ViewChangeHistory\Masters\DealerChangeLogs.aspx.cs">
       <DependentUpon>DealerChangeLogs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewChangeHistory\DealerChangeLogs.aspx.designer.cs">
+    <Compile Include="ViewChangeHistory\Masters\DealerChangeLogs.aspx.designer.cs">
       <DependentUpon>DealerChangeLogs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewChangeHistory\EnquiryChangeLogs.aspx.cs">
+    <Compile Include="ViewChangeHistory\PreSales\EnquiryChangeLogs.aspx.cs">
       <DependentUpon>EnquiryChangeLogs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewChangeHistory\EnquiryChangeLogs.aspx.designer.cs">
+    <Compile Include="ViewChangeHistory\PreSales\EnquiryChangeLogs.aspx.designer.cs">
       <DependentUpon>EnquiryChangeLogs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewChangeHistory\LeadChangeLogs.aspx.cs">
+    <Compile Include="ViewChangeHistory\PreSales\LeadChangeLogs.aspx.cs">
       <DependentUpon>LeadChangeLogs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewChangeHistory\LeadChangeLogs.aspx.designer.cs">
+    <Compile Include="ViewChangeHistory\PreSales\LeadChangeLogs.aspx.designer.cs">
       <DependentUpon>LeadChangeLogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
@@ -1451,6 +1477,27 @@
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcAssemblyChangeLogs.aspx.cs">
+      <DependentUpon>SpcAssemblyChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcAssemblyChangeLogs.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyChangeLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcAssemblyPartsCoOrdinateChangeLogs.aspx.cs">
+      <DependentUpon>SpcAssemblyPartsCoOrdinateChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcAssemblyPartsCoOrdinateChangeLogs.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyPartsCoOrdinateChangeLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcModelChangeLogs.aspx.cs">
+      <DependentUpon>SpcModelChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\ECatalogue\SpcModelChangeLogs.aspx.designer.cs">
+      <DependentUpon>SpcModelChangeLogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\BIAdmin.aspx.cs">
       <DependentUpon>BIAdmin.aspx</DependentUpon>
@@ -1634,12 +1681,47 @@
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.designer.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewECatalogue\SpcAssembly.aspx.cs">
-      <DependentUpon>SpcAssembly.aspx</DependentUpon>
+    <Compile Include="ViewECatalogue\Spc.Master.cs">
+      <DependentUpon>Spc.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewECatalogue\SpcAssembly.aspx.designer.cs">
-      <DependentUpon>SpcAssembly.aspx</DependentUpon>
+    <Compile Include="ViewECatalogue\Spc.Master.designer.cs">
+      <DependentUpon>Spc.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyDrawing.aspx.cs">
+      <DependentUpon>SpcAssemblyDrawing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyDrawing.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyDrawing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyDrawingView.aspx.cs">
+      <DependentUpon>SpcAssemblyDrawingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyDrawingView.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyDrawingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyMaster.aspx.cs">
+      <DependentUpon>SpcAssemblyMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyMaster.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyParts.aspx.cs">
+      <DependentUpon>SpcAssemblyParts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyParts.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyParts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyPartsReport.aspx.cs">
+      <DependentUpon>SpcAssemblyPartsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcAssemblyPartsReport.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyPartsReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewECatalogue\SpcCart.aspx.cs">
       <DependentUpon>SpcCart.aspx</DependentUpon>
@@ -1648,22 +1730,64 @@
     <Compile Include="ViewECatalogue\SpcCart.aspx.designer.cs">
       <DependentUpon>SpcCart.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewECatalogue\SpcMaterial.aspx.cs">
+      <DependentUpon>SpcMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcMaterial.aspx.designer.cs">
+      <DependentUpon>SpcMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcMaterialGroup.aspx.cs">
+      <DependentUpon>SpcMaterialGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcMaterialGroup.aspx.designer.cs">
+      <DependentUpon>SpcMaterialGroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcModel.aspx.cs">
+      <DependentUpon>SpcModel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcModel.aspx.designer.cs">
+      <DependentUpon>SpcModel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcModelTree.aspx.cs">
+      <DependentUpon>SpcModelTree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcModelTree.aspx.designer.cs">
+      <DependentUpon>SpcModelTree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcProductGroup.aspx.cs">
+      <DependentUpon>SpcProductGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\SpcProductGroup.aspx.designer.cs">
+      <DependentUpon>SpcProductGroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewECatalogue\test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewECatalogue\test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewECatalogue\UserControls\ImageHandlerECatalogue.ashx.cs">
       <DependentUpon>ImageHandlerECatalogue.ashx</DependentUpon>
     </Compile>
-    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyView.ascx.cs">
-      <DependentUpon>SpcAssemblyView.ascx</DependentUpon>
+    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyDView.ascx.cs">
+      <DependentUpon>SpcAssemblyDView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyView.ascx.designer.cs">
-      <DependentUpon>SpcAssemblyView.ascx</DependentUpon>
+    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyDView.ascx.designer.cs">
+      <DependentUpon>SpcAssemblyDView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewECatalogue\UserControls\SpcCartView.ascx.cs">
-      <DependentUpon>SpcCartView.ascx</DependentUpon>
+    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyPartsList.aspx.cs">
+      <DependentUpon>SpcAssemblyPartsList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewECatalogue\UserControls\SpcCartView.ascx.designer.cs">
-      <DependentUpon>SpcCartView.ascx</DependentUpon>
+    <Compile Include="ViewECatalogue\UserControls\SpcAssemblyPartsList.aspx.designer.cs">
+      <DependentUpon>SpcAssemblyPartsList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\Equipment.aspx.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
@@ -1804,13 +1928,6 @@
     </Compile>
     <Compile Include="ViewInventory\WarehouseStock.aspx.designer.cs">
       <DependentUpon>WarehouseStock.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewInventory\WarehouseStockAsOnDate.aspx.cs">
-      <DependentUpon>WarehouseStockAsOnDate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewInventory\WarehouseStockAsOnDate.aspx.designer.cs">
-      <DependentUpon>WarehouseStockAsOnDate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
@@ -3885,6 +4002,7 @@
     <Content Include="Print\PartsInvoice.rdlc" />
     <Content Include="Print\PartsInvoiceQRCode.rdlc" />
     <Content Include="Print\SalesMachineInvoice.rdlc" />
+    <Content Include="Print\Spc.rdlc" />
     <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />

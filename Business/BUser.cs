@@ -122,10 +122,7 @@ namespace Business
             //{
             //    throw new LMSException(ErrorCode.GENE, ex);
             //}
-        }
-
-
-
+        }        
         public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
         {
             string endPoint = "User/GetUsers?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID
@@ -151,9 +148,7 @@ namespace Business
             {
                 throw new LMSException(ErrorCode.GENE, ex);
             }
-        }
-        
-
+        } 
         public PContactDetail GetContactDetailByUser(Int64 userID)
         {
             PContactDetail contactDetail = new PContactDetail();
@@ -176,8 +171,7 @@ namespace Business
             {
                 throw new LMSException(ErrorCode.GENE, ex);
             }
-        }
-       
+        }       
         private PContactDetail ConvertToContactDetail(DataRow contactDetailRow)
         {
             return new PContactDetail()
@@ -194,10 +188,7 @@ namespace Business
                 Postcode = Convert.ToString(contactDetailRow["Postcode"]),
                 State = Convert.ToString(contactDetailRow["State"])
             };
-        }
-
-        
-
+        }       
         /// <summary>
         /// When user hanges the password, this method does the basic validations and update the user record
         /// </summary>
@@ -236,11 +227,9 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-
         #endregion
 
         #region Private Methods
-
         /// <summary>
         /// This method is used to validate user authentication
         /// </summary>
@@ -256,7 +245,6 @@ namespace Business
                 throw new LMSFunctionalException(FunctionalErrorCode.AccountLocked);
             else if (!userAuthDetails.IsEnabled)
                 throw new LMSFunctionalException(FunctionalErrorCode.AccountDisabled);
-
         }
         private void ValidateChangePassword(PUser user, string oldPwd, string newPwd, string cnfmNewPwd, string PasswordType)
         {
@@ -289,94 +277,8 @@ namespace Business
         private bool CheckPasswordStandard(string newPwd)
         {
             return Regex.IsMatch(newPwd, @"(?=.*[a-z])(?=.*[@#$%^&+=])(?=.*[0-9]).*$");
-        }
-
-        /// <summary>
-        /// This method is used to convert user datarow to UserVO.
-        /// </summary>
-        /// <param name="userRow"></param>
-        /// <returns></returns>
-        private PUser ConvertToUserVO(DataRow userRow)
-        {
-            return new PUser()
-            {
-                PassWord = Convert.ToString(userRow["LoginPassword"]),
-                UserID = Convert.ToInt32(userRow["UserID"]),
-                UserName = Convert.ToString(userRow["UserName"]),
-                ContactName = Convert.ToString(userRow["ContactName"]),
-                UserTypeID = Convert.ToInt16(userRow["UserTypeID"]),
-                ExternalReferenceID = userRow["ExternalReferenceID"] != DBNull.Value ? Convert.ToString(userRow["ExternalReferenceID"]) : string.Empty,
-
-                IsFirstTimeLogin = Convert.ToBoolean(userRow["IsFirstTime"]),
-                IsLocked = Convert.ToBoolean(userRow["IsLocked"]),
-                IsEnabled = Convert.ToBoolean(userRow["IsEnabled"]),
-                PasswordExpiryDate = Convert.ToDateTime(userRow["PasswordExpirationDate"]),
-                CreatedBy = Convert.ToInt32(userRow["CreatedBy"]),
-                CreatedOn = Convert.ToDateTime(userRow["CreatedOn"]),
-                CreatedByName = Convert.ToString(userRow["UserName"]),
-                SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]),
-                //  IsNatesanGroupUser = userRow.Table.Columns.Contains("SisterCompanyId") ? (userRow["SisterCompanyId"] != DBNull.Value ? true : false) : true,
-                Mail = Convert.ToString(userRow["Mail"]),
-                ContactNumber = Convert.ToString(userRow["ContactNumber"]),
-                IsTechnician = userRow["IsTechnician"] == DBNull.Value ? false : Convert.ToBoolean(userRow["IsTechnician"]),
-            };
-        }
-
-        /// <summary>
-        /// This method is used to convert contact datarow to Contact detail VO.
-        /// </summary>
-        /// <param name="contactDetailRow"></param>
-        /// <returns></returns>
-        private PContactDetail ConvertToContactDetailVO(DataRow contactDetailRow)
-        {
-            return new PContactDetail()
-            {
-                AddressLine1 = Convert.ToString(contactDetailRow["AddressLine1"]),
-                AddressLine2 = Convert.ToString(contactDetailRow["AddressLine2"]),
-                AddressLine3 = Convert.ToString(contactDetailRow["AddressLine3"]),
-                UserID = Convert.ToInt64(contactDetailRow["UserID"]),
-                ContactDetailsID = Convert.ToInt64(contactDetailRow["ContactDetailsID"]),
-                City = Convert.ToString(contactDetailRow["City"]),
-                Country = Convert.ToString(contactDetailRow["Country"]),
-                EmailID = Convert.ToString(contactDetailRow["EmailID"]),
-                Phone = Convert.ToString(contactDetailRow["Phone"]),
-                Postcode = Convert.ToString(contactDetailRow["Postcode"]),
-                State = Convert.ToString(contactDetailRow["State"])
-            };
-        }
-
-        /// <summary>
-        /// This method is used to convert UserVO to UserDAO.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-
-
-
-        /// <summary>
-        /// This method is used to convert UserModuleAccessVO,UserVO to ModuleAccess DAO
-        /// </summary>
-        /// <param name="moduleAccess">UserModuleAccessVO</param>
-        /// <param name="user">UserVO</param>
-        /// <returns>ModuleAccessDAO</returns>
-
-
-        private PUserAudit ConvertToUserAuditVO(DataRow userRow)
-        {
-            return new PUserAudit()
-            {
-                UserId = Convert.ToInt32(userRow["UserId"]),
-                SesionId = Convert.ToString(userRow["SesionId"]),
-                LogoutDate = Convert.ToDateTime(userRow["LogoutDate"]),
-                LoginDate = Convert.ToDateTime(userRow["LoginDate"]),
-                Browser = Convert.ToString(userRow["Browser"]),
-                IPAddress = Convert.ToString(userRow["IPAddress"]),
-                IsSessionExpired = Convert.ToBoolean(userRow["IsSessionExpired"]),
-            };
-        }
+        }          
         #endregion
-
-
         public void UserAudit(PUserAudit audit)
         {
             try
@@ -389,7 +291,6 @@ namespace Business
                 throw vpEx;
             }
         }
-
         public void LockUserAccount(string userName)
         {
             try
@@ -407,168 +308,62 @@ namespace Business
                 ExceptionLogger.LogError("LockUserAccount", ex);
                 throw ex;
             }
-        }
-      
+        }      
         public PApiResult UpdateUserPermition(PUserAccess_Insert Access)
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/UpdateUserPermition", Access));
-        }
-        //public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
-        //{
-        //    List<PUser> users = new List<PUser>();
-        //    DateTime traceStartTime = DateTime.Now;
-        //    DataTable usersDataTable = new DataTable();
-        //    try
-        //    {
-        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //        DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //        DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
-
-        //        DbParameter[] userParams = new DbParameter[3] { UserIDP, CreatedByP, DMSP };
-        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-        //        {
-        //            provider.Insert("DeactivateUserAccess", userParams, false);
-
-        //            foreach (int SubModuleAccessID in AccessModule)
-        //            {
-        //                DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
-        //                DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
-        //                provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
-        //            }
-        //            foreach (int SubModuleChildID in AccessModuleC)
-        //            {
-        //                DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
-        //                DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
-        //                provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
-        //            }
-        //            foreach (int DealerID in AccessDealer)
-        //            {
-        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int64);
-        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DealerIDP, CreatedByDP };
-        //                provider.Insert("InsertOrUpdateUserDealerAccess", DParams, false);
-        //            }
-
-        //            foreach (int DashboardID in Dashboard)
-        //            {
-        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
-        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
-        //                provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
-        //            }
-
-        //            foreach (int DashboardID in Dashboard)
-        //            {
-        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
-        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
-        //                provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
-        //            }
-
-        //            foreach (int UserMobileFeatureID in MobileFeature)
-        //            {
-        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-        //                DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", UserMobileFeatureID, DbType.Int32);
-        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, UserMobileFeatureIDP, CreatedByDP };
-        //                provider.Insert("InsertOrUpdateMUserMobileFeatureAccessAccess", DParams, false);
-        //            }
-
-        //            scope.Complete();
-        //            // This call is for track the status and logged into the trace logeer
-        //            TraceLogger.Log(traceStartTime);
-        //        }
-        //        return true;
-        //    }
-        //    catch (SqlException sqlEx)
-        //    {
-        //        throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        throw new LMSException(ErrorCode.GENE, ex);
-        //    }
-        //    return false;
-        //}
-
-
+        }       
         public List<PSubModuleChild> GetSubModuleChileAll(int? SubModuleMasterID)
         {
             string endPoint = "User/SubModuleChileAll?SubModuleMasterID=" + SubModuleMasterID;
             return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
         public List<PSubModuleChild> GetSubModuleChileByUserID(Int64 UserId)
         {
             string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
             return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
         public PApiResult Login(UserAuthentication UserA)
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/GetToken", UserA));
-        }
-        //public PUser GetUserByToken()
-        //{
-        //    UserAuthentication UserA = new UserAuthentication();
-        //    string endPoint = "User/UserByToken";
-        //    return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA)).Data));
-        //}
+        }        
         public PApiResult GetUserByToken()
         {
             UserAuthentication UserA = new UserAuthentication();
             string endPoint = "User/UserByToken";
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA));
         }
-
         public PApiResult GetTokenByID(int userID)
         {
             string endPoint = "User/GetTokenByID?userID=" + userID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-
         public List<PUserMobile> GetUserMobileForApproval()
         {
             string endPoint = "User/UserMobileForApproval";
             return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-
         }
         public PApiResult ApproveUserMobile(int UserMobileID)
         {
             string endPoint = "User/ApproveUserMobile?UserMobileID=" + UserMobileID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-        }
-       
+        }       
         public List<PUserMobile> GetUserMobileManage(int? DealerID, string FromDate, string ToDate, Boolean isActive, int? DealerDepartmentID, int? DealerDesignationID, int? EngineerUserID)
         {
             string endPoint = "User/UserMobileManage?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&EngineerUserID=" + EngineerUserID;
             return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
-
-       
+        }       
         public List<PSubModuleChild> GetSubModuleChileByDealerDesignationID(Int32 DealerDesignationID)
         {
             string endPoint = "User/SubModuleChileByDealerDesignationID?DealerDesignationID=" + DealerDesignationID;
             return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
-       
-
+        }    
         public List<PUserMobileFeature> GetUserMobileFeatureAccessByUserID(int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "User/GetUserMobileFeatureAccessByUserID?UserID=" + UserID;
             return JsonConvert.DeserializeObject<List<PUserMobileFeature>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-
-        }
-     
+        }     
         public PApiResult GetUserAccessBySubModule(int SubModuleAccessID,int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive)
         {
             string endPoint = "User/GetUserAccessBySubModule?SubModuleAccessID=" + SubModuleAccessID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID
@@ -608,36 +403,7 @@ namespace Business
             {
                 throw new Exception(Results.Message);
             }
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Results.Data));
-            //try
-            //{
-            //    DateTime traceStartTime = DateTime.Now;
-            //    DataTable userDataTable = new DataTable();
-
-            //    DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String);
-            //    DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
-            //    DbParameter[] userParams = new DbParameter[2] { userIDParams, DMSP };
-
-            //    using (DataSet userDataSet = provider.Select("AuthenticateUser", userParams))
-            //    {
-            //        if (userDataSet != null)
-            //            userDataTable = userDataSet.Tables[0];
-            //    }
-
-            //    // This call is for track the status and loged into the trace logeer
-            //    TraceLogger.Log(traceStartTime);
-
-            //    return userDataTable;
-            //}
-            //catch (SqlException sqlEx)
-            //{
-            //    throw sqlEx;
-            //}
-
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Results.Data));            
         }
 
         public List<PUser> GetUsersActivityTracking(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled
@@ -655,92 +421,11 @@ namespace Business
                 throw new Exception(Results.Message);
             }
             RowCount = Results.RowCount;
-            return JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(Results.Data));
-
-            //List<PUser> users = new List<PUser>();
-            //PUser user = null;
-            //DateTime traceStartTime = DateTime.Now;
-            //DataTable usersDataTable = new DataTable();
-            //RowCount = 0;
-            //try
-            //{
-            //    DbParameter UserNameP, ExternalReferenceIDP;
-
-            //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-
-            //    if (!string.IsNullOrEmpty(UserName))
-            //        UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
-            //    else
-            //        UserNameP = provider.CreateParameter("UserName", DBNull.Value, DbType.String);
-
-            //    DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-
-            //    if (!string.IsNullOrEmpty(ExternalReferenceID))
-            //        ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", ExternalReferenceID, DbType.String);
-            //    else
-            //        ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", DBNull.Value, DbType.String);
-
-            //    DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-
-            //    DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
-            //    DbParameter IsLockedP = provider.CreateParameter("IsLocked", IsLocked, DbType.Boolean);
-            //    DbParameter ajaxOneP = provider.CreateParameter("ajaxOne", ajaxOne, DbType.Boolean);
-            //    DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.String);
-
-            //    DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
-            //    DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
-            //    DbParameter DMS = provider.CreateParameter("DMS", 2, DbType.Int32);
-            //    DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
-            //    DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
-
-            //    DbParameter[] userParams = new DbParameter[14] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP, ContactNameP, DealerDepartmentIDP, DealerDesignationIDP, DMS, IsLockedP, ajaxOneP, PageIndexP, PageSizeP };
-
-            //    using (DataSet usersDataSet = provider.Select("GetUsersActivityTracking", userParams))
-            //    {
-            //        if (usersDataSet != null)
-            //            foreach (DataRow userRow in usersDataSet.Tables[0].Rows)
-            //            {
-            //                user = new PUser();
-            //                user.PassWord = Convert.ToString(userRow["LoginPassword"]);
-            //                user.UserID = Convert.ToInt32(userRow["UserID"]);
-            //                user.UserName = Convert.ToString(userRow["UserName"]);
-            //                user.ContactName = Convert.ToString(userRow["ContactName"]);
-            //                user.UserTypeID = Convert.ToInt16(userRow["UserTypeID"]);
-            //                user.ExternalReferenceID = userRow["ExternalReferenceID"] != DBNull.Value ? Convert.ToString(userRow["ExternalReferenceID"]) : string.Empty;
-            //                user.IsFirstTimeLogin = Convert.ToBoolean(userRow["IsFirstTime"]);
-            //                user.IsLocked = Convert.ToBoolean(userRow["IsLocked"]);
-            //                user.IsEnabled = Convert.ToBoolean(userRow["IsEnabled"]);
-            //                user.PasswordExpiryDate = Convert.ToDateTime(userRow["PasswordExpirationDate"]);
-            //                user.CreatedBy = Convert.ToInt32(userRow["CreatedBy"]);
-            //                user.CreatedOn = Convert.ToDateTime(userRow["CreatedOn"]);
-            //                user.LastLoginDate = userRow["LastLoginDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(userRow["LastLoginDate"]);
-            //                user.CreatedByName = Convert.ToString(userRow["UserName"]);
-            //                user.SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]);
-            //                user.Mail = Convert.ToString(userRow["Mail"]);
-            //                user.ContactNumber = Convert.ToString(userRow["ContactNumber"]);
-            //                user.IsTechnician = userRow["IsTechnician"] == DBNull.Value ? false : Convert.ToBoolean(userRow["IsTechnician"]);
-            //                user.DaysSince = userRow["DaysSince"] == DBNull.Value ? (Int32?)null : Convert.ToInt32(userRow["DaysSince"]);
-            //                user.LoginCount = userRow["LoginCount"] == DBNull.Value ? (Int32?)null : Convert.ToInt32(userRow["LoginCount"]);
-            //                users.Add(user);
-            //                RowCount = Convert.ToInt32(userRow["RowCount"]);
-            //            }
-            //    }
-            //    TraceLogger.Log(traceStartTime);
-            //    return users;
-            //}
-            //catch (SqlException sqlEx)
-            //{
-            //    throw sqlEx;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
+            return JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(Results.Data)); 
         }
        
         public List<PUserMobileFeature> GetUserMobileFeature()
-        {
-            
+        {            
             string endPoint = "User/GetUserMobileFeature";
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
@@ -751,8 +436,7 @@ namespace Business
         }
         public List<PSubModuleChild> GetSubModuleChildMaster(int? SubModuleMasterID, int? SubModuleChildID, string ChildName)
         {            
-            string endPoint = "User/GetSubModuleChildMaster?SubModuleMasterID=" + SubModuleMasterID + "&SubModuleChildID=" + SubModuleChildID + "&ChildName=" + ChildName;
-                
+            string endPoint = "User/GetSubModuleChildMaster?SubModuleMasterID=" + SubModuleMasterID + "&SubModuleChildID=" + SubModuleChildID + "&ChildName=" + ChildName;                
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -763,7 +447,6 @@ namespace Business
         public List<PSubModuleAccess> GetSubModuleMaster(int? ModuleMasterID, int? SubModuleMasterID, string SubModuleName)
         {
             string endPoint = "User/GetSubModuleMaster?ModuleMasterID=" + ModuleMasterID + "&SubModuleMasterID=" + SubModuleMasterID + "&SubModuleName=" + SubModuleName;
-
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -774,7 +457,6 @@ namespace Business
         public List<PModuleAccess> GetModuleMaster(int? ModuleMasterID, string ModuleName)
         {
             string endPoint = "User/GetModuleMaster?ModuleMasterID=" + ModuleMasterID + "&ModuleName=" + ModuleName;
-
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -785,7 +467,6 @@ namespace Business
         public List<PDealerUserPermission> GetUserByDealerIDs(string DealerID, int? DepartmentID, int? DesignationID)
         {
             string endPoint = "User/GetUserByDealerIDs?DealerID=" + DealerID + "&DepartmentID=" + DepartmentID + "&DesignationID=" + DesignationID;
-
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -804,7 +485,6 @@ namespace Business
             }
             return JsonConvert.DeserializeObject<List<PDealerUserPermission>>(JsonConvert.SerializeObject(Results.Data));
         }
-
         public Boolean UpdateUserResetPasswordByAdmin(long UserID)
         {
             string endPoint = "User/UpdateUserResetPasswordByAdmin?UserID=" + UserID;
@@ -815,7 +495,6 @@ namespace Business
             }
             return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(Results.Data));
         }
-
         public List<PUserMobileFeature> GetMobileFeatureByDealerDesignationID(Int32 DealerDesignationID)
         {
             string endPoint = "User/GetMobileFeatureByDealerDesignationID?DealerDesignationID=" + DealerDesignationID;
@@ -825,40 +504,7 @@ namespace Business
                 throw new Exception(Results.Message);
             }
             return JsonConvert.DeserializeObject<List<PUserMobileFeature>>(JsonConvert.SerializeObject(Results.Data));
-        }
-
-        public void UpdateResetPassword(string UserName, string Password)
-        {
-            string endPoint = "User/UpdateResetPassword?UserName=" + UserName + "&Password=" + Password;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-            if (Results.Status == PApplication.Failure)
-            {
-                throw new Exception(Results.Message);
-            }
-            
-            //DateTime traceStartTime = DateTime.Now;
-            //try
-            //{
-            //    DbParameter UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
-            //    DbParameter PasswordP = provider.CreateParameter("Password", Password, DbType.String);
-
-            //    DbParameter[] userParams = new DbParameter[2] { UserNameP, PasswordP };
-
-            //    // This call is for track the status and loged into the trace logeer
-            //    TraceLogger.Log(traceStartTime);
-
-            //    provider.Update("UpdateResetPassword", userParams);
-            //}
-            //catch (SqlException sqlEx)
-            //{
-            //    throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            //}
-
-            //catch (Exception ex)
-            //{
-            //    throw new LMSException(ErrorCode.GENE, ex);
-            //}
-        }
+        }        
         public DataTable GetContactDetailsByUser(Int64 UserId)
         {
             string endPoint = "User/GetContactDetailsByUser?UserId=" + UserId;
@@ -960,8 +606,7 @@ namespace Business
                 throw new Exception(Results.Message);
             }
             return JsonConvert.DeserializeObject<List<PModuleAccess>>(JsonConvert.SerializeObject(Results.Data));
-        }
-       
+        }       
         public DataTable GetUserLocationCurrent(int? DealerID, int? UserID, int? DealerDepartmentID, int? LoginUserID)
         {
             string endPoint = "User/GetUserLocationCurrent?DealerID=" + DealerID + "&UserID=" + UserID + "&DealerDepartmentID=" + DealerDepartmentID + "&LoginUserID=" + LoginUserID;
@@ -981,9 +626,17 @@ namespace Business
                 throw new Exception(Results.Message);
             }
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Results.Data));
+        } 
+        public PApiResult ForgetPassword(string Username)
+        {
+            string endPoint = "User/ForgetPassword?Username=" + Username;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-
-
+        public PApiResult ResetPassword(string Username, string OTP, string Password)
+        {
+            string endPoint = "User/ResetPassword?Username=" + Username + "&OTP=" + OTP + "&Password=" + Password;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
         public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();
@@ -1048,8 +701,7 @@ namespace Business
             catch (Exception ex)
             {
                 throw new LMSException(ErrorCode.GENE, ex);
-            }
-            return false;
+            } 
         }
         public void UpdateUser(PUser userDAO)
         {
@@ -1184,17 +836,6 @@ namespace Business
             {
                 throw new LMSException(ErrorCode.GENE, ex);
             }
-        }
-
-        public PApiResult ForgetPassword(string Username)
-        {
-            string endPoint = "User/ForgetPassword?Username=" + Username;
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-        }
-        public PApiResult ResetPassword(string Username, string OTP, string Password)
-        {
-            string endPoint = "User/ResetPassword?Username=" + Username + "&OTP=" + OTP + "&Password=" + Password;
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

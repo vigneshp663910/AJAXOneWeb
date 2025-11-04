@@ -60,22 +60,22 @@ namespace DealerManagementSystem.ViewECatalogue
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
 
         /// <summary>
-        /// txtPoNumber control.
+        /// txtOrderNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtOrderNo;
 
         /// <summary>
-        /// txtPoDateFrom control.
+        /// txtDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
 
         /// <summary>
         /// CalendarExtender1 control.
@@ -96,13 +96,13 @@ namespace DealerManagementSystem.ViewECatalogue
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// txtPoDateTo control.
+        /// txtDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
 
         /// <summary>
         /// CalendarExtender2 control.
@@ -123,22 +123,22 @@ namespace DealerManagementSystem.ViewECatalogue
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
-        /// ddlDivision control.
+        /// ddlProductGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProductGroup;
 
         /// <summary>
-        /// ddlPurchaseOrderType control.
+        /// ddlSpcModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPurchaseOrderType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSpcModel;
 
         /// <summary>
         /// btnSearch control.
@@ -202,32 +202,5 @@ namespace DealerManagementSystem.ViewECatalogue
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvCart;
-
-        /// <summary>
-        /// divDetailsView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
-
-        /// <summary>
-        /// btnPurchaseOrderViewBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderViewBack;
-
-        /// <summary>
-        /// UC_SpcCartView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DealerManagementSystem.ViewECatalogue.UserControls.SpcCartView UC_SpcCartView;
     }
 }

@@ -14,14 +14,14 @@ namespace DealerManagementSystem.ViewECatalogue
 {
     public partial class SpcCart : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrder; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewECatalogue_SpcCart; } }
         int? DealerID = null;
         int? OfficeID = null; 
         string OrderNo = null;
         string DateF = null;
         string DateT = null; 
         int? ModelID = null;
-        int? DivisionID = null;
+        int? SpcProductGroupID = null;
 
         public List<PspcCart> Cart
         {
@@ -78,23 +78,22 @@ namespace DealerManagementSystem.ViewECatalogue
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('E Catalogue » Cart');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
                 PageCount = 0;
                 PageIndex = 1;
-                txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                txtPoDateTo.Text = DateTime.Now.ToShortDateString();
+                txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                txtDateTo.Text = DateTime.Now.ToShortDateString();
 
                 fillDealer();
                 
                 //FillGetDealerOffice();
                 ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-                new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
-                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select"); 
-                
-                
+                new BECatalogue().FillDivision(ddlProductGroup);
+                ddlProductGroup_SelectedIndexChanged(null,null); 
+
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -117,11 +116,11 @@ namespace DealerManagementSystem.ViewECatalogue
         {
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
-            ModelID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
-            DateF = txtPoDateFrom.Text.Trim();
-            DateT = txtPoDateTo.Text.Trim(); 
-            OrderNo = txtPoNumber.Text.Trim();
+            SpcProductGroupID = ddlProductGroup.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductGroup.SelectedValue);
+            ModelID = ddlSpcModel.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSpcModel.SelectedValue);
+            DateF = txtDateFrom.Text.Trim();
+            DateT = txtDateTo.Text.Trim(); 
+            OrderNo = txtOrderNo.Text.Trim();
         }
         void fillCart()
         {
@@ -129,7 +128,7 @@ namespace DealerManagementSystem.ViewECatalogue
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BECatalogue().GetSpcCart(null, DealerID, OfficeID, OrderNo, DateF, DateT, DivisionID, ModelID, PageIndex, gvCart.PageSize); 
+                PApiResult Result = new BECatalogue().GetSpcCart(null, DealerID, OfficeID, OrderNo, DateF, DateT, SpcProductGroupID, ModelID, PageIndex, gvCart.PageSize); 
                 Cart = JsonConvert.DeserializeObject<List<PspcCart>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvCart.PageIndex = 0;
@@ -180,9 +179,9 @@ namespace DealerManagementSystem.ViewECatalogue
         {
             TraceLogger.Log(DateTime.Now);
             Search();
-            PApiResult Result = new BECatalogue().GetSpcCart(null, DealerID, OfficeID, OrderNo, DateF, DateT, DivisionID, ModelID);
+            PApiResult Result = new BECatalogue().GetSpcCart(null, DealerID, OfficeID, OrderNo, DateF, DateT, SpcProductGroupID, ModelID);
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data)); 
-            new BXcel().ExporttoExcel(dt, "Purchase Order Report");
+            new BXcel().ExporttoExcel(dt, "Cart List");
         }
         void fillDealer()
         {
@@ -192,25 +191,8 @@ namespace DealerManagementSystem.ViewECatalogue
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         } 
-        protected void btnBackToList_Click(object sender, EventArgs e)
-        {
-            divList.Visible = true;
-            divDetailsView.Visible = false; 
-        }       
-
-        protected void btnPurchaseOrderViewBack_Click(object sender, EventArgs e)
-        {
-            divList.Visible = true;
-            divDetailsView.Visible = false;
-        }  
-        protected void btnViewPO_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblspcCartID = (Label)gvRow.FindControl("lblspcCartID");
-            divList.Visible = false;
-            divDetailsView.Visible = true;
-            UC_SpcCartView.fillViewPO(Convert.ToInt64(lblspcCartID.Text));
-        }
+          
+      
         protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillGetDealerOffice();
@@ -243,6 +225,17 @@ namespace DealerManagementSystem.ViewECatalogue
             catch (Exception ex)
             {
             }
+        }
+
+        protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+        protected void ddlProductGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SpcProductGroupID = ddlProductGroup.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductGroup.SelectedValue);
+            new DDLBind(ddlSpcModel, new BECatalogue().GetSpcModel(null, SpcProductGroupID, null, true, null), "SpcModelCode", "SpcModelID");
         }
     }
 }

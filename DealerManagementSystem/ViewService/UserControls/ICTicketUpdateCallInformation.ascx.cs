@@ -76,7 +76,11 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if (SDMS_ICTicket.ServiceType != null)
             {
-                ddlServiceType.SelectedValue = SDMS_ICTicket.ServiceType.ServiceTypeID.ToString();
+                try
+                {
+                    ddlServiceType.SelectedValue = SDMS_ICTicket.ServiceType.ServiceTypeID.ToString();
+                }
+                catch { }
                 if (ddlServiceType.SelectedValue == "7")
                 {
                     ddlServiceTypeOverhaul.Visible = true;
@@ -176,7 +180,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlServiceType.DataBind();
             ddlServiceType.DataTextField = "ServiceType";
             ddlServiceType.DataValueField = "ServiceTypeID";
-            ddlServiceType.DataSource = new BDMS_Service().GetServiceType(null, null, IsWarranty);
+            ddlServiceType.DataSource = new BDMS_Service().GetServiceType(null, null, IsWarranty, SDMS_ICTicket.Equipment.EquipmentModel.Division.DivisionID);
 
 
             ddlServiceType.DataBind();
@@ -529,7 +533,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         private void FillGetServiceSubType(int ServiceTypeID)
         {
-            ddlServiceSubType.DataSource = new BDMS_Service().GetServiceSubType(null, ServiceTypeID);
+            ddlServiceSubType.DataSource = new BDMS_Service().GetServiceSubType(null, ServiceTypeID, SDMS_ICTicket.Equipment.EquipmentModel.Division.DivisionID);
             ddlServiceSubType.DataBind();
         }
 

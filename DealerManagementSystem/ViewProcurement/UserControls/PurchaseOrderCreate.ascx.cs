@@ -48,21 +48,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
         }
 
-        public DataTable MaterialCart
-        {
-            get
-            {
-                if (Session["MaterialCart"] == null)
-                {
-                    Session["MaterialCart"] = new DataTable();
-                }
-                return (DataTable)Session["MaterialCart"];
-            }
-            set
-            {
-                Session["MaterialCart"] = value;
-            }
-        }
+        //public DataTable MaterialCart
+        //{
+        //    get
+        //    {
+        //        if (Session["MaterialCart"] == null)
+        //        {
+        //            Session["MaterialCart"] = new DataTable();
+        //        }
+        //        return (DataTable)Session["MaterialCart"];
+        //    }
+        //    set
+        //    {
+        //        Session["MaterialCart"] = value;
+        //    }
+        //} 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
@@ -131,15 +132,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         lblMessage.Text = Message;
                         return;
                     }
-                    MaterialCart = new BDMS_PurchaseOrder().GetPurchaseOrderFromCart(new BDMS_Dealer().GetDealer(Convert.ToInt32(ddlDealer.SelectedValue), null, null, null)[0].DealerCode);
-
-                    DataTable dt = MaterialCart.AsEnumerable()
-       .GroupBy(r => new { OrderNo = r["OrderNo"], OrderDate = r["OrderDate"], CustomerCode = r["CustomerCode"], DealerCode = r["DealerCode"] })
-       .Select(g => g.OrderBy(r => r["OrderNo"]).First())
-       .CopyToDataTable();
-
-                    gvMaterialFromCart.DataSource = dt;
-                    gvMaterialFromCart.DataBind();
+                    txtCartDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                    txtCartDateTo.Text = DateTime.Now.ToShortDateString();
+                    new DDLBind(ddlCartDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+                    ddlCartDivision_SelectedIndexChanged(null, null);
+                    fillCart(); 
                     MPE_MaterialFromCart.Show();
                 }
                 else if (lbActions.ID == "lbCopyFromPO")
@@ -591,46 +588,30 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.ForeColor = Color.Red;
         }
          
-        protected void gvMaterialFromCart_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    // string DeliveryNumber = Convert.ToString(gvDelivery.DataKeys[e.Row.RowIndex].Value);
-                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvMaterialFromCartItem");
-                    //List<PDMS_DeliveryItem> Lines = new List<PDMS_DeliveryItem>();
-                    //Lines = SDMS_WarrantyClaimHeader.Find(s => s.DeliveryNumber == DeliveryNumber).DeliveryItems;
+        //protected void gvMaterialFromCart_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    DateTime traceStartTime = DateTime.Now;
+        //    try
+        //    {
+        //        if (e.Row.RowType == DataControlRowType.DataRow)
+        //        { 
+        //            GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvMaterialFromCartItem");
 
+        //            //Label lblOrderNo = (Label)e.Row.FindControl("lblOrderNo");
+        //            //DataTable dt = MaterialCart.AsEnumerable().Where(r => Convert.ToString(r["OrderNo"]) == lblOrderNo.Text).Select(g => g).CopyToDataTable(); 
+        //            //gvClaimInvoiceItem.DataSource = dt;
 
-                    Label lblOrderNo = (Label)e.Row.FindControl("lblOrderNo");
-                    DataTable dt = MaterialCart.AsEnumerable()
-      .Where(r => Convert.ToString(r["OrderNo"]) == lblOrderNo.Text)
-      .Select(g => g)
-      .CopyToDataTable();
+        //            Label lblspcCartID = (Label)e.Row.FindControl("lblspcCartID");
+        //            gvClaimInvoiceItem.DataSource = Cart.Find(s => s.spcCartID == Convert.ToInt32(lblspcCartID.Text)).CartItem;
+        //            gvClaimInvoiceItem.DataBind(); 
+        //        }
+        //        TraceLogger.Log(traceStartTime);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                    //DataTable dt1 = from customer in MaterialCart.AsEnumerable()
-                    //                where customer.Field<string>("OrderNo") == "8"
-                    //         select new
-                    //                {
-                    //                    PartNo = customer.Field<int>("PartNo"),
-                    //                    PartDescription = customer.Field<string>("PartDescription"),
-                    //                    PartQty = customer.Field<string>("PartQty")
-                    //                };  
-
-                    gvClaimInvoiceItem.DataSource = dt;
-
-                    gvClaimInvoiceItem.DataBind();
-
-                }
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
+        //    }
+        //}
 
         protected void btnSearchCopyOrder_Click(object sender, EventArgs e)
         {
@@ -1297,6 +1278,40 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 lblMessage.Text = e1.Message;
             }
+        }
+        protected void btnCartSearch_Click(object sender, EventArgs e)
+        {
+            MPE_MaterialFromCart.Show();
+            fillCart();
+        } 
+        void fillCart()
+        {
+            int? DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            int? OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            string OrderNo = txtCartNo.Text;
+            string DateF = txtCartDateFrom.Text;
+            string DateT = txtCartDateTo.Text;
+            int? DivisionID = ddlCartDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCartDivision.SelectedValue);
+            int? ModelID = ddlCartModel.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCartModel.SelectedValue);
+
+            PApiResult Result = new BECatalogue().GetSpcCart(null, DealerID, OfficeID, OrderNo, DateF, DateT, DivisionID, ModelID, null, null);
+            List<PspcCart> Cart = JsonConvert.DeserializeObject<List<PspcCart>>(JsonConvert.SerializeObject(Result.Data));
+            gvMaterialFromCart.DataSource = Cart;
+            gvMaterialFromCart.DataBind();
+
+            for (int i = 0; i < gvMaterialFromCart.Rows.Count; i++)
+            {
+                GridView gvClaimInvoiceItem = (GridView)gvMaterialFromCart.Rows[i].FindControl("gvMaterialFromCartItem");
+                Label lblspcCartID = (Label)gvMaterialFromCart.Rows[i].FindControl("lblspcCartID");
+                gvClaimInvoiceItem.DataSource = Cart.Find(s => s.spcCartID == Convert.ToInt32(lblspcCartID.Text)).CartItem;
+                gvClaimInvoiceItem.DataBind();
+            }
+        }
+        protected void ddlCartDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_MaterialFromCart.Show();
+            int? DivisionID = ddlCartDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCartDivision.SelectedValue);
+            new DDLBind(ddlCartModel, new BECatalogue().GetSpcModel(null, DivisionID, null, true, null), "SpcModelCode", "SpcModelID");
         }
     }
 }

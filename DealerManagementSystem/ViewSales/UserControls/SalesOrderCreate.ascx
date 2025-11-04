@@ -38,8 +38,8 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
                 <asp:LinkButton ID="lbDownloadMaterialTemplate" runat="server" OnClick="lbActions_Click">Download Material Template</asp:LinkButton>
-                <%-- <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
-                <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
+                <asp:LinkButton ID="lbCopyFromSO" runat="server" OnClick="lbActions_Click">Copy From SO</asp:LinkButton>
                 <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmSaleOrderSave();">Save</asp:LinkButton>
             </div>
         </div>
@@ -463,12 +463,253 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Supersede" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSupersede" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlMaterialFromCart" runat="server" CssClass="Popup" Style="display: none">
+    <style>
+        input[type=checkbox], input[type=radio] {
+            margin: 0px;
+        }
+    </style>
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Material From Cart</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button12" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMaterialFromCart" runat="server" Text="" CssClass="message" />
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Order No</label>
+                    <asp:TextBox ID="txtCartNo" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Date From</label>
+                    <asp:TextBox ID="txtCartDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                    <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtCartDateFrom" PopupButtonID="txtCartDateFrom" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtCartDateFrom" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Date To</label>
+                    <asp:TextBox ID="txtCartDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                    <asp1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtCartDateTo" PopupButtonID="txtCartDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtCartDateTo" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Division</label>
+                    <asp:DropDownList ID="ddlCartDivision" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCartDivision_SelectedIndexChanged" AutoPostBack="true" />
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Model</label>
+                    <asp:DropDownList ID="ddlCartModel" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnCartSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnCartSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
+                    <asp:Button ID="btnMaterialFromCart" runat="server" Text="Add" CssClass="btn Save" OnClick="btnMaterialFromCart_Click" />
+                </div>
+            </div>
+        </fieldset>
+        <div class="model-scroll">
+            <fieldset class="fieldset-border">
+                <div class="col-md-12">
+                    <div class="col-md-12 Report">
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvMaterialFromCart" ShowHeader="true" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                <AlternatingRowStyle BackColor="White" />
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <a href="javascript:collapseExpand('CartOrderNo-<%# Eval("CartOrderNo") %>');">
+                                                <img id="imageDeliveryNumber-<%# Eval("CartOrderNo") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_expand.png" height="10" width="10" /></a>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Select">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblspcCartID" Text='<%# DataBinder.Eval(Container.DataItem, "spcCartID")%>' runat="server" Visible="false" />
+                                            <asp:CheckBox ID="cbSelect" runat="server" onchange="OnchangeHandler(this);" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Dealer Code">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                            <%--  <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />--%>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Order No">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCartOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "CartOrderNo")%>' runat="server" />
+                                            <%-- <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />--%>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Order Date">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCartOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "CartOrderDate","{0:d}")%>' runat="server" />
+                                        
+                                            <tr>
+                                                <td colspan="100%" style="padding-left: 96px">
+                                                    <div id="CartOrderNo-<%# Eval("CartOrderNo") %>" style="display: none; position: relative;">
+                                                        <asp:GridView ID="gvMaterialFromCartItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
+
+                                                            <Columns>
+
+                                                                <asp:TemplateField HeaderText="Select">
+                                                                    <ItemTemplate>
+                                                                        <asp:CheckBox ID="cbSelectChild" runat="server" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Assembly Code">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.AssemblyCode")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Assembly Description">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblPOType" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.AssemblyDescription")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                 <asp:TemplateField HeaderText="Division">
+                                                                    <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.SpcModel.ProductGroup.PGCode")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Model">
+                                                                    <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.SpcModel.SpcModel")%>' runat="server"></asp:Label>
+
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField> 
+                                                                <asp:TemplateField HeaderText="Material">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SpcMaterial.Material")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Material Desc">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                       <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "SpcMaterial.MaterialDescription")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Qty">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+
+                                                            </Columns>
+                                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                                            <FooterStyle ForeColor="White" />
+                                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                                        </asp:GridView>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div> 
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MaterialFromCart" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMaterialFromCart" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlCopyOrder" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Copy From PO</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageCopyOrder" runat="server" Text="" CssClass="message" />
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Po Number</label>
+                    <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnSearchCopyOrder" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchCopyOrder_Click" OnClientClick="return dateValidation();" Width="65px" />
+                    <asp:Button ID="btnCopyPoAdd" runat="server" Text="Add" CssClass="btn Save" OnClick="btnCopyPoAdd_Click" Visible="false" />
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <fieldset class="fieldset-border">
+                <div class="col-md-12">
+                    <div class="col-md-12 Report">
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvMaterialCopyOrder" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Select">
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="ChkMailH" Text="Select All" runat="server" AutoPostBack="true" OnCheckedChanged="ChkMailH_CheckedChanged" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbSelectChild" runat="server" AutoPostBack="true" OnCheckedChanged="cbSelectChild_CheckedChanged" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material Desc">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Qty" ControlStyle-Width="100px">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" Visible="false" />
+                                            <asp:TextBox ID="txtPartQty" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>'></asp:TextBox>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CopyOrder" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCopyOrder" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 <script>
     function GetCustomers() {
+        debugger;
         $("#MainContent_UC_SalesOrderCreate_hdfCustomerId").val('');
         var param = { CustS: $('#MainContent_UC_SalesOrderCreate_txtCustomer').val(), DealerID: $('#MainContent_UC_SalesOrderCreate_ddlDealer').val() };
         var Customers = [];
@@ -673,5 +914,20 @@
     function SetShipToInHiddenField() {
         ddlShiftTo = document.getElementById("MainContent_UC_SalesOrderCreate_ddlShiftTo");
         document.getElementById('MainContent_hfShiptToID').value = ddlShiftTo.value;
+    }
+</script>
+<script type="text/javascript">
+    function collapseExpand(obj) {
+        var gvObject = document.getElementById(obj);
+        var imageID = document.getElementById('image' + obj);
+
+        if (gvObject.style.display == "none") {
+            gvObject.style.display = "inline";
+            imageID.src = "../Images/grid_collapse.png";
+        }
+        else {
+            gvObject.style.display = "none";
+            imageID.src = "../Images/grid_expand.png";
+        }
     }
 </script>

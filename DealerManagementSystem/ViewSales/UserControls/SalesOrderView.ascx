@@ -195,6 +195,65 @@
         inner_html += '</a>';
         return inner_html;
     }
+
+    function GetMaterialSC() {
+        $("#MainContent_UC_SalesOrderView_hdfMaterialID_SC").val('');
+        $("#MainContent_UC_SalesOrderView_hdfMaterialCode_SC").val('');
+        var param = { Material: $('#MainContent_UC_SalesOrderView_txtServiceMaterial').val(), MaterialType: 'DIEN', DivisionID: '15' }
+        var Customers = [];
+        if ($('#MainContent_UC_SalesOrderView_txtServiceMaterial').val().trim().length >= 3) {
+            $.ajax({
+                url: 'SaleOrder.aspx/GetMaterial',
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                data: JSON.stringify(param),
+                dataType: 'JSON',
+                success: function (data) {
+                    var DataList = JSON.parse(data.d);
+                    for (i = 0; i < DataList.length; i++) {
+                        Customers[i] = {
+                            value: DataList[i].MaterialCode + ' ' + DataList[i].MaterialDescription,
+                            value1: DataList[i].MaterialID,
+                            MaterialCode: DataList[i].MaterialCode
+                        };
+                    }
+                    $('#MainContent_UC_SalesOrderView_txtServiceMaterial').autocomplete({
+                        source: function (request, response) { response(Customers) },
+                        select: function (e, u) {
+                            $("#MainContent_UC_SalesOrderView_hdfMaterialID_SC").val(u.item.value1);
+                            $("#MainContent_UC_SalesOrderView_hdfMaterialCode_SC").val(u.item.MaterialCode);
+                        },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "max-width":
+                                    $('#MainContent_UC_SalesOrderView_txtServiceMaterial').width() + 48,
+                            });
+                            $(this).autocomplete("widget").scrollTop(0);
+                        }
+                    }).focus(function (e) {
+                        $(this).autocomplete("search");
+                    }).click(function () {
+                        $(this).autocomplete("search");
+                    }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                        var inner_html = FormatAutocompleteListMaterial(item);
+                        return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                            .data('item.autocomplete', item)
+                            .append(inner_html)
+                            .appendTo(ul);
+                    };
+                }
+            });
+        }
+        else {
+            $('#MainContent_UC_SalesOrderView_txtServiceMaterial').autocomplete({
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(Customers, ""))
+                }
+            });
+        }
+    }
+
 </script>
 <script type="text/javascript">
     function ConfirmCancelSaleOrder() {
@@ -255,6 +314,7 @@
                 <asp:LinkButton ID="lbEditSaleOrder" runat="server" OnClick="lbActions_Click">Edit</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancelSaleOrder();">Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbAddSaleOrderItem" runat="server" OnClick="lbActions_Click">Add Item</asp:LinkButton>
+                 <asp:LinkButton ID="lbAddSaleOrderServiceCharge" runat="server" OnClick="lbActions_Click">Add Service Charge</asp:LinkButton>
                 <%--<asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbGenerateProformaInvoice" runat="server" OnClick="lbActions_Click">Generate Proforma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReleaseSaleOrder();">Release</asp:LinkButton>
@@ -589,13 +649,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--  <asp:TemplateField HeaderText="Unit Price">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerRate","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Value">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -611,7 +665,6 @@
                                                     <tr>
                                                         <td>Percentage</td>
                                                         <td>Value</td>
-
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -628,43 +681,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="CGST">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "Material.CGST")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="CGSTValue">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "Material.CGSTValue")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="SGST">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "Material.SGST")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="SGSTValue">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "Material.SGSTValue")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="IGST">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "Material.IGST")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="IGSTValue">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "Material.IGSTValue")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Taxable Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -682,43 +699,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-
-                                    <%-- <asp:TemplateField HeaderText="Discount">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="Discounted Price">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDiscountedPrice" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountedPrice","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="Tax">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblTax" Text='<%# DataBinder.Eval(Container.DataItem, "Tax","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
-                                    <%--<asp:TemplateField HeaderText="Tax Value">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxValue","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblPurchaseOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderStatus.PurchaseOrderStatus","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
-                                        <ItemTemplate>
-                                            <asp:Button ID="btnCancelPoItem" runat="server" Text="Cancel" CssClass="btn Back" OnClick="btnCancelPoItem_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField>                                     
                                     <asp:TemplateField HeaderText="Net Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -986,18 +967,14 @@
 
             <div class="col-md-12">
                 <div class="col-md-3">
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label>Billing Address </label>
                         <br />
                         <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
-                     <div class="col-md-12 col-sm-12" id="divEquipment" runat="server" visible="false">
-                        <label>Equipment Serial No</label>
-                        <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
-                    </div>
+
                 </div>
                 <div class="col-md-4">
-                   
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">
                             Payment Mode
@@ -1005,7 +982,21 @@
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control" />
                     </div>
 
-                    
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 col-sm-12" id="divEquipment" runat="server" visible="false">
+                        <label>Equipment Serial No</label>
+                        <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
+                    </div> 
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Address</label>
+                        <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
+                        <asp:Label ID="lblShippingAddress" runat="server" CssClass="form-control" Height="100%"></asp:Label>
+                    </div>
                     <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
                         <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
@@ -1017,35 +1008,7 @@
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Packing & Forward</label>
                         <asp:TextBox ID="txtDeliveryPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">
-                            State
-                        <samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlShippingState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlShippingState_SelectedIndexChanged" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">
-                            District
-                        <samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlShippingDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Pin Code</label>
-                        <asp:TextBox ID="txtShippingPinCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Address</label>
-                        <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox> 
-                    </div>
-                    
-
+                    </div> 
                 </div>
             </div>
             <br />
@@ -1110,6 +1073,43 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Delivery" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCreateSODelivery" BackgroundCssClass="modalBackground" />
+ 
+<asp:Panel ID="pnlServiceCharge" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupServiceCharge">Service Charge</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <asp:Label ID="lblMessageServiceCharge" runat="server" Text="" CssClass="message" />
+    <div class="col-md-12">
+        <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+            <div class="col-md-12">
+                <div class="col-md-6 col-sm-12">
+                    <asp:HiddenField ID="hdfMaterialID_SC" runat="server" />
+                     <asp:HiddenField ID="hdfMaterialCode_SC" runat="server" />
+                    <label class="modal-label">SRO Code</label>
+                    <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" onKeyUp="GetMaterialSC()"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Worked Hours</label>
+                    <asp:TextBox ID="txtWorkedHours" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Amount</label>
+                    <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Discount</label>
+                    <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveServiceCharge" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveServiceCharge_Click" OnClientClick="return ConfirmSaleOrderDelivery();" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ServiceCharge" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlServiceCharge" BackgroundCssClass="modalBackground" />
+
 
 
 <div style="display: none">

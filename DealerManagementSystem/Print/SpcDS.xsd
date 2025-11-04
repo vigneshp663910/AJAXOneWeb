@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS" targetNamespace="http://tempuri.org/DS.xsd" xmlns:mstns="http://tempuri.org/DS.xsd" xmlns="http://tempuri.org/DS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS" msprop:Generator_UserDSName="DS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Assembly" msprop:Generator_TableClassName="AssemblyDataTable" msprop:Generator_TableVarName="tableAssembly" msprop:Generator_RowChangedName="AssemblyRowChanged" msprop:Generator_TablePropName="Assembly" msprop:Generator_RowDeletingName="AssemblyRowDeleting" msprop:Generator_RowChangingName="AssemblyRowChanging" msprop:Generator_RowEvHandlerName="AssemblyRowChangeEventHandler" msprop:Generator_RowDeletedName="AssemblyRowDeleted" msprop:Generator_RowClassName="AssemblyRow" msprop:Generator_UserTableName="Assembly" msprop:Generator_RowEvArgName="AssemblyRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProductGroup" msdata:Caption="SNO" msprop:Generator_ColumnVarNameInTable="columnProductGroup" msprop:Generator_ColumnPropNameInRow="ProductGroup" msprop:Generator_ColumnPropNameInTable="ProductGroupColumn" msprop:Generator_UserColumnName="ProductGroup" type="xs:string" minOccurs="0" />
+              <xs:element name="Model" msdata:Caption="Material" msprop:Generator_ColumnVarNameInTable="columnModel" msprop:Generator_ColumnPropNameInRow="Model" msprop:Generator_ColumnPropNameInTable="ModelColumn" msprop:Generator_UserColumnName="Model" type="xs:string" minOccurs="0" />
+              <xs:element name="AssemblyCode" msprop:Generator_ColumnVarNameInTable="columnAssemblyCode" msprop:Generator_ColumnPropNameInRow="AssemblyCode" msprop:Generator_ColumnPropNameInTable="AssemblyCodeColumn" msprop:Generator_UserColumnName="AssemblyCode" type="xs:string" minOccurs="0" />
+              <xs:element name="AssemblyID" msprop:Generator_ColumnVarNameInTable="columnAssemblyID" msprop:Generator_ColumnPropNameInRow="AssemblyID" msprop:Generator_ColumnPropNameInTable="AssemblyIDColumn" msprop:Generator_UserColumnName="AssemblyID" type="xs:string" minOccurs="0" />
+              <xs:element name="Assembly" msprop:Generator_ColumnVarNameInTable="columnAssembly" msprop:Generator_ColumnPropNameInRow="Assembly" msprop:Generator_ColumnPropNameInTable="AssemblyColumn" msprop:Generator_UserColumnName="Assembly" type="xs:string" minOccurs="0" />
+              <xs:element name="Image" msprop:Generator_ColumnVarNameInTable="columnImage" msprop:Generator_ColumnPropNameInRow="Image" msprop:Generator_ColumnPropNameInTable="ImageColumn" msprop:Generator_UserColumnName="Image" type="xs:string" minOccurs="0" />
+              <xs:element name="SNO" msprop:Generator_ColumnVarNameInTable="columnSNO" msprop:Generator_ColumnPropNameInRow="SNO" msprop:Generator_ColumnPropNameInTable="SNOColumn" msprop:Generator_UserColumnName="SNO" type="xs:string" minOccurs="0" />
+              <xs:element name="ALT" msprop:Generator_ColumnVarNameInTable="columnALT" msprop:Generator_ColumnPropNameInRow="ALT" msprop:Generator_ColumnPropNameInTable="ALTColumn" msprop:Generator_UserColumnName="ALT" type="xs:string" minOccurs="0" />
+              <xs:element name="PartNo" msprop:Generator_ColumnVarNameInTable="columnPartNo" msprop:Generator_ColumnPropNameInRow="PartNo" msprop:Generator_ColumnPropNameInTable="PartNoColumn" msprop:Generator_UserColumnName="PartNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="Qty" msprop:Generator_ColumnVarNameInTable="columnQty" msprop:Generator_ColumnPropNameInRow="Qty" msprop:Generator_ColumnPropNameInTable="QtyColumn" msprop:Generator_UserColumnName="Qty" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

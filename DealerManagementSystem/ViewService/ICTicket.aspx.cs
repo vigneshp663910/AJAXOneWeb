@@ -333,7 +333,7 @@ namespace DealerManagementSystem.ViewService
         {
             ddlServiceType.DataTextField = "ServiceType";
             ddlServiceType.DataValueField = "ServiceTypeID";
-            ddlServiceType.DataSource = new BDMS_Service().GetServiceType(null, null, null);
+            ddlServiceType.DataSource = new BDMS_Service().GetServiceType(null, null, null,null);
             ddlServiceType.DataBind();
             ddlServiceType.Items.Insert(0, new ListItem("Select", "0"));
         }

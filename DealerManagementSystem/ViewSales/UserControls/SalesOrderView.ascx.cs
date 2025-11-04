@@ -32,21 +32,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ViewState["SOrder"] = value;
             }
         }
-        public List<PSaleOrderItem_Insert> SOItem_Insert
-        {
-            get
-            {
-                if (ViewState["SOItem_Insert"] == null)
-                {
-                    ViewState["SOItem_Insert"] = new List<PSaleOrderItem_Insert>();
-                }
-                return (List<PSaleOrderItem_Insert>)ViewState["SOItem_Insert"];
-            }
-            set
-            {
-                ViewState["SOItem_Insert"] = value;
-            }
-        }
         public PSaleOrder_Insert SO_Insert
         {
             get
@@ -181,7 +166,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
             }
-            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled || StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyClosed) 
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled || StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyClosed)
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -243,7 +228,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsStk_Order
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsEmg_Order
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsWarr_Order
-                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_BreakDown_Order 
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_BreakDown_Order
                 )
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)
@@ -289,6 +274,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 hdfMaterialID.Value = "0";
                 txtQty.Text = "";
                 MPE_SaleOrderItemAdd.Show();
+            }
+            else if (lbActions.ID == "lbAddSaleOrderServiceCharge")
+            {
+                txtServiceMaterial.Text = "";
+                hdfMaterialID_SC.Value = "0";
+                txtWorkedHours.Text = "";
+                txtAmount.Text = "";
+                MPE_ServiceCharge.Show();
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
             {
@@ -350,11 +343,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     divEquipment.Visible = true;
                     List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
-                    new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select"); 
+                    new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+                    txtShippingAddress.Visible = false;
+                    lblShippingAddress.Visible = true;
                 }
                 else
                 {
-                    divEquipment.Visible = false; 
+                    divEquipment.Visible = false;
+                    txtShippingAddress.Visible = true;
+                    lblShippingAddress.Visible = false;
                 }
 
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
@@ -393,21 +390,20 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     ShipTo.Address1 = ShipTo.Address1 + "," + ShipTo.Address2 + "," + ShipTo.Address3 + "," + ShipTo.District.District + "," + ShipTo.State.State;
                 }
                 new DDLBind(ddlShiftTo, ShipTos, "Address1", "CustomerShipToID", true, "Select");
-                new DDLBind(ddlShippingState, new BDMS_Address().GetState(null,1,null,null,null), "State", "StateID", true, "Select");
-                ddlShippingState.SelectedValue = Convert.ToString(SOrder.Customer.State.StateID);
-                new DDLBind(ddlShippingDistrict, new BDMS_Address().GetDistrict(null, null, SOrder.Customer.State.StateID, null, null,null), "District", "DistrictID", true, "Select");
-                ddlShippingDistrict.SelectedValue = Convert.ToString(SOrder.Customer.District.DistrictID);
-                txtShippingPinCode.Text = SOrder.Customer.Pincode;
+
                 lblBillingAddress.Text = SOrder.Customer.Address1 + ","
                     + SOrder.Customer.Address2 + ","
                     + SOrder.Customer.Address3 + ","
-                   + SOrder.Customer.Pincode + " ,"
                     + SOrder.Customer.District.District + ","
                     + SOrder.Customer.State.State;
 
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
                    + SOrder.Customer.Address2 + ","
-                   + SOrder.Customer.Address3; 
+                   + SOrder.Customer.Address3 + " ,"
+                   + SOrder.Customer.Pincode + " ,"
+                   + SOrder.Customer.District.District + ","
+                   + SOrder.Customer.State.State;
+                lblShippingAddress.Text = txtShippingAddress.Text;
 
                 // lblDeliveryAddress.Text = lblBillingAddress.Text;
 
@@ -670,7 +666,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[35] = new ReportParameter("TotalSGSTVal", String.Format("{0:n}", TotalSGSTVal), false);
 
             P[36] = new ReportParameter("TCSPer", String.Format("{0:n}", SOrder.TcsValue), false);
-            P[37] = new ReportParameter("SubTotalWithTcs", String.Format("{0:n}", SubTotal+ SOrder.TcsValue), false);
+            P[37] = new ReportParameter("SubTotalWithTcs", String.Format("{0:n}", SubTotal + SOrder.TcsValue), false);
 
 
             report.ReportPath = Server.MapPath("~/Print/SalesPartsQuotation.rdlc");
@@ -1129,7 +1125,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.Freight = string.IsNullOrEmpty(txtFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtFreight.Text.Trim());
             SO.PackingAndForward = string.IsNullOrEmpty(txtPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtPackingAndForward.Text.Trim());
             return SO;
-        } 
+        }
         public string Validation()
         {
             ddlOfficeName.BorderColor = Color.Silver;
@@ -1209,12 +1205,58 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 return "Quantity cannot be less than 1.";
             }
 
-            
+
 
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {
                 return "Please enter correct format in Qty.";
+            }
+            return "";
+        }
+        public string ValidationItemSC()
+        {
+            if (string.IsNullOrEmpty(hdfMaterialID_SC.Value))
+            {
+                return "Please select the Material.";
+            }
+            if (string.IsNullOrEmpty(txtWorkedHours.Text.Trim()))
+            {
+                return "Please enter the Worked Hours.";
+            }
+            if (string.IsNullOrEmpty(txtAmount.Text.Trim()))
+            {
+                return "Please enter the Amount.";
+            }
+            if (string.IsNullOrEmpty(txtDiscount.Text.Trim()))
+            {
+                return "Please enter the Discount.";
+            }
+            decimal value;
+            if (!decimal.TryParse(txtWorkedHours.Text, out value))
+            {
+                return "Please enter correct format in Worked Hours.";
+            }
+            if (!decimal.TryParse(txtAmount.Text, out value))
+            {
+                return "Please enter correct format in Amount.";
+            }
+            if (!decimal.TryParse(txtDiscount.Text, out value))
+            {
+                return "Please enter correct format in Discount.";
+            }
+
+            if (Convert.ToDouble(txtWorkedHours.Text.Trim()) < .01)
+            {
+                return "Worked Hours cannot be negative.";
+            }
+            if (Convert.ToDouble(txtAmount.Text.Trim()) < 1)
+            {
+                return "Amount cannot be less than 1.";
+            }
+            if (Convert.ToDouble(txtDiscount.Text.Trim()) < 0)
+            {
+                return "Quantity cannot be less than 1.";
             }
             return "";
         }
@@ -1420,43 +1462,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     }
                 }
 
-                if (ddlShippingState.SelectedValue == "0")
-                {
-                    lblMessageCreateSODelivery.Text = "Please select the Shipping State.";
-                    return;
-                }
-                else if (ddlShippingDistrict.SelectedValue == "0")
-                {
-                    lblMessageCreateSODelivery.Text = "Please select the Shipping District.";
-                    return;
-                }
-                else if (string.IsNullOrEmpty(txtShippingAddress.Text.Trim()))
-                {
-                    lblMessageCreateSODelivery.Text = "Please enter the Shipping Address.";
-                    return;
-                }
-                else if (string.IsNullOrEmpty(txtShippingPinCode.Text.Trim()))
-                {
-                    lblMessageCreateSODelivery.Text = "Please enter the Shipping Pin Code.";
-                    return;
-                }
-
-                int AddressLength = (txtShippingAddress.Text.Trim() + ", " + ddlShippingDistrict.SelectedItem.Text + ", " + ddlShippingState.SelectedItem.Text).Length;
-
-                if (AddressLength > 100)
-                {
-                    lblMessageCreateSODelivery.Text = "The Shipping Address must be less than 100 characters, including state and district. The current length is " + AddressLength + " characters.";
-                    return;
-                }
 
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
                     T.EquipmentHeaderID = EquipmentID;
-                    T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue); 
-                    T.ShippingDistrictID = Convert.ToInt32(ddlShippingDistrict.SelectedValue);  
-                    T.ShippingPinCode = txtShippingPinCode.Text;
+                    T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
                     T.ShippingAddress = txtShippingAddress.Text;
                     T.Freight = string.IsNullOrEmpty(txtDeliveryFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryFreight.Text.Trim());
                     T.PackingAndForward = string.IsNullOrEmpty(txtDeliveryPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryPackingAndForward.Text.Trim());
@@ -1564,41 +1576,58 @@ namespace DealerManagementSystem.ViewSales.UserControls
             MPE_Delivery.Show();
             if (ddlShiftTo.SelectedValue == "0")
             {
-                ddlShippingState.SelectedValue = Convert.ToString(SOrder.Customer.State.StateID);
-                ddlShippingState_SelectedIndexChanged(null, null);
-                ddlShippingDistrict.SelectedValue = Convert.ToString(SOrder.Customer.District.DistrictID);
-                txtShippingPinCode.Text = SOrder.Customer.Pincode;
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
                     + SOrder.Customer.Address2 + ","
-                    + SOrder.Customer.Address3 
-                    //+ " ,"
-                    //+ SOrder.Customer.Pincode + " ,"
-                    //+ SOrder.Customer.District.District + ","
-                    //+ SOrder.Customer.State.State
-                    ;
+                    + SOrder.Customer.Address3 + " ,"
+                    + SOrder.Customer.Pincode + " ,"
+                    + SOrder.Customer.District.District + ","
+                    + SOrder.Customer.State.State;
             }
             else
             {
                 PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
-                ddlShippingState.SelectedValue = Convert.ToString(ShiftTo.State.StateID);
-                ddlShippingState_SelectedIndexChanged(null, null);
-                ddlShippingDistrict.SelectedValue = Convert.ToString(ShiftTo.District.DistrictID);
-                txtShippingPinCode.Text = ShiftTo.Pincode;
                 txtShippingAddress.Text = ShiftTo.Address1 + ","
                     + ShiftTo.Address2 + ","
-                    + ShiftTo.Address3 
-                    //+ " ,"
-                    //+ ShiftTo.Pincode
-                    //+ ShiftTo.District.District + ","
-                    //+ ShiftTo.State.State
-                    ;
+                    + ShiftTo.Address3 + " ,"
+                    + ShiftTo.Pincode
+                     + ShiftTo.District.District + ","
+                    + ShiftTo.State.State;
             }
         }
 
-        protected void ddlShippingState_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnSaveServiceCharge_Click(object sender, EventArgs e)
         {
-            MPE_Delivery.Show();
-            new DDLBind(ddlShippingDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlShippingState.SelectedValue), null, null, null), "District", "DistrictID", true, "Select");
+            MPE_ServiceCharge.Show();
+            lblMessageServiceCharge.ForeColor = Color.Red;
+            try
+            {
+                string Message = ValidationItemSC();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageServiceCharge.Text = Message;
+                    return;
+                }
+                int MaterialID = Convert.ToInt32(hdfMaterialID_SC.Value);
+                decimal WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
+                decimal BasePrice = Convert.ToDecimal(txtWorkedHours.Text.Trim());
+                decimal Discount = Convert.ToDecimal(txtWorkedHours.Text.Trim());
+
+                PApiResult Result = new BDMS_SalesOrder().InsertOrUpdateSaleOrderItemSC(SOrder.SaleOrderID, null, MaterialID, WorkedHours, BasePrice, Discount);
+
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessageServiceCharge.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSO(SOrder.SaleOrderID);
+                MPE_ServiceCharge.Hide();
+            }
+            catch (Exception ex)
+            {
+                lblMessageServiceCharge.Text = ex.Message.ToString();
+            }
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Properties
         public string ModelDescription { get; set; }
         public string ModelCodeModelDescription { get; set; }
         public PDMS_Division Division { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_Division

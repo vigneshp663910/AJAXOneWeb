@@ -1935,5 +1935,12 @@ namespace Business
                 + "&DealerID=" + DealerID + "&DealerTypeID=" + DealerTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+
+        public PApiResult InsertOrUpdateSaleOrderItemSC(long SaleOrderID, long? SaleOrderItemSCID, int MaterialID, decimal WorkedHours, decimal BasePrice, decimal Discount)
+        {
+            string endPoint = "SaleOrder/InsertOrUpdateSaleOrderItemSC?SaleOrderID=" + SaleOrderID + "&SaleOrderItemSCID=" + SaleOrderItemSCID + "&MaterialID=" + MaterialID
+                + "&WorkedHours=" + WorkedHours + "&BasePrice=" + BasePrice + "&Discount=" + Discount;
+            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

@@ -35,7 +35,7 @@
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
                 <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
                 <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>
-                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click"  OnClientClick="return ConfirmPOSave();">Save</asp:LinkButton>
+                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmPOSave();">Save</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
         <div class="col-md-9">
             <div class="col-md-3 col-sm-12">
                 <label class="modal-label">EDFS Cash Balance</label>
-                <asp:Label ID="lblEdfsCashBalance" runat="server" CssClass="form-control"   />
+                <asp:Label ID="lblEdfsCashBalance" runat="server" CssClass="form-control" />
             </div>
             <div class="col-md-3 col-sm-12">
                 <label class="modal-label">Dealer</label>
@@ -57,7 +57,7 @@
             <div class="col-md-3 col-sm-12">
                 <label class="modal-label">Order To<samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
-                   <%-- <asp:ListItem Value="1">OE</asp:ListItem>
+                    <%-- <asp:ListItem Value="1">OE</asp:ListItem>
                     <asp:ListItem Value="2">Co-Dealer</asp:ListItem>--%>
                 </asp:DropDownList>
             </div>
@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="col-md-3">
-          <%--  <div class="col-md-12">
+            <%--  <div class="col-md-12">
                 <label>Price : </label>
                 <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
             </div>--%>
@@ -125,10 +125,10 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Material Add</legend>
         <div class="col-md-12 Report">
             <div class="col-md-12">
-                  <div id ="divSupersedeYN"  runat="server" class="col-md-2 col-sm-12">
-                        <label class="modal-label">SupersedeYN</label>
-                        <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-                    </div>
+                <div id="divSupersedeYN" runat="server" class="col-md-2 col-sm-12">
+                    <label class="modal-label">SupersedeYN</label>
+                    <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
+                </div>
                 <div class="col-md-3 col-sm-12">
                     <asp:HiddenField ID="hdfMaterialID" runat="server" />
                     <asp:HiddenField ID="hdfMaterialCode" runat="server" />
@@ -143,8 +143,8 @@
                     <label class="modal-label">.</label>
                     <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
 
-                    <asp:Button ID="BtnVendorStock" runat="server" Text="Vendor Stock" CssClass="btn Save" OnClick="BtnVendorStock_Click" Width="106px"  />
-                    <asp:Button ID="BtnCurrentStock" runat="server" Text="Current Stock" CssClass="btn Save" OnClick="BtnCurrentStock_Click"  Width="107px"  />
+                    <asp:Button ID="BtnVendorStock" runat="server" Text="Vendor Stock" CssClass="btn Save" OnClick="BtnVendorStock_Click" Width="106px" />
+                    <asp:Button ID="BtnCurrentStock" runat="server" Text="Current Stock" CssClass="btn Save" OnClick="BtnCurrentStock_Click" Width="107px" />
                 </div>
             </div>
         </div>
@@ -279,39 +279,75 @@
             <asp:Label ID="lblMessageMaterialFromCart" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border">
                 <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Order No</label>
+                        <asp:TextBox ID="txtCartNo" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date From</label>
+                        <asp:TextBox ID="txtCartDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                        <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtCartDateFrom" PopupButtonID="txtCartDateFrom" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtCartDateFrom" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date To</label>
+                        <asp:TextBox ID="txtCartDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                        <asp1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtCartDateTo" PopupButtonID="txtCartDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtCartDateTo" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Division</label>
+                        <asp:DropDownList ID="ddlCartDivision" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCartDivision_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Model</label>
+                        <asp:DropDownList ID="ddlCartModel" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnCartSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnCartSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
+                        <asp:Button ID="btnMaterialFromCart" runat="server" Text="Add" CssClass="btn Save" OnClick="btnMaterialFromCart_Click" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <div class="col-md-12">
                     <div class="col-md-12 Report">
                         <div class="table-responsive">
-                            <asp:GridView ID="gvMaterialFromCart" ShowHeader="true" runat="server" AutoGenerateColumns="false" OnRowDataBound="gvMaterialFromCart_RowDataBound" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <asp:GridView ID="gvMaterialFromCart" ShowHeader="true" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                 <AlternatingRowStyle BackColor="White" />
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <a href="javascript:collapseExpand('OrderNo-<%# Eval("OrderNo") %>');">
-                                                <img id="imageDeliveryNumber-<%# Eval("OrderNo") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_expand.png" height="10" width="10" /></a>
+                                            <a href="javascript:collapseExpand('CartOrderNo-<%# Eval("CartOrderNo") %>');">
+                                                <img id="imageDeliveryNumber-<%# Eval("CartOrderNo") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_expand.png" height="10" width="10" /></a>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Select">
                                         <ItemTemplate>
+                                            <asp:Label ID="lblspcCartID" Text='<%# DataBinder.Eval(Container.DataItem, "spcCartID")%>' runat="server" Visible="false" />
                                             <asp:CheckBox ID="cbSelect" runat="server" onchange="OnchangeHandler(this);" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dealer Code">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />
+                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                            <%--  <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />--%>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Order No">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />
+                                            <asp:Label ID="lblCartOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "CartOrderNo")%>' runat="server" />
+                                            <%-- <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />--%>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Order Date">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "OrderDate")%>' runat="server" />
+                                            <asp:Label ID="lblCartOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "CartOrderDate","{0:d}")%>' runat="server"></asp:Label>
+                                            <%-- <asp:Label ID="lblOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "OrderDate")%>' runat="server" />--%>
 
                                             <tr>
                                                 <td colspan="100%" style="padding-left: 96px">
-                                                    <div id="OrderNo-<%# Eval("OrderNo") %>" style="display: none; position: relative;">
+                                                    <div id="CartOrderNo-<%# Eval("CartOrderNo") %>" style="display: none; position: relative;">
                                                         <asp:GridView ID="gvMaterialFromCartItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Select">
@@ -319,16 +355,41 @@
                                                                         <asp:CheckBox ID="cbSelectChild" runat="server" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Assembly Code">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.AssemblyCode")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Assembly Description">
+                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblPOType" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.AssemblyDescription")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Division">
+                                                                    <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.SpcModel.ProductGroup.PGCode")%>' runat="server"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="Model">
+                                                                    <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "Assembly.SpcModel.SpcModel")%>' runat="server"></asp:Label>
+
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Material">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                     <ItemTemplate>
-                                                                        <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "PartNo")%>' runat="server"></asp:Label>
+                                                                        <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SpcMaterial.Material")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Material Desc">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                     <ItemTemplate>
-                                                                        <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "PartDescription")%>' runat="server"></asp:Label>
+                                                                         <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "SpcMaterial.MaterialDescription")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Qty">
@@ -337,36 +398,7 @@
                                                                         <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <%-- <asp:TemplateField HeaderText="SAC/HSN Code">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblHSNCode" Text='<%# DataBinder.Eval(Container.DataItem, "HSNCode")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Qty">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Rate">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblIRate" Text='<%# DataBinder.Eval(Container.DataItem, "Rate","{0:n}")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Value">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Discount">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>--%>
+
                                                             </Columns>
                                                             <AlternatingRowStyle BackColor="#ffffff" />
                                                             <FooterStyle ForeColor="White" />
@@ -390,9 +422,6 @@
 
                 </div>
             </fieldset>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnMaterialFromCart" runat="server" Text="Add" CssClass="btn Save" OnClick="btnMaterialFromCart_Click" />
         </div>
     </div>
 </asp:Panel>

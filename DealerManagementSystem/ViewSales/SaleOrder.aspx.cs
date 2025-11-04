@@ -256,11 +256,10 @@ namespace DealerManagementSystem.ViewSales
         }
         [WebMethod]
         public static string GetMaterial(string Material, string MaterialType, string DivisionID)
-        {
-
+        { 
             List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID), "false");
             return JsonConvert.SerializeObject(Materials);
-        }
+        } 
         [WebMethod]
         public static List<DetailsAutoFill> GetEquipment(string custID)
         {

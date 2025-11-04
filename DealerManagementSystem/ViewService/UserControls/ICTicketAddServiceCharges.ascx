@@ -30,12 +30,8 @@
         </div>
 
     </div>
-</fieldset>
-
-
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="15px" />
-
-
+</fieldset> 
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="15px" /> 
 <script type="text/javascript">
     function collapseExpandServiceCharges(obj) {
         var gvObject = document.getElementById("MainContent_DMS_ICTicketServiceCharges_pnlServiceCharges");
@@ -50,13 +46,11 @@
             imageID.src = "Images/grid_expand.png";
         }
     }
-
     function removeText(id) {
         var TheTextBox = document.getElementById(id);
         TheTextBox.value = "";
         return false;
     }
-
     function ConfirmCreate() {
         var x = confirm("No changes will be allowed after saving");
         if (x) {
@@ -69,7 +63,6 @@
 
 
 <script type="text/javascript">
-
     function GetServiceCharges() {
         $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_hdfMaterialID").val('');
         var param = { Material: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val(), MaterialType: 'DIEN' }
@@ -122,13 +115,11 @@
             });
         }
     }
-
     function FormatAutocompleteList(item) {
         var inner_html = '<a>';
         inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
         inner_html += '</a>';
         return inner_html;
-    }
-     
+    }     
 </script>
  

@@ -12,7 +12,7 @@
                     <label class="modal-label">Service Type</label>
                     <asp:DropDownList ID="ddlServiceType" runat="server" CssClass="form-control" OnTextChanged="ddlServiceType_TextChanged" AutoPostBack="true" />
                     <asp:DropDownList ID="ddlServiceTypeOverhaul" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceTypeOverhaul" DataValueField="ServiceTypeOverhaulID" />
-                    <asp:DropDownList ID="ddlServiceSubType" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceSubType" DataValueField="ServiceSubTypeID" />
+                    <asp:DropDownList ID="ddlServiceSubType" runat="server" CssClass="form-control" Visible="false" DataTextField="ServiceSubType" DataValueField="ServiceSubTypeID" />
 
                 </div>
                 <div class="col-md-6 col-sm-12">

@@ -307,7 +307,7 @@ namespace Properties
         ViewAdmin_UserMobileApproval = 62,
         ViewService_WarrantyClaimDebitNoteAcknowledge = 63,
         ViewService_WarrantyClaimDebitNoteReport = 64,
-        ViewInventory_WarehouseStockAsOnDate = 65,
+        //UnderCons = 65,
         //UnderCons = 66,
         ViewService_ICTicketFSRManage = 67,
         ViewService_ICTicketTSIRManage = 68,
@@ -533,7 +533,19 @@ namespace Properties
         ViewMaster_ICTicketEscalationConfig = 291,
         ViewSales_QuotationTracker = 292,
         ViewECatalogue_SpcAssembly = 293,
-        ViewMarketing_MarketingClaimReport=304
+        ViewECatalogue_SpcCart = 294,
+        ViewECatalogue_SpcModel = 295,
+        ViewECatalogue_SpcAssemblyMaster = 296,
+        ViewChangeHistory_SpcAssemblyChangeLogs = 297,
+        ViewChangeHistory_SpcAssemblyPartsCoOrdinateChangeLogs = 298,
+        ViewChangeHistory_SpcModelChangeLogs = 299,
+        ViewMarketing_MarketingClaimReport = 304,
+        ViewECatalogue_SpcProductGroup = 305,
+        ViewECatalogue_SpcMaterialGroup = 306,
+        ViewECatalogue_SpcMaterial = 307,
+        ViewECatalogue_SpcAssemblyParts = 308,
+        ViewECatalogue_SpcAssemblyPartsReport = 309
+
     }
     public enum SubModuleChildMaster
     {
@@ -651,6 +663,15 @@ namespace Properties
         ICTicketEscalationCreateUpdateDelete = 111,
         CreateAssemblyAndCreatePartsCoordinates = 112,
         ICTicketHMRDeviationUpdate = 113,
+        SpcProductGroup_CreateAndEditProductGroup = 114,
+        SpcProductGroup_DeleteProductGroup = 115,
+        SpcMaterialGroup_CreateAndEditMaterialGroup = 116,
+        SpcMaterialGroup_DeleteMaterialGroup = 117,
+        SpcModel_CreateAndEditModel = 118,
+        SpcModel_DeleteModel = 119,
+        SpcAssemblyMaster_CreateAndEditAssembly = 120,
+        SpcAssemblyMaster_DeleteAssembly = 121,
+
     }
     public enum DMS_WarrantyClaimStatus
     {
